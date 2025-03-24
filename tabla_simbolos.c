@@ -84,7 +84,10 @@ tipoelem buscar_elemento(char* clave) {
     if (es_miembro_clave(tabla, clave) == 1) {
         // Buscamos en el AVL
         buscar_nodo(tabla, clave, &e);
+        return e;
     }
+    // Si no se encuentra
+    e.comp_lexico = -1;
     return e;
 }
 

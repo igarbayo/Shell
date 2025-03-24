@@ -51,7 +51,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", $1);
+                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -64,7 +64,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", $1);
+                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -77,7 +77,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 if (isnan($1)) {
                                     lanzar_error("NAN_DETECTADO");
                                 } else if (hacerEcho) {
-                                    printf(VERDE"%lf"RESET"\n\n", $1);
+                                    printf(VERDE"  %lf"RESET"\n\n", $1);
                                 }
                             }
                             if (!script) {
@@ -90,7 +90,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", $1);
+                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -121,7 +121,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (isnan($1)) {
                                         lanzar_error("NAN_DETECTADO");
                                     } else if (hacerEcho) {
-                                        printf(VERDE"%lf"RESET"\n\n", $1);
+                                        printf(VERDE"  %lf"RESET"\n\n", $1);
                                     }
                                 }
                                 if (!script) {
@@ -134,7 +134,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", $1);
+                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {

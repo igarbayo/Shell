@@ -4,5 +4,5 @@
 // ERRORES LÉXICOS //////////////////////////////////
 
 void lanzar_error(char* string) {
-    printf(ROJO "\tError: %s\n" RESET, string);
+    printf(ROJO "  Error: %s\n" RESET, string);
 }

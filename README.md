@@ -3,7 +3,7 @@ Como parte de la asignatura de **Compiladores e Interprétes**, del Grado en Ing
 se desarrolla un intérprete de comandos tipo _shell_, similar a las consolas de R, Python o Matlab.
 
 ## Herramientas utilizadas
-El análisis léxico se realizará con Flex y el análisis sintáctica con Bison.
+El análisis léxico se realizará con Flex y el análisis sintáctico con Bison.
 
 ## Versiones
 

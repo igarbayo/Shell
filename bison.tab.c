@@ -1176,7 +1176,7 @@ yyreduce:
                                         if (isnan((yyvsp[-1].numero))) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", (yyvsp[-1].numero));
+                                            printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-1].numero));
                                         }
                                     }
                                     if (!script) {
@@ -1194,7 +1194,7 @@ yyreduce:
                                         if (isnan((yyvsp[-2].numero))) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", (yyvsp[-2].numero));
+                                            printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-2].numero));
                                         }
                                     }
                                     if (!script) {
@@ -1212,7 +1212,7 @@ yyreduce:
                                 if (isnan((yyvsp[-1].numero))) {
                                     lanzar_error("NAN_DETECTADO");
                                 } else if (hacerEcho) {
-                                    printf(VERDE"%lf"RESET"\n\n", (yyvsp[-1].numero));
+                                    printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-1].numero));
                                 }
                             }
                             if (!script) {
@@ -1230,7 +1230,7 @@ yyreduce:
                                         if (isnan((yyvsp[-2].numero))) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", (yyvsp[-2].numero));
+                                            printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-2].numero));
                                         }
                                     }
                                     if (!script) {
@@ -1276,7 +1276,7 @@ yyreduce:
                                     if (isnan((yyvsp[-1].numero))) {
                                         lanzar_error("NAN_DETECTADO");
                                     } else if (hacerEcho) {
-                                        printf(VERDE"%lf"RESET"\n\n", (yyvsp[-1].numero));
+                                        printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-1].numero));
                                     }
                                 }
                                 if (!script) {
@@ -1294,7 +1294,7 @@ yyreduce:
                                         if (isnan((yyvsp[-2].numero))) {
                                             lanzar_error("NAN_DETECTADO");
                                         } else if (hacerEcho) {
-                                            printf(VERDE"%lf"RESET"\n\n", (yyvsp[-2].numero));
+                                            printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-2].numero));
                                         }
                                     }
                                     if (!script) {
