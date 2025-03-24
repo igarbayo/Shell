@@ -1,0 +1,10 @@
+# ninja log v6
+1	22	1741916709260260789	CMakeFiles/P1_CompGo.dir/errores.c.o	8a821ba5d8e2c5e2
+1	38	1741950905299425061	CMakeFiles/P1_CompGo.dir/avl.c.o	f9c48dd86c977908
+0	27	1742818135228377091	build.ninja	7ccc7a209bc24ecd
+1	21	1741950905299425061	CMakeFiles/P1_CompGo.dir/main.c.o	28cc5cb20857b8ec
+1	17	1741954432348593934	CMakeFiles/P1_CompGo.dir/analisis_sintactico.c.o	d69331e9f1fcf764
+63	75	1741954432410595146	P1_CompGo	e4200f542edea620
+1	17	1741954432348593934	CMakeFiles/P1_CompGo.dir/analisis_lexico.c.o	95f1a7a31425ad39
+1	33	1741950905299425061	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	e935329a729cf5c6
+1	63	1741954432348593934	CMakeFiles/P1_CompGo.dir/go.yy.c.o	909eef97945f92a3
