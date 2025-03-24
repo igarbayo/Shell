@@ -1,7 +1,7 @@
 #ifndef P1_COMPGO_AVL_H
 #define P1_COMPGO_AVL_H
 
-#include "definiciones.h"
+#include "interprete.h"
 
 // Typedefs necesarios para el AVL
 typedef char *tipoclave;

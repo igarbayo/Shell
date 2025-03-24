@@ -1,6 +1,6 @@
-#line 2 "go.yy.c"
+#line 2 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
 
-#line 4 "go.yy.c"
+#line 4 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -1549,13 +1549,17 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "go.l"
-#line 2 "go.l"
+#line 1 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
+#line 2 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
+
+#include "calc.tab.h" // Incluir los tokens generados por Bison
 #include <stdio.h>
 #include <stdlib.h>
 #include "definiciones.h"
 #include "tabla_simbolos.h"
 #include "errores.h"
+
+int yylval;         // Valor asociado a los tokens
 
 #define RED     "\x1b[31m"
 #define YELLOW  "\x1b[33m"
@@ -1639,9 +1643,9 @@ int _buscar_insertar_identificador(char* lexema) {
 }
 
 
-#line 1643 "go.yy.c"
+#line 1647 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
  
-#line 1645 "go.yy.c"
+#line 1649 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
 
 #define INITIAL 0
 #define COMMENT_BLOCK 1
@@ -1859,10 +1863,10 @@ YY_DECL
 		}
 
 	{
-#line 136 "go.l"
+#line 140 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 
 
-#line 1866 "go.yy.c"
+#line 1870 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1921,7 +1925,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 138 "go.l"
+#line 142 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -1932,7 +1936,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 146 "go.l"
+#line 150 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 			BEGIN(COMMENT_BLOCK);
 		}  
@@ -1940,7 +1944,7 @@ YY_RULE_SETUP
 
 case 3:
 YY_RULE_SETUP
-#line 151 "go.l"
+#line 155 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
     			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -1953,7 +1957,7 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 160 "go.l"
+#line 164 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
     			_sumar_columna(yytext[0]);
     			/* No hacer nada, solo ignorar */
@@ -1963,49 +1967,49 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 167 "go.l"
+#line 171 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_float(linea, columna, yytext, "\"_\" debe separar dos dígitos");
 				}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 170 "go.l"
+#line 174 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_entero(linea, columna, yytext, "no puede haber dos o más \"_\" seguidas");
 				}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 173 "go.l"
+#line 177 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_entero(linea, columna, yytext, "la mantisa debe tener dígitos");
 				}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 176 "go.l"
+#line 180 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_float(linea, columna, yytext, "la mantisa debe tener dígitos");
 				}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 179 "go.l"
+#line 183 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_entero(linea, columna, yytext, "el exponente p necesita una mantisa hexadecimal");
 				}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 182 "go.l"
+#line 186 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 					error_entero(linea, columna, yytext, "la mantisa hexadecimal necesita un exponente p");
 				}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 188 "go.l"
+#line 192 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -2017,7 +2021,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 196 "go.l"
+#line 200 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -2029,7 +2033,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 204 "go.l"
+#line 208 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -2041,7 +2045,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 212 "go.l"
+#line 216 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -2054,7 +2058,7 @@ YY_RULE_SETUP
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 220 "go.l"
+#line 224 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 			// Para cada caracter de la expresión
 			for (i = 0; yytext[i] != '\0'; i++) {
@@ -2066,7 +2070,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 230 "go.l"
+#line 234 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2078,7 +2082,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 238 "go.l"
+#line 242 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2090,7 +2094,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 246 "go.l"
+#line 250 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2102,7 +2106,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 254 "go.l"
+#line 258 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2114,7 +2118,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 263 "go.l"
+#line 267 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2126,7 +2130,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 271 "go.l"
+#line 275 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2138,7 +2142,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 279 "go.l"
+#line 283 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2150,7 +2154,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 287 "go.l"
+#line 291 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2162,7 +2166,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 295 "go.l"
+#line 299 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2174,7 +2178,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 303 "go.l"
+#line 307 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2186,7 +2190,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 311 "go.l"
+#line 315 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2198,7 +2202,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 319 "go.l"
+#line 323 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2210,7 +2214,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 327 "go.l"
+#line 331 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2222,7 +2226,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 335 "go.l"
+#line 339 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2234,7 +2238,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 343 "go.l"
+#line 347 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2246,7 +2250,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 351 "go.l"
+#line 355 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2258,7 +2262,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 359 "go.l"
+#line 363 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2270,7 +2274,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 367 "go.l"
+#line 371 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2282,7 +2286,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 375 "go.l"
+#line 379 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2294,7 +2298,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 383 "go.l"
+#line 387 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2306,7 +2310,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 391 "go.l"
+#line 395 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2318,7 +2322,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 399 "go.l"
+#line 403 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2330,7 +2334,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 407 "go.l"
+#line 411 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2342,7 +2346,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 415 "go.l"
+#line 419 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2354,7 +2358,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 423 "go.l"
+#line 427 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		// Para cada caracter de la expresión
 		for (i = 0; yytext[i] != '\0'; i++) {
@@ -2366,7 +2370,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 432 "go.l"
+#line 436 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2375,7 +2379,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 437 "go.l"
+#line 441 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2384,7 +2388,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 442 "go.l"
+#line 446 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2393,7 +2397,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 447 "go.l"
+#line 451 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2402,7 +2406,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 452 "go.l"
+#line 456 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2411,7 +2415,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 457 "go.l"
+#line 461 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2420,7 +2424,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 462 "go.l"
+#line 466 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2429,7 +2433,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 467 "go.l"
+#line 471 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2438,7 +2442,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 472 "go.l"
+#line 476 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2447,7 +2451,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 477 "go.l"
+#line 481 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2456,7 +2460,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 482 "go.l"
+#line 486 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2465,7 +2469,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 487 "go.l"
+#line 491 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2474,7 +2478,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 492 "go.l"
+#line 496 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2483,7 +2487,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 497 "go.l"
+#line 501 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0;
@@ -2492,7 +2496,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 502 "go.l"
+#line 506 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2501,7 +2505,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 507 "go.l"
+#line 511 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2510,7 +2514,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 512 "go.l"
+#line 516 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2519,7 +2523,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 517 "go.l"
+#line 521 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2528,7 +2532,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 522 "go.l"
+#line 526 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 1;
@@ -2537,7 +2541,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 527 "go.l"
+#line 531 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2546,7 +2550,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 532 "go.l"
+#line 536 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 1;
@@ -2555,7 +2559,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 537 "go.l"
+#line 541 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 0; 
@@ -2564,7 +2568,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 542 "go.l"
+#line 546 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { 
 		_sumar_columna(yytext[0]);
 		insertarSemicolon = 1;
@@ -2574,7 +2578,7 @@ YY_RULE_SETUP
 case 64:
 /* rule 64 can match eol */
 YY_RULE_SETUP
-#line 548 "go.l"
+#line 552 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		if (insertarSemicolon == 1) {
@@ -2587,7 +2591,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 558 "go.l"
+#line 562 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
         	;  /* Ignorar espacios y tabulados */
@@ -2595,7 +2599,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT_BLOCK):
-#line 563 "go.l"
+#line 567 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 {
 		_sumar_columna(yytext[0]);
 		if (insertarSemicolon == 1) {
@@ -2615,15 +2619,15 @@ case YY_STATE_EOF(COMMENT_BLOCK):
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 580 "go.l"
+#line 584 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 { printf(RED "UNKNOWN: %s\n" RESET, yytext); }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 582 "go.l"
+#line 586 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 ECHO;
 	YY_BREAK
-#line 2627 "go.yy.c"
+#line 2631 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -3626,7 +3630,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 582 "go.l"
+#line 586 "/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/go.l"
 
 
 int yywrap() {

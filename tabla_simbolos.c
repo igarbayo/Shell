@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tabla_simbolos.h"
-#include "definiciones.h"
+#include "interprete.h"
 #include "avl.h"
 
 
@@ -78,16 +78,14 @@ void insertar_elemento(contenedor elemento) {
     insertar(&tabla, (tipoelem) elemento);
 }
 
-int buscar_elemento(char* clave) {
+tipoelem buscar_elemento(char* clave) {
     tipoelem e;
     // Hacemos es_miembro con el AVL
     if (es_miembro_clave(tabla, clave) == 1) {
         // Buscamos en el AVL
         buscar_nodo(tabla, clave, &e);
-        return e.comp_lexico;
-    } else {
-        return -1;
     }
+    return e;
 }
 
 void eliminar_tabla() {

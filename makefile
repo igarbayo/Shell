@@ -23,7 +23,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Regla para generar go.yy.c con Flex
-go.yy.c: go.l
+go.yy.c: flex.l
 	flex -o go.yy.c go.l
 
 # Limpiar archivos compilados

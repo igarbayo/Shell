@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "definiciones.h"
+#include "interprete.h"
 
 /*
  * Se utiliza un árbol binario equilibrado (AVL), que mejora la eficiencia en las búsquedas de elementos.

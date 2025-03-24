@@ -22,7 +22,7 @@ void insertar_elemento(contenedor elemento);
  * @return el componente_lexico asociado al lexema clave
  * @return -1 si la clave no está en la tabla
  */
-int buscar_elemento(char* clave);
+tipoelem buscar_elemento(char* clave);
 
 /**
  * Libera la memoria asociada a la TS
