@@ -11,5 +11,5 @@ la definición de funciones y deberá manejar el espacio de trabajo, mediante la
 `quit()`, `help()`, `workspace()`, `clear()`, `clean()` o `echo`.
 
 ## Versión premium
-El objetivo final es incoroporar a la funcionalidad anterior la capacidad de cargar librerías en el
+El objetivo final es incorporar a la funcionalidad anterior la capacidad de cargar librerías en el
 programa de forma dinámica, utilizando `dlfcn.h`.
