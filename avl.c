@@ -332,6 +332,8 @@ void insertar(avl *A, tipoelem E) {
                 (*A)->info.valor.var = E.valor.var;
                 break;
             case FUNC:
+            case CMND1:
+            case CMND0:
                 // revisar si esto va bien
                 (*A)->info.valor.funcptr = E.valor.funcptr;
                 break;

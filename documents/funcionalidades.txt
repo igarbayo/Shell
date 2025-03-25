@@ -1,0 +1,9 @@
+Implementadas:
+    1. Variables
+    2. Operaciones con variables
+    3. Precedencia de operaciones y ()
+
+
+A implementar:
+    - Funciones trigonométricas y exponenciales
+    - Correcto manejo de constante (nuevas constantes y si aparecen en el lado izquierdo -> error)

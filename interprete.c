@@ -8,7 +8,6 @@
 #include "bison.tab.h"
 #include "comandos.h"
 
-
 void interprete(char* arg) {
     printf("Bienvenido.\n");
 

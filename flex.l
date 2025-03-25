@@ -64,8 +64,13 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                 }
 
 {IDENTIFICADOR} {
-                    yylval.cadena = strdup(yytext);
-                    return VARIABLE;
+                    if (es_funcion_basica(yytext)) {
+                        yylval.cadena = strdup(yytext);
+                        return FUNC;
+                    } else {
+                        yylval.cadena = strdup(yytext);
+                        return VARIABLE;
+                    }
                 }
 
 

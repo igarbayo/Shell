@@ -12,6 +12,22 @@
 // Variable global
 tabla_simbolos tabla;
 
+// Funciones registradas
+tipoelem funciones_registradas[] = {
+        {CMND1, "sin", .valor.funcptr=sin},
+        {CMND1, "cos", .valor.funcptr=cos},
+        {CMND1, "tan", .valor.funcptr=tan},
+        {CMND1, "asin", .valor.funcptr=asin},
+        {CMND1, "acos", .valor.funcptr=acos},
+        {CMND1, "atan", .valor.funcptr=atan},
+        {CMND1, "sinh", .valor.funcptr=sinh},
+        {CMND1, "cosh", .valor.funcptr=cosh},
+        {CMND1, "tanh", .valor.funcptr=tanh},
+        {CMND1, "exp", .valor.funcptr=exp},
+        {CMND1, "log", .valor.funcptr=log},
+        {-1, NULL},
+};
+
 
 // FUNCIONES PRIVADAS //////////////////////
 
@@ -26,7 +42,11 @@ void _inorden(tabla_simbolos tabla) {
     if (!vacia(tabla)) {
         _inorden(izq(tabla));
         leer(tabla, &e);
-        printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+        if (e.comp_lexico==CMND1) {
+            printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.funcptr);
+        } else {
+            printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+        }
         _inorden(der(tabla));
     }
 }
@@ -34,21 +54,11 @@ void _inorden(tabla_simbolos tabla) {
 /**
  *
  */
-void _registrar_funciones_trig() {
-    tipoelem trig[] = {
-            {CMND1, "sin", .valor.funcptr=sin},
-            {CMND1, "cos", .valor.funcptr=cos},
-            {CMND1, "tan", .valor.funcptr=tan},
-            {CMND1, "asin", .valor.funcptr=asin},
-            {CMND1, "acos", .valor.funcptr=acos},
-            {CMND1, "atan", .valor.funcptr=atan},
-            {CMND1, "sinh", .valor.funcptr=sinh},
-            {CMND1, "cosh", .valor.funcptr=cosh},
-            {CMND1, "tanh", .valor.funcptr=tanh},
-    };
-
-    for (int i = 0; i < (sizeof(trig) / sizeof(tipoelem)); i++) {
-        insertar_elemento(trig[i]);
+void _registrar_funciones_basicas() {
+    int i=0;
+    while (funciones_registradas[i].lexema != NULL) {
+        insertar_elemento(funciones_registradas[i]);
+        i++;
     }
 }
 
@@ -78,7 +88,7 @@ void crear_tabla() {
         insertar_elemento(inicializacion[i]);
     }
 
-    _registrar_funciones_trig();
+    _registrar_funciones_basicas();
 
 }
 
@@ -119,4 +129,22 @@ void asignar_valor(char* lexema, double valor) {
     if (c.lexema != NULL) {
         asignar_valor_nodo(&tabla, lexema, valor);
     }
+}
+
+tipoelem buscar_funcion_basica(char* lexema) {
+    tipoelem f = buscar_elemento(lexema);
+    if (f.comp_lexico == CMND1 && f.lexema != NULL && f.valor.funcptr != NULL) {
+        return f;
+    }
+    f.comp_lexico = -1;
+    f.lexema = NULL;
+}
+
+int es_funcion_basica(char *nombre) {
+    for (int i = 0; funciones_registradas[i].lexema != NULL; i++) {
+        if (strcmp(funciones_registradas[i].lexema, nombre) == 0) {
+            return 1;  // Es una función registrada
+        }
+    }
+    return 0;  // No es una función
 }

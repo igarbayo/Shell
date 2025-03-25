@@ -845,38 +845,43 @@ case 7:
 YY_RULE_SETUP
 #line 66 "flex.l"
 {
-                    yylval.cadena = strdup(yytext);
-                    return VARIABLE;
+                    if (es_funcion_basica(yytext)) {
+                        yylval.cadena = strdup(yytext);
+                        return FUNC;
+                    } else {
+                        yylval.cadena = strdup(yytext);
+                        return VARIABLE;
+                    }
                 }
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 72 "flex.l"
+#line 77 "flex.l"
 { lanzar_error("\"_\" debe separar dos dígitos"); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 73 "flex.l"
+#line 78 "flex.l"
 { lanzar_error("no puede haber dos o más \"_\" seguidas"); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 76 "flex.l"
+#line 81 "flex.l"
 {
 
         }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 79 "flex.l"
+#line 84 "flex.l"
 { printf("UNKNOWN: %s\n", yytext); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 81 "flex.l"
+#line 86 "flex.l"
 ECHO;
 	YY_BREAK
-#line 880 "flex.yy.c"
+#line 885 "flex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1842,7 +1847,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 81 "flex.l"
+#line 86 "flex.l"
 
 
 /* Código adicional después de la sección de reglas */

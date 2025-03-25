@@ -166,6 +166,18 @@ expresion:    NUM
                             }
                             free($1);
                         }
+        | FUNC '(' expresion ')'  {
+                                        c = buscar_funcion_basica($1);
+                                        if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                            $$ = (*(c.valor.funcptr))($3);
+                                        } else {
+                                            lanzar_error("No se encuentra la función básica");
+                                            error = true;
+                                            $$ = NAN;
+                                        }
+                                        free($1);
+
+                                  }
         | '-' expresion %prec NEG {
                                  if (!isnan($2)) {
                                      $$ = -$2;
@@ -324,7 +336,7 @@ comando:   CMND0                       {
                                     }
 ;
 
-funcion:    LIB '/' VARIABLE '(' expresion ')'             {
+funcion:    LIB '/' VARIABLE '(' expresion ')'  {
                                                 /*
                                                 c = buscar_elemento($1);
 

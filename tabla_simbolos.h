@@ -41,4 +41,19 @@ void imprimir_tabla();
  */
 void asignar_valor(char* lexema, double valor);
 
+/**
+ *
+ * @param lexema
+ * @return
+ */
+tipoelem buscar_funcion_basica(char* lexema);
+
+/**
+ *
+ * @param nombre
+ * @return
+ */
+int es_funcion_basica(char *nombre);
+
+
 #endif //P1_COMPGO_TABLA_SIMBOLOS_H
