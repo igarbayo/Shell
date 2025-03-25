@@ -5,6 +5,20 @@
 #ifndef P1_COMPGO_COMANDOS_H
 #define P1_COMPGO_COMANDOS_H
 
-double cargar(char* archivo);
+double load(char* archivo);
+
+double quit();
+
+double help();
+
+double workspace();
+
+double clear();
+
+double clean();
+
+double echo();
+
+double import(char* libreria);
 
 #endif //P1_COMPGO_COMANDOS_H

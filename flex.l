@@ -65,7 +65,7 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
 
 {IDENTIFICADOR} {
                     yylval.cadena = strdup(yytext);
-                    // return falta
+                    return VARIABLE;
                 }
 
 

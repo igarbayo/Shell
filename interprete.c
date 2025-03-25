@@ -13,7 +13,7 @@ void interprete(char* arg) {
     printf("Bienvenido.\n");
 
     if (arg != NULL) {
-        cargar(arg);
+        load(arg);
     }
 
     yyparse();

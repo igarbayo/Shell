@@ -846,7 +846,7 @@ YY_RULE_SETUP
 #line 66 "flex.l"
 {
                     yylval.cadena = strdup(yytext);
-                    // return falta
+                    return VARIABLE;
                 }
 	YY_BREAK
 case 8:

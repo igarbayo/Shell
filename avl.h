@@ -71,5 +71,13 @@ unsigned es_miembro_clave(avl A, tipoclave cl);
  */
 void insertar(avl *A, tipoelem E);
 
+/**
+ *
+ * @param A
+ * @param cl
+ * @param valor
+ */
+void asignar_valor_nodo(avl* A, tipoclave cl, double valor);
+
 
 #endif //P1_COMPGO_AVL_H

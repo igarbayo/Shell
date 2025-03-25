@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "interprete.h"
+#include "bison.tab.h"
 
 /*
  * Se utiliza un árbol binario equilibrado (AVL), que mejora la eficiencia en las búsquedas de elementos.
@@ -323,6 +324,25 @@ void insertar(avl *A, tipoelem E) {
         // Copiar con strcpy
         strcpy((*A)->info.lexema, E.lexema);
 
+        switch (E.comp_lexico) {
+            case VARIABLE:
+                (*A)->info.valor.var = E.valor.var;
+                break;
+            case CONSTANTE:
+                (*A)->info.valor.var = E.valor.var;
+                break;
+            case FUNC:
+                // revisar si esto va bien
+                (*A)->info.valor.funcptr = E.valor.funcptr;
+                break;
+            case LIB:
+                // revisar si esto va bien
+                (*A)->info.valor.libhandle = E.valor.libhandle;
+                break;
+            default:
+                break;
+        }
+
         // Inicializaciones
         (*A)->padre = NULL;
         (*A)->izq = NULL;
@@ -382,6 +402,21 @@ unsigned es_miembro_clave(avl A, tipoclave cl) {
     }
     //cl < A->info
     return es_miembro_clave(A->izq, cl);
+}
+
+void asignar_valor_nodo(avl* A, tipoclave cl, double valor) {
+    if (vacia(*A)) {
+        return;
+    }
+
+    int comp = _comparar_clave_elem(cl, (*A)->info);
+    if (comp == 0) {
+        (*A)->info.valor.var = valor;
+    } else if (comp < 0) {
+        asignar_valor_nodo(&(*A)->izq, cl, valor);
+    } else {
+        asignar_valor_nodo(&(*A)->der, cl, valor);
+    }
 }
 
 

@@ -55,8 +55,8 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     NUM = 258,                     /* NUM  */
-    CONST = 259,                   /* CONST  */
-    VAR = 260,                     /* VAR  */
+    CONSTANTE = 259,               /* CONSTANTE  */
+    VARIABLE = 260,                /* VARIABLE  */
     FUNC = 261,                    /* FUNC  */
     CMND0 = 262,                   /* CMND0  */
     CMND1 = 263,                   /* CMND1  */
@@ -71,7 +71,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "bison.y"
+#line 22 "bison.y"
 
     double numero;
     char *cadena;
@@ -90,5 +90,13 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
+/* "%code provides" blocks.  */
+#line 16 "bison.y"
+
+    void yyerror(char* s);
+    void cambiar_echo(int valor);
+    void ejecutar_script(int valor);
+
+#line 101 "bison.tab.h"
 
 #endif /* !YY_YY_BISON_TAB_H_INCLUDED  */

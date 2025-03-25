@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     crear_tabla();
     //printf("Inicio del programa\n");
     // Impresión de la tabla
-    //imprimir_tabla();
+    imprimir_tabla();
     //printf("\n");
 
     // 2. Etapa de compilación (análisis léxico)
@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
     // 3. Fase de finalización
     //printf("Final del programa\n");
     // Liberación de la memoria de la tabla
+    imprimir_tabla();
     eliminar_tabla();
 
     return 0;

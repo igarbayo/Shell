@@ -34,4 +34,11 @@ void eliminar_tabla();
  */
 void imprimir_tabla();
 
+/**
+ *
+ * @param lexema
+ * @param valor
+ */
+void asignar_valor(char* lexema, double valor);
+
 #endif //P1_COMPGO_TABLA_SIMBOLOS_H

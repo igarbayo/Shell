@@ -4,10 +4,14 @@
 #include "tabla_simbolos.h"
 #include "interprete.h"
 #include "avl.h"
+#include "bison.tab.h"
+#include <math.h>
+#include "comandos.h"
 
 
 // Variable global
 tabla_simbolos tabla;
+
 
 // FUNCIONES PRIVADAS //////////////////////
 
@@ -27,6 +31,27 @@ void _inorden(tabla_simbolos tabla) {
     }
 }
 
+/**
+ *
+ */
+void _registrar_funciones_trig() {
+    tipoelem trig[] = {
+            {CMND1, "sin", .valor.funcptr=sin},
+            {CMND1, "cos", .valor.funcptr=cos},
+            {CMND1, "tan", .valor.funcptr=tan},
+            {CMND1, "asin", .valor.funcptr=asin},
+            {CMND1, "acos", .valor.funcptr=acos},
+            {CMND1, "atan", .valor.funcptr=atan},
+            {CMND1, "sinh", .valor.funcptr=sinh},
+            {CMND1, "cosh", .valor.funcptr=cosh},
+            {CMND1, "tanh", .valor.funcptr=tanh},
+    };
+
+    for (int i = 0; i < (sizeof(trig) / sizeof(tipoelem)); i++) {
+        insertar_elemento(trig[i]);
+    }
+}
+
 // FUNCIONES PÚBLICAS /////////////////////////
 
 void crear_tabla() {
@@ -36,42 +61,25 @@ void crear_tabla() {
     // Creación del AVL
     crear(&tabla);
 
-    // Array de keywords
-    char *keywords[25];
-    keywords[0] = "break";
-    keywords[1] = "case";
-    keywords[2] = "chan";
-    keywords[3] = "const";
-    keywords[4] = "continue";
-    keywords[5] = "default";
-    keywords[6] = "defer";
-    keywords[7] = "else";
-    keywords[8] = "fallthrough";
-    keywords[9] = "for";
-    keywords[10] = "func";
-    keywords[11] = "go";
-    keywords[12] = "goto";
-    keywords[13] = "if";
-    keywords[14] = "import";
-    keywords[15] = "interface";
-    keywords[16] = "map";
-    keywords[17] = "package";
-    keywords[18] = "range";
-    keywords[19] = "return";
-    keywords[20] = "select";
-    keywords[21] = "struct";
-    keywords[22] = "switch";
-    keywords[23] = "type";
-    keywords[24] = "var";
+    tipoelem inicializacion[] = {
+            {CONSTANTE, "PI", .valor.var=3.14159265358979323846},
+            {CONSTANTE, "E", .valor.var=2.7182818284590452354},
+            {CMND0, "CLEAR", .valor.funcptr=clear},
+            {CMND0, "QUIT", .valor.funcptr=quit},
+            {CMND0, "HELP", .valor.funcptr=help},
+            {CMND0, "ECHO", .valor.funcptr=echo},
+            {CMND0, "WORKSPACE", .valor.funcptr=workspace},
+            {CMND0, "CLEAN", .valor.funcptr=clean},
+            {CMND1, "LOAD", .valor.funcptr=load},
+            {CMND1, "IMPORT", .valor.funcptr=import},
+    };
 
-    // Para cada keyword, creamos el contenedor e insertamos en el AVL
-    for (i=0; i<25; i++) {
-        c.lexema = (char *) malloc ((strlen(keywords[i])+1)*sizeof(char));
-        strcpy(c. lexema, keywords[i]);
-        c.comp_lexico = 301 + i;
-        insertar(&tabla, (tipoelem) c);
-        free(c.lexema);
+    for (int i = 0; i < (sizeof(inicializacion) / sizeof(tipoelem)); i++) {
+        insertar_elemento(inicializacion[i]);
     }
+
+    _registrar_funciones_trig();
+
 }
 
 void insertar_elemento(contenedor elemento) {
@@ -88,6 +96,7 @@ tipoelem buscar_elemento(char* clave) {
     }
     // Si no se encuentra
     e.comp_lexico = -1;
+    e.lexema = NULL;
     return e;
 }
 
@@ -102,4 +111,12 @@ void imprimir_tabla() {
     _inorden(tabla);
     printf("-----------------------------------------\n");
 
+}
+
+void asignar_valor(char* lexema, double valor) {
+    tipoelem c = {0, NULL};
+    buscar_nodo(tabla, lexema, &c);
+    if (c.lexema != NULL) {
+        asignar_valor_nodo(&tabla, lexema, valor);
+    }
 }

@@ -11,8 +11,13 @@ bool hacerEcho = true;
 bool script = false;
 bool error = false;
 
-void yyerror (char *s);
 %}
+
+%code provides {
+    void yyerror(char* s);
+    void cambiar_echo(int valor);
+    void ejecutar_script(int valor);
+}
 
 %union {
     double numero;
@@ -22,9 +27,9 @@ void yyerror (char *s);
 %start entrada
 
 %token <numero> NUM
-%token <cadena> CONST VAR FUNC CMND0 CMND1 ARCHIVO LIB
+%token <cadena> CONSTANTE VARIABLE FUNC CMND0 CMND1 ARCHIVO LIB
 
-%type <numero> exp asig cmnd fnc
+%type <numero> expresion asignacion comando funcion
 
 %left '-' '+'
 %left '*' '/'
@@ -46,7 +51,7 @@ entrada: %empty         {
 ;
 
 linea:   '\n'           { printf(CYAN">"RESET" "); }
-        | exp '\n'              {
+        | expresion '\n'              {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
@@ -59,7 +64,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
-        | exp ';' '\n'          {
+        | expresion ';' '\n'          {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
@@ -72,7 +77,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
-        | asig '\n'     {
+        | asignacion '\n'     {
                             if (!error) {
                                 if (isnan($1)) {
                                     lanzar_error("NAN_DETECTADO");
@@ -85,7 +90,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                             }
                             error = false;
                         }
-        | asig ';' '\n'         {
+        | asignacion ';' '\n'         {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
@@ -98,7 +103,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
-        | cmnd '\n'         {
+        | comando '\n'         {
                                 if (isnan($1) && !error) {
                                     lanzar_error("NAN_DETECTADO");
                                 }
@@ -107,7 +112,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
                                 error = false;
                             }
-        | cmnd ';' '\n'         {
+        | comando ';' '\n'         {
                                     if (isnan($1) && !error) {
                                         lanzar_error("NAN_DETECTADO");
                                     }
@@ -116,7 +121,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
-        | fnc '\n'          {
+        | funcion '\n'          {
                                 if (!error) {
                                     if (isnan($1)) {
                                         lanzar_error("NAN_DETECTADO");
@@ -129,7 +134,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
                                 error = false;
                             }
-        | fnc ';' '\n'       {
+        | funcion ';' '\n'       {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
@@ -145,13 +150,13 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
 
 ;
 
-exp:    NUM
-        | CONST         {
+expresion:    NUM
+        | CONSTANTE         {
                             c = buscar_elemento($1);
                             $$ = c.valor.var;
                             free($1);
                         }
-        | VAR           {
+        | VARIABLE           {
                             if ((c = buscar_elemento($1)).lexema != NULL) {
                                 $$ = c.valor.var;
                             } else {
@@ -161,35 +166,35 @@ exp:    NUM
                             }
                             free($1);
                         }
-        | '-' exp %prec NEG {
+        | '-' expresion %prec NEG {
                                  if (!isnan($2)) {
                                      $$ = -$2;
                                  } else {
                                      $$ = NAN;
                                  }
                             }
-        | exp '+' exp   {
+        | expresion '+' expresion   {
                             if (!isnan($1) && !isnan($3)) {
                                 $$ = $1 + $3;
                             } else {
                                 $$ = NAN;
                             }
                         }
-        | exp '-' exp   {
+        | expresion '-' expresion   {
                             if (!isnan($1) && !isnan($3)) {
                                 $$ = $1 - $3;
                             } else {
                                 $$ = NAN;
                             }
                         }
-        | exp '*' exp   {
+        | expresion '*' expresion   {
                             if (!isnan($1) && !isnan($3)) {
                                 $$ = $1 * $3;
                             } else {
                                 $$ = NAN;
                             }
                         }
-        | exp '/' exp   {
+        | expresion '/' expresion   {
                             if ($3 == 0) {
                                 lanzar_error("DIV_CERO");
                                 error = true;
@@ -202,7 +207,7 @@ exp:    NUM
                                 }
                             }
                         }
-        | exp '%' exp   {
+        | expresion '%' expresion   {
                             if ($3 == 0) {
                                 lanzar_error("MOD_CERO");
                                 error = true;
@@ -215,14 +220,14 @@ exp:    NUM
                                 }
                             }
                         }
-        | exp '^' exp   {
+        | expresion '^' expresion   {
                             if (!isnan($1) && !isnan($3)) {
                                 $$ = pow($1, $3);
                             } else {
                                 $$ = NAN;
                             }
                         }
-        | '(' exp ')'   {
+        | '(' expresion ')'   {
                              if (!isnan($2)) {
                                  $$ = $2;
                              } else {
@@ -231,13 +236,15 @@ exp:    NUM
                          }
 ;
 
-asig:   VAR '=' exp     {
+asignacion:   VARIABLE '=' expresion     {
                            if (!error) {
                                if ((c = buscar_elemento($1)).lexema != NULL) {
-                                   //modificarValorVariable($1, $3);
+                                   printf("1");
+                                   asignar_valor($1, $3);
                                } else {
+                                   printf("2");
                                    c.lexema = strdup($1);
-                                   c.comp_lexico = VAR;
+                                   c.comp_lexico = VARIABLE;
                                    c.valor.var = $3;
                                    insertar_elemento(c);
                                    free(c.lexema);
@@ -246,13 +253,13 @@ asig:   VAR '=' exp     {
                            $$ = $3;
                            free($1);
                         }
-        | VAR '=' fnc   {
+        | VARIABLE '=' funcion   {
                            if (!error) {
                                if ((c = buscar_elemento($1)).lexema != NULL) {
-                                   //modificarValorVariable($1, $3);
+                                   asignar_valor($1, $3);
                                } else {
                                    c.lexema = strdup($1);
-                                   c.comp_lexico = VAR;
+                                   c.comp_lexico = VARIABLE;
                                    c.valor.var = $3;
                                    insertar_elemento(c);
                                    free(c.lexema);
@@ -261,13 +268,13 @@ asig:   VAR '=' exp     {
                            $$ = $3;
                            free($1);
                         }
-        | CONST '=' exp {
+        | CONSTANTE '=' expresion {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             $$ = NAN;
                             free($1);
                         }
-        | CONST '=' fnc {
+        | CONSTANTE '=' funcion {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             $$ = NAN;
@@ -275,7 +282,7 @@ asig:   VAR '=' exp     {
                         }
 ;
 
-cmnd:   CMND0                       {
+comando:   CMND0                       {
                                         c = buscar_elemento($1);
                                         free($1);
                                         (*(c.valor.funcptr))();
@@ -309,7 +316,7 @@ cmnd:   CMND0                       {
                                         free($1);
                                         free($3);
                                     }
-        | CMND1 exp                 {
+        | CMND1 expresion                 {
                                         lanzar_error("ARCHIVO_MAL_FORMATO");
                                         error = true;
                                         $$ = NAN;
@@ -317,7 +324,7 @@ cmnd:   CMND0                       {
                                     }
 ;
 
-fnc:    LIB '/' VAR '(' exp ')'             {
+funcion:    LIB '/' VARIABLE '(' expresion ')'             {
                                                 /*
                                                 c = buscar_elemento($1);
 
@@ -341,7 +348,7 @@ fnc:    LIB '/' VAR '(' exp ')'             {
                                                 */
 
                                             }
-        | LIB '/' VAR '(' exp ',' exp ')'   {
+        | LIB '/' VARIABLE '(' expresion ',' expresion ')'   {
                                                 /*
                                                 c = buscar_elemento($1);
 
@@ -364,7 +371,7 @@ fnc:    LIB '/' VAR '(' exp ')'             {
                                                 free($3);
                                                 */
                                             }
-        | LIB '/' VAR '(' ')'               {
+        | LIB '/' VARIABLE '(' ')'               {
                                                 /*
                                                 lanzar_error("PARAMETROS_NON_INDICADOS");
                                                 error = true;
@@ -373,21 +380,21 @@ fnc:    LIB '/' VAR '(' exp ')'             {
                                                 free($3);
                                                 */
                                             }
-        | exp '(' exp ')'                   {
+        | expresion '(' expresion ')'                   {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
                                                 error = true;
                                                 $$ = NAN;
                                                 */
                                             }
-        | exp '(' exp ',' exp ')'           {
+        | expresion '(' expresion ',' expresion ')'           {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
                                                 error = true;
                                                 $$ = NAN;
                                                 */
                                             }
-        | exp '(' ')'                       {
+        | expresion '(' ')'                       {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
                                                 error = true;
@@ -408,6 +415,9 @@ void cambiar_echo(int valor) {
 
 void ejecutar_script(int valor) {
     script = valor;
+    if (!script) {
+        printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n"CYAN">"RESET" ");
+    }
 }
 
 
