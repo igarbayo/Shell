@@ -28,7 +28,10 @@ double load(char *archivo) {
 }
 
 double quit() {
-    return 0;
+    printf(AMARILLO"Saliendo del intérprete..."RESET"\n\n");
+    eliminar_tabla();
+    //yylex()_destroy();
+    exit(EXIT_SUCCESS);
 }
 
 double help() {
@@ -36,10 +39,16 @@ double help() {
 }
 
 double workspace() {
+    imprimir_variables();
     return 0;
 }
 
-double clear() {
+double clear(char* lexema) {
+    if (lexema == NULL) {
+        eliminar_todas_variables();
+    } else {
+        eliminar_variable(lexema);
+    }
     return 0;
 }
 

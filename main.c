@@ -2,6 +2,7 @@
 #include "tabla_simbolos.h"
 #include "interprete.h"
 #include "errores.h"
+#include "comandos.h"
 
 
 int main(int argc, char **argv) {
@@ -27,7 +28,7 @@ int main(int argc, char **argv) {
     //printf("Final del programa\n");
     // Liberación de la memoria de la tabla
     imprimir_tabla();
-    eliminar_tabla();
+    quit();
 
     return 0;
 }

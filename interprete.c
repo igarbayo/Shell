@@ -9,7 +9,7 @@
 #include "comandos.h"
 
 void interprete(char* arg) {
-    printf("Bienvenido.\n");
+    printf(AMARILLO"\nBienvenido al intérprete. Si necesitas ayuda, teclea ?\n\n"RESET);
 
     if (arg != NULL) {
         load(arg);

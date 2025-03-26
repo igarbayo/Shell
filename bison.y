@@ -27,7 +27,7 @@ bool error = false;
 %start entrada
 
 %token <numero> NUM
-%token <cadena> CONSTANTE VARIABLE FUNC CMND0 CMND1 ARCHIVO LIB
+%token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 COMANDO0 COMANDO1 ARCHIVO LIB
 
 %type <numero> expresion asignacion comando funcion
 
@@ -166,18 +166,6 @@ expresion:    NUM
                             }
                             free($1);
                         }
-        | FUNC '(' expresion ')'  {
-                                        c = buscar_funcion_basica($1);
-                                        if (c.lexema != NULL && c.valor.funcptr != NULL) {
-                                            $$ = (*(c.valor.funcptr))($3);
-                                        } else {
-                                            lanzar_error("No se encuentra la función básica");
-                                            error = true;
-                                            $$ = NAN;
-                                        }
-                                        free($1);
-
-                                  }
         | '-' expresion %prec NEG {
                                  if (!isnan($2)) {
                                      $$ = -$2;
@@ -294,49 +282,83 @@ asignacion:   VARIABLE '=' expresion     {
                         }
 ;
 
-comando:   CMND0                       {
+comando:
+        COMANDO0                    {
                                         c = buscar_elemento($1);
                                         free($1);
                                         (*(c.valor.funcptr))();
                                     }
-        | CMND0 '(' ')'             {
+        | COMANDO0 '(' ')'             {
                                         c = buscar_elemento($1);
                                         free($1);
                                         (*(c.valor.funcptr))();
                                     }
-        | CMND1                     {
-                                        lanzar_error("ARCHIVO_NON_INDICADO");
-                                        error = true;
-                                        $$ = NAN;
+        | COMANDO1  {
+                                        c = buscar_elemento($1);
+                                        char str[] = "clear";
+                                        int result = strcmp(c.lexema, str);
+                                        if (result == 0) {
+                                            printf("\nES CLEAR\n");
+                                            (*(c.valor.funcptr))(NULL);
+                                        } else {
+                                            lanzar_error("La función tiene argumentos");
+                                            error = true;
+                                            $$ = NAN;
+                                        }
                                         free($1);
                                     }
-        | CMND1 '(' ')'             {
-                                        lanzar_error("ARCHIVO_NON_INDICADO");
-                                        error = true;
-                                        $$ = NAN;
+        | COMANDO1 '(' ')'             {
+                                        c = buscar_elemento($1);
+                                        char str[] = "clear";
+                                        int result = strcmp(c.lexema, str);
+                                        if (result == 0) {
+                                            (*(c.valor.funcptr))(NULL);
+                                        } else {
+                                            lanzar_error("La función tiene argumentos");
+                                            error = true;
+                                            $$ = NAN;
+                                        }
                                         free($1);
-                                    }
-        | CMND1 ARCHIVO            {
+                                     }
+        | COMANDO1 '(' VARIABLE ')'  {
+                                         c = buscar_elemento($1);
+                                         if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                             $$ = (*(c.valor.funcptr))($3);
+                                         } else {
+                                             lanzar_error("No se encuentra el comando");
+                                             error = true;
+                                             $$ = NAN;
+                                         }
+                                         free($1);
+                                      }
+        | COMANDO1 ARCHIVO              {
                                         c = buscar_elemento($1);
                                         (*(c.valor.funcptr))($2);
                                         free($1);
                                         free($2);
-                                    }
-        | CMND1 '(' ARCHIVO ')'    {
+                                     }
+        | COMANDO1 '(' ARCHIVO ')'      {
                                         c = buscar_elemento($1);
                                         (*(c.valor.funcptr))($3);
                                         free($1);
                                         free($3);
-                                    }
-        | CMND1 expresion                 {
-                                        lanzar_error("ARCHIVO_MAL_FORMATO");
-                                        error = true;
-                                        $$ = NAN;
-                                        free($1);
-                                    }
+                                     }
 ;
 
-funcion:    LIB '/' VARIABLE '(' expresion ')'  {
+funcion:
+        FUNC1 '(' expresion ')'  {
+                                                c = buscar_elemento($1);
+                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                    $$ = (*(c.valor.funcptr))($3);
+                                                } else {
+                                                    lanzar_error("No se encuentra la función básica");
+                                                    error = true;
+                                                    $$ = NAN;
+                                                }
+                                                free($1);
+
+                                          }
+        | LIB '/' VARIABLE '(' expresion ')'  {
                                                 /*
                                                 c = buscar_elemento($1);
 

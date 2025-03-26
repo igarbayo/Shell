@@ -64,11 +64,11 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                 }
 
 {IDENTIFICADOR} {
-                    if (es_funcion_basica(yytext)) {
-                        yylval.cadena = strdup(yytext);
-                        return FUNC;
+                    yylval.cadena = strdup(yytext);
+                    contenedor c = buscar_elemento(yylval.cadena);
+                    if (c.lexema != NULL) {
+                        return c.comp_lexico;
                     } else {
-                        yylval.cadena = strdup(yytext);
                         return VARIABLE;
                     }
                 }

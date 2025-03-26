@@ -2,8 +2,15 @@ Implementadas:
     1. Variables
     2. Operaciones con variables
     3. Precedencia de operaciones y ()
+    4. Funciones estáticas trigonométricas y exponenciales
+    5. Constantes predefinidas E y PI sin poder reasignar
+    6. clear() elimina todas y clear(var) elimina var
+    7. workspace() muestra las variables guardadas
+    8. solo se almacenan en el workspace las variables definidas correctamente
+    9. quit() cierra el intérprete
 
 
 A implementar:
-    - Funciones trigonométricas y exponenciales
-    - Correcto manejo de constante (nuevas constantes y si aparecen en el lado izquierdo -> error)
+    - hacer que "error: sintaxis no válida" no termine el programa
+    - help(), ?, ?comando
+    - echo on/off

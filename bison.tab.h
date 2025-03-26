@@ -57,12 +57,13 @@ extern int yydebug;
     NUM = 258,                     /* NUM  */
     CONSTANTE = 259,               /* CONSTANTE  */
     VARIABLE = 260,                /* VARIABLE  */
-    FUNC = 261,                    /* FUNC  */
-    CMND0 = 262,                   /* CMND0  */
-    CMND1 = 263,                   /* CMND1  */
-    ARCHIVO = 264,                 /* ARCHIVO  */
-    LIB = 265,                     /* LIB  */
-    NEG = 266                      /* NEG  */
+    FUNC0 = 261,                   /* FUNC0  */
+    FUNC1 = 262,                   /* FUNC1  */
+    COMANDO0 = 263,                /* COMANDO0  */
+    COMANDO1 = 264,                /* COMANDO1  */
+    ARCHIVO = 265,                 /* ARCHIVO  */
+    LIB = 266,                     /* LIB  */
+    NEG = 267                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -76,7 +77,7 @@ union YYSTYPE
     double numero;
     char *cadena;
 
-#line 80 "bison.tab.h"
+#line 81 "bison.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -97,6 +98,6 @@ int yyparse (void);
     void cambiar_echo(int valor);
     void ejecutar_script(int valor);
 
-#line 101 "bison.tab.h"
+#line 102 "bison.tab.h"
 
 #endif /* !YY_YY_BISON_TAB_H_INCLUDED  */

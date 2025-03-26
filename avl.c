@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "interprete.h"
 #include "bison.tab.h"
@@ -29,9 +30,21 @@ typedef struct celda *avl;
 
 // Variable global para saber cuándo dejar de propagar el equilibrio
 int equilibrar;
+int eliminacion_concreta = 0; // Variable usada para saber cando ten lugar unha eliminación concreta durante a eliminación dun nodo
+int parar_calculo = 0; // Variable usada para saber cando se ten que parar o cálculo de FE durante a eliminación dun nodo
+
+
 
 
 // FUNCIONES PRIVADAS ///////////////////////////////////////////////
+
+/**
+ *
+ * @param A
+ * @param antiguoFE
+ * @return
+ */
+tipoelem _suprimir_max(avl *A, int *antiguoFE);
 
 /**
  * Extrae la clave de un nodo
@@ -261,6 +274,13 @@ void _reestructurar(avl *A) {
     }
 }
 
+// Función que destrúe o contido dun elemento
+void _destruir_elem(tipoelem *E) {
+    free(E->lexema);
+    /*if (E->comp_lexico == LIB) {
+        dlclose(E->valor.libhandle);
+    }*/
+}
 
 // FUNCIONES PÚBLICAS ///////////////////////////////////////////
 
@@ -331,9 +351,10 @@ void insertar(avl *A, tipoelem E) {
             case CONSTANTE:
                 (*A)->info.valor.var = E.valor.var;
                 break;
-            case FUNC:
-            case CMND1:
-            case CMND0:
+            case FUNC0:
+            case FUNC1:
+            case COMANDO0:
+            case COMANDO1:
                 // revisar si esto va bien
                 (*A)->info.valor.funcptr = E.valor.funcptr;
                 break;
@@ -420,6 +441,90 @@ void asignar_valor_nodo(avl* A, tipoclave cl, double valor) {
         asignar_valor_nodo(&(*A)->der, cl, valor);
     }
 }
+
+void eliminar_nodo(avl *A, tipoelem e) {
+    avl aux;
+    if (vacia(*A)) {
+        return;
+    }
+
+    tipoclave cl = _clave_elem(&e);
+    int comp = _comparar_clave_elem(cl, (*A)->info);
+    if (comp < 0) { // Se (E < (*A)->info)
+        eliminar_nodo(&(*A)->izq, e);
+        if (!eliminacion_concreta && !parar_calculo) {
+            if ((*A)->fe == 0) {
+                parar_calculo = 1;
+            }
+            (*A)->fe++;
+        }
+        _reestructurar(A);
+    } else if (comp > 0) { // Se (E > (*A)->info)
+        eliminar_nodo(&(*A)->der, e);
+        if (!eliminacion_concreta && !parar_calculo) {
+            if ((*A)->fe == 0) {
+                parar_calculo = 1;
+            }
+            (*A)->fe--;
+        }
+        _reestructurar(A);
+    } else if (vacia((*A)->izq) && vacia((*A)->der)) { // Se está vacío a ambos lados:
+        eliminacion_concreta = 0;
+        parar_calculo = 0;
+        _destruir_elem(&((*A)->info));
+        free(*A);
+        *A = NULL;
+    } else if (vacia((*A)->izq)) { // Se está vacío á dereita e non á esquerda:
+        eliminacion_concreta = 0;
+        parar_calculo = 0;
+        aux = *A;
+        *A = (*A)->der;
+        _destruir_elem(&aux->info);
+        free(aux);
+    } else if (vacia((*A)->der)) { // Se está vacío á esquerda e non á dereita:
+        eliminacion_concreta = 0;
+        parar_calculo = 0;
+        aux = *A;
+        *A = (*A)->izq;
+        _destruir_elem(&aux->info);
+        free(aux);
+    } else { // Se non está vacío nin á dereita nin á esquerda:
+        eliminacion_concreta = 1;
+        parar_calculo = 0;
+
+        int antiguoFE;
+        _destruir_elem(&(*A)->info); // Elimino a información sen liberar o nodo
+        (*A)->info = _suprimir_max(&(*A)->izq, &antiguoFE); // No seu lugar ponse o máximo da subárbore esquerda
+
+        (*A)->fe = antiguoFE;
+        if (vacia((*A)->izq) && !vacia((*A)->der)) {
+            (*A)->fe++;
+        }
+        if (vacia((*A)->der)) {
+            (*A)->padre->fe++;
+        }
+    }
+}
+
+
+///////// FUNCIONES PRIVADAS ////////////////
+
+// Funcion auxiliar que devolve máximo de árbore indicada
+tipoelem _suprimir_max(avl *A, int *antiguoFE) {
+    avl aux;
+    tipoelem E;
+    if (vacia((*A)->der)) { // Se á dereita está vacío, devólvese o nodo actual
+        E = (*A)->info;
+        *antiguoFE = (*A)->fe;
+        aux = *A;
+        *A = (*A)->izq;
+        free(aux);
+        return E;
+    } else {
+        return _suprimir_max(&(*A)->der, antiguoFE); // Vólvese a buscar o máximo da rama dereita
+    }
+}
+
 
 
 

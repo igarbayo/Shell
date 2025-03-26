@@ -845,11 +845,11 @@ case 7:
 YY_RULE_SETUP
 #line 66 "flex.l"
 {
-                    if (es_funcion_basica(yytext)) {
-                        yylval.cadena = strdup(yytext);
-                        return FUNC;
+                    yylval.cadena = strdup(yytext);
+                    contenedor c = buscar_elemento(yylval.cadena);
+                    if (c.lexema != NULL) {
+                        return c.comp_lexico;
                     } else {
-                        yylval.cadena = strdup(yytext);
                         return VARIABLE;
                     }
                 }

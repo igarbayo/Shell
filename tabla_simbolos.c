@@ -6,6 +6,7 @@
 #include "avl.h"
 #include "bison.tab.h"
 #include <math.h>
+#include <stdbool.h>
 #include "comandos.h"
 
 
@@ -14,17 +15,17 @@ tabla_simbolos tabla;
 
 // Funciones registradas
 tipoelem funciones_registradas[] = {
-        {CMND1, "sin", .valor.funcptr=sin},
-        {CMND1, "cos", .valor.funcptr=cos},
-        {CMND1, "tan", .valor.funcptr=tan},
-        {CMND1, "asin", .valor.funcptr=asin},
-        {CMND1, "acos", .valor.funcptr=acos},
-        {CMND1, "atan", .valor.funcptr=atan},
-        {CMND1, "sinh", .valor.funcptr=sinh},
-        {CMND1, "cosh", .valor.funcptr=cosh},
-        {CMND1, "tanh", .valor.funcptr=tanh},
-        {CMND1, "exp", .valor.funcptr=exp},
-        {CMND1, "log", .valor.funcptr=log},
+        {FUNC1, "sin", .valor.funcptr=sin},
+        {FUNC1, "cos", .valor.funcptr=cos},
+        {FUNC1, "tan", .valor.funcptr=tan},
+        {FUNC1, "asin", .valor.funcptr=asin},
+        {FUNC1, "acos", .valor.funcptr=acos},
+        {FUNC1, "atan", .valor.funcptr=atan},
+        {FUNC1, "sinh", .valor.funcptr=sinh},
+        {FUNC1, "cosh", .valor.funcptr=cosh},
+        {FUNC1, "tanh", .valor.funcptr=tanh},
+        {FUNC1, "exp", .valor.funcptr=exp},
+        {FUNC1, "log", .valor.funcptr=log},
         {-1, NULL},
 };
 
@@ -42,12 +43,76 @@ void _inorden(tabla_simbolos tabla) {
     if (!vacia(tabla)) {
         _inorden(izq(tabla));
         leer(tabla, &e);
-        if (e.comp_lexico==CMND1) {
-            printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.funcptr);
-        } else {
-            printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+        switch (e.comp_lexico) {
+            case VARIABLE:
+            case CONSTANTE:
+                printf("<%d, \"%s\", %lf>\n", e.comp_lexico, e.lexema, e.valor.var);
+                break;
+            case FUNC1:
+            case FUNC0:
+            case COMANDO0:
+            case COMANDO1:
+                printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.funcptr);
+                break;
+            case LIB:
+                printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+                break;
+            default:
+                printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+                break;
         }
         _inorden(der(tabla));
+    }
+}
+
+/**
+ *
+ * @param tabla
+ */
+void _inorden_imprimir_variables(tabla_simbolos tabla) {
+    tipoelem e;
+    // Recorre subárbol derecho e izquierdo de forma recursiva
+    // Si es no vacío
+    if (!vacia(tabla)) {
+        _inorden_imprimir_variables(izq(tabla));
+        leer(tabla, &e);
+        if (e.comp_lexico == VARIABLE) {
+            printf(AMARILLO"\t%-15s = %10.4lf\n"RESET, e.lexema, e.valor.var);
+        }
+        _inorden_imprimir_variables(der(tabla));
+    }
+}
+
+/**
+ *
+ * @param tabla
+ */
+void _inorden_imprimir_comandos(tabla_simbolos tabla) {
+    tipoelem e;
+    // Recorre subárbol derecho e izquierdo de forma recursiva
+    // Si es no vacío
+    if (!vacia(tabla)) {
+        _inorden_imprimir_comandos(izq(tabla));
+        leer(tabla, &e);
+        if (e.comp_lexico == COMANDO0 || e.comp_lexico == COMANDO1) {
+            printf(AMARILLO"\t%-15s = %p\n"RESET, e.lexema, e.valor.funcptr);
+        }
+        _inorden_imprimir_comandos(der(tabla));
+    }
+}
+
+void _inorden_eliminar_variables(tabla_simbolos tabla) {
+    tipoelem e;
+    // Recorre subárbol derecho e izquierdo de forma recursiva
+    // Si es no vacío
+    if (!vacia(tabla)) {
+        _inorden_eliminar_variables(izq(tabla));
+        leer(tabla, &e);
+        // Eliminación
+        if (e.comp_lexico == VARIABLE) {
+            eliminar_variable(e.lexema);
+        }
+        _inorden_eliminar_variables(der(tabla));
     }
 }
 
@@ -65,8 +130,6 @@ void _registrar_funciones_basicas() {
 // FUNCIONES PÚBLICAS /////////////////////////
 
 void crear_tabla() {
-    int i=0;
-    contenedor c;
 
     // Creación del AVL
     crear(&tabla);
@@ -74,14 +137,14 @@ void crear_tabla() {
     tipoelem inicializacion[] = {
             {CONSTANTE, "PI", .valor.var=3.14159265358979323846},
             {CONSTANTE, "E", .valor.var=2.7182818284590452354},
-            {CMND0, "CLEAR", .valor.funcptr=clear},
-            {CMND0, "QUIT", .valor.funcptr=quit},
-            {CMND0, "HELP", .valor.funcptr=help},
-            {CMND0, "ECHO", .valor.funcptr=echo},
-            {CMND0, "WORKSPACE", .valor.funcptr=workspace},
-            {CMND0, "CLEAN", .valor.funcptr=clean},
-            {CMND1, "LOAD", .valor.funcptr=load},
-            {CMND1, "IMPORT", .valor.funcptr=import},
+            {COMANDO0, "quit", .valor.funcptr=quit},
+            {COMANDO0, "help", .valor.funcptr=help},
+            {COMANDO0, "echo", .valor.funcptr=echo},
+            {COMANDO0, "workspace", .valor.funcptr=workspace},
+            {COMANDO0, "clean", .valor.funcptr=clean},
+            {COMANDO1, "clear", .valor.funcptr=clear},
+            {COMANDO1, "load", .valor.funcptr=load},
+            {COMANDO1, "import", .valor.funcptr=import},
     };
 
     for (int i = 0; i < (sizeof(inicializacion) / sizeof(tipoelem)); i++) {
@@ -131,20 +194,26 @@ void asignar_valor(char* lexema, double valor) {
     }
 }
 
-tipoelem buscar_funcion_basica(char* lexema) {
-    tipoelem f = buscar_elemento(lexema);
-    if (f.comp_lexico == CMND1 && f.lexema != NULL && f.valor.funcptr != NULL) {
-        return f;
-    }
-    f.comp_lexico = -1;
-    f.lexema = NULL;
+void imprimir_variables() {
+    printf(AMARILLO"------------------------------------\n"RESET);
+    // Se imprime en inorden, con una función para la recursividad
+    _inorden_imprimir_variables(tabla);
+    printf(AMARILLO"------------------------------------\n\n"RESET);
 }
 
-int es_funcion_basica(char *nombre) {
-    for (int i = 0; funciones_registradas[i].lexema != NULL; i++) {
-        if (strcmp(funciones_registradas[i].lexema, nombre) == 0) {
-            return 1;  // Es una función registrada
+void eliminar_variable(char* lexema) {
+    if (lexema != NULL) {
+        tipoelem e;
+        if (!vacia(tabla)) {
+            buscar_nodo(tabla, lexema, &e);
+            if (e.comp_lexico == VARIABLE) {
+                eliminar_nodo(&tabla, e);
+                printf(AMARILLO"Variable eliminada."RESET"\n\n");
+            }
         }
     }
-    return 0;  // No es una función
+}
+
+void eliminar_todas_variables() {
+    _inorden_eliminar_variables(tabla);
 }

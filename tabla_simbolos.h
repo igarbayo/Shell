@@ -43,17 +43,17 @@ void asignar_valor(char* lexema, double valor);
 
 /**
  *
- * @param lexema
- * @return
  */
-tipoelem buscar_funcion_basica(char* lexema);
+void imprimir_variables();
 
 /**
  *
- * @param nombre
- * @return
  */
-int es_funcion_basica(char *nombre);
+void eliminar_variable(char* lexema);
 
+/**
+ *
+ */
+void eliminar_todas_variables();
 
 #endif //P1_COMPGO_TABLA_SIMBOLOS_H

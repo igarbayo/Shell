@@ -13,7 +13,7 @@ double help();
 
 double workspace();
 
-double clear();
+double clear(char* lexema);
 
 double clean();
 

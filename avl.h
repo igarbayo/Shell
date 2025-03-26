@@ -79,5 +79,12 @@ void insertar(avl *A, tipoelem E);
  */
 void asignar_valor_nodo(avl* A, tipoclave cl, double valor);
 
+/**
+ *
+ * @param A
+ * @param e
+ */
+void eliminar_nodo(avl *A, tipoelem e);
+
 
 #endif //P1_COMPGO_AVL_H
