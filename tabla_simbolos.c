@@ -140,7 +140,7 @@ void crear_tabla() {
             {COMANDO0, "quit", .valor.funcptr=quit},
             {COMANDO1, "help", .valor.funcptr=help},
             {COMANDO1, "?", .valor.funcptr=help},
-            {COMANDO0, "echo", .valor.funcptr=echo},
+            {COMANDO1, "echo", .valor.funcptr=echo},
             {COMANDO0, "workspace", .valor.funcptr=workspace},
             {COMANDO0, "clean", .valor.funcptr=clean},
             {COMANDO1, "clear", .valor.funcptr=clear},

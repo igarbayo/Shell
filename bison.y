@@ -15,7 +15,7 @@ bool error = false;
 
 %code provides {
     void yyerror(char* s);
-    void cambiar_echo(int valor);
+    void cambiar_echo(double valor);
     void ejecutar_script(int valor);
 }
 
@@ -68,8 +68,6 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
-                                        } else if (hacerEcho) {
-                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -94,8 +92,6 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
-                                        } else if (hacerEcho) {
-                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -138,8 +134,6 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
-                                        } else if (hacerEcho) {
-                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
                                     }
                                     if (!script) {
@@ -239,10 +233,8 @@ expresion:    NUM
 asignacion:   VARIABLE '=' expresion     {
                            if (!error) {
                                if ((c = buscar_elemento($1)).lexema != NULL) {
-                                   printf("1");
                                    asignar_valor($1, $3);
                                } else {
-                                   printf("2");
                                    c.lexema = strdup($1);
                                    c.comp_lexico = VARIABLE;
                                    c.valor.var = $3;
@@ -298,7 +290,8 @@ comando:
                                         int result1 = strcmp(c.lexema, "clear");
                                         int result2 = strcmp(c.lexema, "help");
                                         int result3 = strcmp(c.lexema, "?");
-                                        if (result1 == 0 || result2 == 0 || result3 == 0) {
+                                        int result4 = strcmp(c.lexema, "echo");
+                                        if (result1 == 0 || result2 == 0 || result3 == 0 || result4 == 0) {
                                             (*(c.valor.funcptr))(NULL);
                                         } else {
                                             lanzar_error("La función tiene argumentos");
@@ -312,7 +305,8 @@ comando:
                                         int result1 = strcmp(c.lexema, "clear");
                                         int result2 = strcmp(c.lexema, "help");
                                         int result3 = strcmp(c.lexema, "?");
-                                        if (result1 == 0 || result2 == 0 || result3 == 0) {
+                                        int result4 = strcmp(c.lexema, "echo");
+                                        if (result1 == 0 || result2 == 0 || result3 == 0 || result4 == 0) {
                                             (*(c.valor.funcptr))(NULL);
                                         } else {
                                             lanzar_error("La función tiene argumentos");
@@ -377,8 +371,13 @@ comando:
                                              }
         | COMANDO1 '(' VARIABLE ')'  {
                                          c = buscar_elemento($1);
+                                         int result1 = strcmp(c.lexema, "echo");
                                          if (c.lexema != NULL && c.valor.funcptr != NULL) {
-                                             $$ = (*(c.valor.funcptr))($3);
+                                             if (result1 == 0) {
+                                                cambiar_echo((*(c.valor.funcptr))($3));
+                                             } else {
+                                                $$ = (*(c.valor.funcptr))($3);
+                                             }
                                          } else {
                                              lanzar_error("No se encuentra el comando");
                                              error = true;
@@ -498,8 +497,9 @@ void yyerror(char* s) {
     lanzar_error("Sintaxis no válida");
 }
 
-void cambiar_echo(int valor) {
-    hacerEcho = valor;
+void cambiar_echo(double valor) {
+    if (valor == 1) { hacerEcho = true; }
+    else if (valor == 2) { hacerEcho = false; }
 }
 
 void ejecutar_script(int valor) {

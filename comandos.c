@@ -119,9 +119,27 @@ double clean() {
     return 0;
 }
 
-double echo() {
-    variableEcho = !variableEcho;   // ver si funciona
-    // cambiar echo
+double echo(char* lexema) {
+    if (lexema == NULL) {
+        printf(AMARILLO"%s\n\n"RESET, variableEcho ? "on" : "off");
+        return 0;
+    } else {
+        int r1 = strcmp(lexema, "on");
+        int r2 = strcmp(lexema, "off");
+
+        if (r1 == 0) {
+            variableEcho = true;
+            printf(AMARILLO"Cambiado: %s\n\n"RESET, variableEcho ? "on" : "off");
+            return 1;
+        } else if (r2 == 0) {
+            variableEcho = false;
+            printf(AMARILLO"Cambiado: %s\n\n"RESET, variableEcho ? "on" : "off");
+            return 2;
+        } else {
+            printf(AMARILLO"%s\n\n"RESET, variableEcho ? "on" : "off");
+        }
+    }
+
     return 0;
 }
 

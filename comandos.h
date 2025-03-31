@@ -17,7 +17,7 @@ double clear(char* lexema);
 
 double clean();
 
-double echo();
+double echo(char* lexema);
 
 double import(char* libreria);
 

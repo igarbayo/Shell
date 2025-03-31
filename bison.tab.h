@@ -95,7 +95,7 @@ int yyparse (void);
 #line 16 "bison.y"
 
     void yyerror(char* s);
-    void cambiar_echo(int valor);
+    void cambiar_echo(double valor);
     void ejecutar_script(int valor);
 
 #line 102 "bison.tab.h"
