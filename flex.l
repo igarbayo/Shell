@@ -73,6 +73,16 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                     }
                 }
 
+\?               {
+                    yylval.cadena = strdup(yytext);
+                    contenedor c = buscar_elemento(yylval.cadena);
+                    if (c.lexema != NULL) {
+                        return c.comp_lexico;
+                    } else {
+                        return VARIABLE;
+                    }
+                }
+
 
 {ERROR_UNDER_DIGITOS}	{ lanzar_error("\"_\" debe separar dos dígitos"); }
 {ERROR_UNDER_VARIOS}	{ lanzar_error("no puede haber dos o más \"_\" seguidas"); }

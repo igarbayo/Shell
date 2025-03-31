@@ -295,10 +295,10 @@ comando:
                                     }
         | COMANDO1  {
                                         c = buscar_elemento($1);
-                                        char str[] = "clear";
-                                        int result = strcmp(c.lexema, str);
-                                        if (result == 0) {
-                                            printf("\nES CLEAR\n");
+                                        int result1 = strcmp(c.lexema, "clear");
+                                        int result2 = strcmp(c.lexema, "help");
+                                        int result3 = strcmp(c.lexema, "?");
+                                        if (result1 == 0 || result2 == 0 || result3 == 0) {
                                             (*(c.valor.funcptr))(NULL);
                                         } else {
                                             lanzar_error("La función tiene argumentos");
@@ -309,9 +309,10 @@ comando:
                                     }
         | COMANDO1 '(' ')'             {
                                         c = buscar_elemento($1);
-                                        char str[] = "clear";
-                                        int result = strcmp(c.lexema, str);
-                                        if (result == 0) {
+                                        int result1 = strcmp(c.lexema, "clear");
+                                        int result2 = strcmp(c.lexema, "help");
+                                        int result3 = strcmp(c.lexema, "?");
+                                        if (result1 == 0 || result2 == 0 || result3 == 0) {
                                             (*(c.valor.funcptr))(NULL);
                                         } else {
                                             lanzar_error("La función tiene argumentos");
@@ -319,7 +320,61 @@ comando:
                                             $$ = NAN;
                                         }
                                         free($1);
+                                       }
+        | COMANDO1 '(' COMANDO0 ')'    {
+                                        c = buscar_elemento($1);
+                                        int result1 = strcmp(c.lexema, "help");
+                                        int result2 = strcmp(c.lexema, "?");
+                                        if (result1 == 0 || result2 == 0) {
+                                               (*(c.valor.funcptr))($3);
+                                        } else {
+                                            lanzar_error("El argumento no puede ser un comando");
+                                            error = true;
+                                            $$ = NAN;
+                                        }
+                                        free($1);
+                                        free($3);
+                                       }
+        | COMANDO1 '(' COMANDO1 ')'    {
+                                                c = buscar_elemento($1);
+                                                int result1 = strcmp(c.lexema, "help");
+                                                int result2 = strcmp(c.lexema, "?");
+                                                if (result1 == 0 || result2 == 0) {
+                                                       (*(c.valor.funcptr))($3);
+                                                } else {
+                                                    lanzar_error("El argumento no puede ser un comando");
+                                                    error = true;
+                                                    $$ = NAN;
+                                                }
+                                                free($1);
+                                                free($3);
+                                               }
+        | COMANDO1 COMANDO0          {
+                                        c = buscar_elemento($1);
+                                        int result1 = strcmp(c.lexema, "?");
+                                        if (result1 == 0) {
+                                            (*(c.valor.funcptr))($2);
+                                        } else {
+                                            lanzar_error("Sintaxis incorrecta: faltan los paréntesis");
+                                            error = true;
+                                            $$ = NAN;
+                                        }
+                                        free($1);
+                                        free($2);
                                      }
+        | COMANDO1 COMANDO1          {
+                                                c = buscar_elemento($1);
+                                                int result1 = strcmp(c.lexema, "?");
+                                                if (result1 == 0) {
+                                                    (*(c.valor.funcptr))($2);
+                                                } else {
+                                                    lanzar_error("Sintaxis incorrecta: faltan los paréntesis");
+                                                    error = true;
+                                                    $$ = NAN;
+                                                }
+                                                free($1);
+                                                free($2);
+                                             }
         | COMANDO1 '(' VARIABLE ')'  {
                                          c = buscar_elemento($1);
                                          if (c.lexema != NULL && c.valor.funcptr != NULL) {

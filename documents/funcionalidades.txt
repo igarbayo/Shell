@@ -8,9 +8,10 @@ Implementadas:
     7. workspace() muestra las variables guardadas
     8. solo se almacenan en el workspace las variables definidas correctamente
     9. quit() cierra el intérprete
+    10. help(), help, ?, ?() o ? COMANDO
 
 
 A implementar:
     - hacer que "error: sintaxis no válida" no termine el programa
-    - help(), ?, ?comando
     - echo on/off
+    - history de comandos y desplazarse / borrar pantalla

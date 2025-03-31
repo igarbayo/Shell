@@ -9,9 +9,19 @@
 #include "bison.tab.h"
 #include "errores.h"
 #include "tabla_simbolos.h"
+#include "interprete.h"
 
 
 bool variableEcho = true;
+
+void _ayuda_general() {
+    printf(AMARILLO"Bienvenido al intérprete de comandos tipo shell.\n\n"RESET);
+
+    printf(AMARILLO"Este intérprete forma parte de la asignatura de Compiladores e Intérpretes en el Grado en Ingeniería Informática.\n"RESET);
+    printf(AMARILLO"Proporciona un entorno interactivo similar a las consolas de R, Python o Matlab.\n\n"RESET);
+
+    printf(AMARILLO"Para más información, consulte la documentación del proyecto.\n"RESET);
+}
 
 
 double load(char *archivo) {
@@ -34,7 +44,60 @@ double quit() {
     exit(EXIT_SUCCESS);
 }
 
-double help() {
+double help(char* lexema) {
+    if (lexema == NULL) {
+        printf(AMARILLO"\n---------------------------------------------\n"RESET);
+        _ayuda_general();
+        printf(AMARILLO"---------------------------------------------\n\n"RESET);
+    } else {
+        int r1 = strcmp(lexema, "load");
+        int r2 = strcmp(lexema, "quit");
+        int r3 = strcmp(lexema, "help");
+        int r3b = strcmp(lexema, "?");
+        int r4 = strcmp(lexema, "workspace");
+        int r5 = strcmp(lexema, "clear");
+        int r6 = strcmp(lexema, "clean");
+        int r7 = strcmp(lexema, "echo");
+
+        if (r1 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando load(FILE) ejecuta un script de sentencias en el intérprete.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r2 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando quit o quit() cierra el intérprete.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r3 == 0 || r3b == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando help, help() o help(COMANDO) muestra la ayuda sobre el intérprete o una de sus funcionalidades.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r4 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando workspace o workspace() muestra la lista de variables almacenadas con sus valores..\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r5 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando clear, clear() o clear(VAR) borra el workspace o alguna de las variables.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r6 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando clean o clean() limpia la pantalla del intérprete.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r7 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando echo o echo() muestra la forma de impresión del autómata, a saber:\n"RESET);
+            printf(AMARILLO"\t\ton: si una sentencia no acaba en ; se imprime su valor asociado.\n"RESET);
+            printf(AMARILLO"\t\toff: nunca se imprime el valor asociado a una sentencia.\n"RESET);
+            printf(AMARILLO"Con echo(on)/echo(off) activamos/desactivamos este comportamiento.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            _ayuda_general();
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        }
+
+    }
+
     return 0;
 }
 

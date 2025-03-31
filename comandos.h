@@ -9,7 +9,7 @@ double load(char* archivo);
 
 double quit();
 
-double help();
+double help(char* lexema);
 
 double workspace();
 
