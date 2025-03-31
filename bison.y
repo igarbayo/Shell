@@ -55,9 +55,8 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
-                                        } else if (hacerEcho) {
-                                            printf(VERDE"  %lf"RESET"\n\n", $1);
                                         }
+                                        printf(VERDE"  %lf"RESET"\n\n", $1);
                                     }
                                     if (!script) {
                                         printf(CYAN">"RESET" ");
@@ -121,9 +120,8 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 if (!error) {
                                     if (isnan($1)) {
                                         lanzar_error("NAN_DETECTADO");
-                                    } else if (hacerEcho) {
-                                        printf(VERDE"  %lf"RESET"\n\n", $1);
                                     }
+                                    printf(VERDE"  %lf"RESET"\n\n", $1);
                                 }
                                 if (!script) {
                                     printf(CYAN">"RESET" ");
