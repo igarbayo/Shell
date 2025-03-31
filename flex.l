@@ -89,7 +89,14 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
 
 
 <<EOF>>	{
-
+                        if (yyin != stdin) {  // Si estamos leyendo desde un archivo
+                            fclose(yyin);      // Cierra el archivo
+                            yyin = stdin;      // Cambia la entrada a stdin
+                            yyrestart(yyin);   // Reinicia el analizador léxico
+                            ejecutar_script(0);
+                        } else {
+                            return 0;  // Indica a Bison que finalice
+                        }
         }
 .                     { printf("UNKNOWN: %s\n", yytext); }
 
@@ -100,4 +107,6 @@ void liberar_recursos() {
     yy_delete_buffer(YY_CURRENT_BUFFER);
     yylex_destroy();
 }
+
+
 

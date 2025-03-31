@@ -1,35 +1,26 @@
 # ninja log v6
+37	81	1743464846594363808	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
+6	52	1743464846563363239	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
+1	27	1742821842413215838	/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/calc.tab.c	559f8956eaa41788
+36	77	1743464846593363789	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
+81	100	1743464846638364615	P1_CompGo	7d6338223258262
+7	65	1743464846564363258	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
 1	16	1742901875689422496	build.ninja	c616802488c6b35b
-1	56	1743440606417820999	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
-2	74	1743440606418821017	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
+6	51	1743464846563363239	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
 1	13	1742821842399215550	go.yy.c	4781715846610264
 1	13	1742821842399215550	/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/go.yy.c	4781715846610264
-2	74	1743440606418821017	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
-2	33	1743440606418821017	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
+7	68	1743464846564363258	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
+6	36	1743464846563363239	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
 1	27	1742821842413215838	calc.tab.c	559f8956eaa41788
 1	27	1742821842413215838	/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/calc.tab.h	559f8956eaa41788
-1	33	1743440606417820999	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
+2	37	1743464846563363239	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
 1	27	1742821842413215838	calc.tab.h	559f8956eaa41788
-74	93	1743440606490822363	P1_CompGo	7d6338223258262
-33	72	1743440606449821597	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
-1	27	1742821842413215838	/home/ignacio/Escritorio/Cuarto/Segundo Cuatri/Compiladores/P3-Bison/cmake-build-debug/calc.tab.c	559f8956eaa41788
-1	56	1743440606417820999	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
-33	74	1743440606449821597	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
-2	24	1743440640060449840	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
-1	33	1743440640059449821	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
-1	49	1743440640059449821	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
-24	55	1743440640082450251	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
-2	57	1743440640060449840	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
-1	58	1743440640059449821	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
-33	72	1743440640091450419	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
-2	76	1743440640060449840	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
-76	94	1743440640134451223	P1_CompGo	7d6338223258262
-2	30	1743460251969632160	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
-2	36	1743460251969632160	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
-2	45	1743460251969632160	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
-2	49	1743460251969632160	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
-30	70	1743460251997632391	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
-2	73	1743460251969632160	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
-36	74	1743460252003632441	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
-2	75	1743460251969632160	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
-75	94	1743460252042632764	P1_CompGo	7d6338223258262
+2	33	1743464961818464528	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
+2	34	1743464961818464528	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
+2	51	1743464961818464528	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
+3	54	1743464961819464546	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
+2	58	1743464961818464528	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
+3	67	1743464961819464546	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
+34	67	1743464961850465108	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
+33	70	1743464961849465089	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
+70	89	1743464961886465760	P1_CompGo	7d6338223258262

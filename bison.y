@@ -502,7 +502,7 @@ void cambiar_echo(double valor) {
 
 void ejecutar_script(int valor) {
     script = valor;
-    if (!script) {
+    if (script) {
         printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n"CYAN">"RESET" ");
     }
 }

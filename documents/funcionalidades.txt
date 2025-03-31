@@ -10,8 +10,10 @@ Implementadas:
     9. quit() cierra el intérprete
     10. help(), help, ?, ?() o ? COMANDO
     11. echo on/off en sentencias de asignacion
+    12. load desde fichero
 
 
 A implementar:
     - hacer que "error: sintaxis no válida" no termine el programa
-    - history de comandos y desplazarse / borrar pantalla
+    - history de comandos y desplazarse / borrar pantalla (clean)
+    - import de libreria dinamica

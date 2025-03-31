@@ -885,20 +885,27 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 #line 91 "flex.l"
 {
-
+                        if (yyin != stdin) {  // Si estamos leyendo desde un archivo
+                            fclose(yyin);      // Cierra el archivo
+                            yyin = stdin;      // Cambia la entrada a stdin
+                            yyrestart(yyin);   // Reinicia el analizador léxico
+                            ejecutar_script(0);
+                        } else {
+                            return 0;  // Indica a Bison que finalice
+                        }
         }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 94 "flex.l"
+#line 101 "flex.l"
 { printf("UNKNOWN: %s\n", yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 96 "flex.l"
+#line 103 "flex.l"
 ECHO;
 	YY_BREAK
-#line 902 "flex.yy.c"
+#line 909 "flex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1864,7 +1871,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 96 "flex.l"
+#line 103 "flex.l"
 
 
 /* Código adicional después de la sección de reglas */
@@ -1872,5 +1879,7 @@ void liberar_recursos() {
     yy_delete_buffer(YY_CURRENT_BUFFER);
     yylex_destroy();
 }
+
+
 
 
