@@ -353,6 +353,7 @@ void insertar(avl *A, tipoelem E) {
                 break;
             case FUNC0:
             case FUNC1:
+            case FUNC2:
             case COMANDO0:
             case COMANDO1:
                 // revisar si esto va bien

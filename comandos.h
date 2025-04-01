@@ -21,4 +21,8 @@ double echo(char* lexema);
 
 double import(char* libreria);
 
+double max(double arr[]);
+
+double min(double arr[]);
+
 #endif //P1_COMPGO_COMANDOS_H

@@ -24,6 +24,8 @@ void _ayuda_general() {
 }
 
 
+/// FUNCIONES PÚBLICAS
+
 double load(char *archivo) {
     yyin = fopen(archivo, "r");
 
@@ -145,4 +147,24 @@ double echo(char* lexema) {
 
 double import(char* libreria) {
     return 0;
+}
+
+double max(double arr[]) {
+    if (isnan(arr[0])) return -INFINITY; // Caso especial: array vacío
+
+    double max_val = arr[0];
+    for (int i = 1; !isnan(arr[i]); i++) {
+        max_val = fmax(max_val, arr[i]);
+    }
+    return max_val;
+}
+
+double min(double arr[]) {
+    if (isnan(arr[0])) return INFINITY; // Caso especial: array vacío
+
+    double min_val = arr[0];
+    for (int i = 1; !isnan(arr[i]); i++) {
+        min_val = fmin(min_val, arr[i]);
+    }
+    return min_val;
 }

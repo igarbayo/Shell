@@ -26,6 +26,10 @@ tipoelem funciones_registradas[] = {
         {FUNC1, "tanh", .valor.funcptr=tanh},
         {FUNC1, "exp", .valor.funcptr=exp},
         {FUNC1, "log", .valor.funcptr=log},
+        {FUNC1, "abs", .valor.funcptr=fabs},
+        {FUNC1, "sqrt", .valor.funcptr=sqrt},
+        {FUNC2, "max", .valor.funcptr=max},
+        {FUNC2, "min", .valor.funcptr=min},
         {-1, NULL},
 };
 
@@ -52,6 +56,7 @@ void _inorden(tabla_simbolos tabla) {
             case FUNC0:
             case COMANDO0:
             case COMANDO1:
+            case FUNC2:
                 printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.funcptr);
                 break;
             case LIB:

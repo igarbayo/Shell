@@ -22,14 +22,16 @@ bool error = false;
 %union {
     double numero;
     char *cadena;
+    double *arr;
 }
 
 %start entrada
 
 %token <numero> NUM
-%token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 COMANDO0 COMANDO1 ARCHIVO LIB
+%token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 FUNC2 COMANDO0 COMANDO1 ARCHIVO LIB
 
 %type <numero> expresion asignacion comando funcion
+%type <arr> lista_expresiones
 
 %left '-' '+'
 %left '*' '/'
@@ -146,6 +148,26 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
                             }
 
+;
+
+lista_expresiones:
+    expresion ',' expresion {
+        // Crear un array con los dos primeros valores y agregar NAN al final
+        $$ = malloc(3 * sizeof(double));
+        $$[0] = $1;
+        $$[1] = $3;
+        $$[2] = NAN;  // Marcador de final
+    }
+    | lista_expresiones ',' expresion {
+        // Obtener tamaño actual del array (contando hasta NAN)
+        int len = 0;
+        while (!isnan($1[len])) len++;
+
+        // Ampliar el array para incluir una nueva expresión + NAN al final
+        $$ = realloc($1, (len + 2) * sizeof(double));
+        $$[len] = $3;
+        $$[len + 1] = NAN;  // Mantener NAN al final
+    }
 ;
 
 expresion:    NUM
@@ -415,6 +437,50 @@ funcion:
                                                 }
                                                 free($1);
 
+                                          }
+        | FUNC1 '(' ')'                   {
+                                                lanzar_error("La función tiene un argumento");
+                                                error = true;
+                                                $$ = NAN;
+                                          }
+        | FUNC1 '(' lista_expresiones ')'                   {
+                                                lanzar_error("La función tiene un argumento");
+                                                error = true;
+                                                $$ = NAN;
+                                          }
+        | FUNC2 '(' lista_expresiones ')' {
+                                                c = buscar_elemento($1);
+                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                    $$ = (*(c.valor.funcptr))($3);
+                                                } else {
+                                                    lanzar_error("No se encuentra la función básica");
+                                                    error = true;
+                                                    $$ = NAN;
+                                                }
+                                                free($1);
+                                                free($3);
+                                          }
+        | FUNC2 '(' expresion ')'         {
+                                                double* array = (double *)malloc(2 * sizeof(double));
+                                                array[0] = $3;
+                                                array[1] = NAN;
+
+                                                c = buscar_elemento($1);
+                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                    $$ = (*(c.valor.funcptr))(array);
+                                                } else {
+                                                    lanzar_error("No se encuentra la función básica");
+                                                    error = true;
+                                                    $$ = NAN;
+                                                }
+                                                free($1);
+                                                free(array);
+
+                                          }
+        | FUNC2 '(' ')'                   {
+                                                lanzar_error("La función tiene argumentos");
+                                                error = true;
+                                                $$ = NAN;
                                           }
         | LIB '/' VARIABLE '(' expresion ')'  {
                                                 /*

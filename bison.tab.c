@@ -118,30 +118,32 @@ enum yysymbol_kind_t
   YYSYMBOL_VARIABLE = 5,                   /* VARIABLE  */
   YYSYMBOL_FUNC0 = 6,                      /* FUNC0  */
   YYSYMBOL_FUNC1 = 7,                      /* FUNC1  */
-  YYSYMBOL_COMANDO0 = 8,                   /* COMANDO0  */
-  YYSYMBOL_COMANDO1 = 9,                   /* COMANDO1  */
-  YYSYMBOL_ARCHIVO = 10,                   /* ARCHIVO  */
-  YYSYMBOL_LIB = 11,                       /* LIB  */
-  YYSYMBOL_12_ = 12,                       /* '-'  */
-  YYSYMBOL_13_ = 13,                       /* '+'  */
-  YYSYMBOL_14_ = 14,                       /* '*'  */
-  YYSYMBOL_15_ = 15,                       /* '/'  */
-  YYSYMBOL_16_ = 16,                       /* '%'  */
-  YYSYMBOL_NEG = 17,                       /* NEG  */
-  YYSYMBOL_18_ = 18,                       /* '^'  */
-  YYSYMBOL_19_n_ = 19,                     /* '\n'  */
-  YYSYMBOL_20_ = 20,                       /* ';'  */
-  YYSYMBOL_21_ = 21,                       /* '('  */
-  YYSYMBOL_22_ = 22,                       /* ')'  */
-  YYSYMBOL_23_ = 23,                       /* '='  */
-  YYSYMBOL_24_ = 24,                       /* ','  */
-  YYSYMBOL_YYACCEPT = 25,                  /* $accept  */
-  YYSYMBOL_entrada = 26,                   /* entrada  */
-  YYSYMBOL_linea = 27,                     /* linea  */
-  YYSYMBOL_expresion = 28,                 /* expresion  */
-  YYSYMBOL_asignacion = 29,                /* asignacion  */
-  YYSYMBOL_comando = 30,                   /* comando  */
-  YYSYMBOL_funcion = 31                    /* funcion  */
+  YYSYMBOL_FUNC2 = 8,                      /* FUNC2  */
+  YYSYMBOL_COMANDO0 = 9,                   /* COMANDO0  */
+  YYSYMBOL_COMANDO1 = 10,                  /* COMANDO1  */
+  YYSYMBOL_ARCHIVO = 11,                   /* ARCHIVO  */
+  YYSYMBOL_LIB = 12,                       /* LIB  */
+  YYSYMBOL_13_ = 13,                       /* '-'  */
+  YYSYMBOL_14_ = 14,                       /* '+'  */
+  YYSYMBOL_15_ = 15,                       /* '*'  */
+  YYSYMBOL_16_ = 16,                       /* '/'  */
+  YYSYMBOL_17_ = 17,                       /* '%'  */
+  YYSYMBOL_NEG = 18,                       /* NEG  */
+  YYSYMBOL_19_ = 19,                       /* '^'  */
+  YYSYMBOL_20_n_ = 20,                     /* '\n'  */
+  YYSYMBOL_21_ = 21,                       /* ';'  */
+  YYSYMBOL_22_ = 22,                       /* ','  */
+  YYSYMBOL_23_ = 23,                       /* '('  */
+  YYSYMBOL_24_ = 24,                       /* ')'  */
+  YYSYMBOL_25_ = 25,                       /* '='  */
+  YYSYMBOL_YYACCEPT = 26,                  /* $accept  */
+  YYSYMBOL_entrada = 27,                   /* entrada  */
+  YYSYMBOL_linea = 28,                     /* linea  */
+  YYSYMBOL_lista_expresiones = 29,         /* lista_expresiones  */
+  YYSYMBOL_expresion = 30,                 /* expresion  */
+  YYSYMBOL_asignacion = 31,                /* asignacion  */
+  YYSYMBOL_comando = 32,                   /* comando  */
+  YYSYMBOL_funcion = 33                    /* funcion  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -469,19 +471,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   172
+#define YYLAST   228
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  25
+#define YYNTOKENS  26
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  46
+#define YYNRULES  53
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  89
+#define YYNSTATES  103
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   267
+#define YYMAXUTOK   268
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -496,15 +498,15 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      19,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      20,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,    16,     2,     2,
-      21,    22,    14,    13,    24,    12,     2,    15,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    20,
-       2,    23,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,    17,     2,     2,
+      23,    24,    15,    14,    22,    13,     2,    16,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    21,
+       2,    25,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    18,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    19,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -521,18 +523,19 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    17
+       5,     6,     7,     8,     9,    10,    11,    12,    18
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    45,    45,    50,    53,    54,    66,    77,    90,   101,
-     110,   119,   131,   142,   151,   152,   157,   167,   174,   181,
-     188,   195,   208,   221,   228,   237,   252,   267,   273,   282,
-     287,   292,   307,   322,   336,   350,   363,   376,   392,   398,
-     407,   419,   443,   466,   475,   482,   489
+       0,    47,    47,    52,    55,    56,    68,    79,    92,   103,
+     112,   121,   133,   144,   154,   161,   173,   174,   179,   189,
+     196,   203,   210,   217,   230,   243,   250,   259,   274,   289,
+     295,   304,   309,   314,   329,   344,   358,   372,   385,   398,
+     414,   420,   429,   441,   446,   451,   463,   480,   485,   509,
+     532,   541,   548,   555
 };
 #endif
 
@@ -549,10 +552,10 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "NUM", "CONSTANTE",
-  "VARIABLE", "FUNC0", "FUNC1", "COMANDO0", "COMANDO1", "ARCHIVO", "LIB",
-  "'-'", "'+'", "'*'", "'/'", "'%'", "NEG", "'^'", "'\\n'", "';'", "'('",
-  "')'", "'='", "','", "$accept", "entrada", "linea", "expresion",
-  "asignacion", "comando", "funcion", YY_NULLPTR
+  "VARIABLE", "FUNC0", "FUNC1", "FUNC2", "COMANDO0", "COMANDO1", "ARCHIVO",
+  "LIB", "'-'", "'+'", "'*'", "'/'", "'%'", "NEG", "'^'", "'\\n'", "';'",
+  "','", "'('", "')'", "'='", "$accept", "entrada", "linea",
+  "lista_expresiones", "expresion", "asignacion", "comando", "funcion", YY_NULLPTR
 };
 
 static const char *
@@ -562,7 +565,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-19)
+#define YYPACT_NINF (-18)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -576,15 +579,17 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -19,    28,   -19,   -18,   -19,    -7,    11,    17,    27,    -2,
-      43,     0,   -19,     0,   -19,   141,    32,    35,    37,   -19,
-      61,    61,     0,    39,   -19,   -19,   -19,    70,    72,   -19,
-     -19,    58,    97,     0,     0,     0,     0,     0,     0,   -19,
-      62,    38,   -19,    69,   -19,    75,   -19,    82,   151,   -19,
-     151,   -19,   108,   -19,    68,    81,    83,    85,   -19,    93,
-     -19,    -1,    -1,     2,     2,    58,    58,   -19,   -19,    71,
-     -19,   -19,   -19,   -19,   -19,   -19,   -19,   -19,    41,   -19,
-       0,   -19,    84,   119,   -19,     0,   -19,   130,   -19
+     -18,    29,   -18,    -2,   -18,    10,    15,   -15,    46,    54,
+      98,    49,    99,   -18,    99,   -18,   194,   -17,     1,    30,
+     -18,    93,    93,    40,    43,    63,   -18,   -18,   -18,    -4,
+      83,   -18,   -18,    70,   158,    99,    99,    99,    99,    99,
+      99,   -18,    73,    68,   -18,    79,   -18,    90,   -18,    91,
+     205,   -18,   205,   -18,   -18,    38,   110,   -18,    58,   122,
+     -18,    89,    94,    95,    96,   -18,    67,   -18,    42,    42,
+      66,    66,    70,    70,   -18,   -18,   134,   -18,   -18,   -18,
+      99,   -18,    99,   -18,   -18,   -18,   -18,   -18,   -18,   -18,
+      71,    99,   -18,     0,     0,   -18,   146,   170,    99,   -18,
+     -18,   182,   -18
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -592,27 +597,29 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     0,     1,     0,    14,    15,    16,     0,    29,    31,
-       0,     0,     4,     0,     3,     0,     0,     0,     0,    13,
-       0,     0,     0,     0,    35,    36,    38,     0,     0,    15,
-      16,    17,     0,     0,     0,     0,     0,     0,     0,     5,
-       0,     0,     7,     0,     9,     0,    11,     0,    27,    28,
-      25,    26,     0,    30,     0,     0,     0,     0,    32,     0,
-      24,    19,    18,    20,    21,    22,    23,     6,    46,     0,
-       8,    10,    12,    40,    37,    33,    34,    39,     0,    44,
-       0,    43,     0,     0,    41,     0,    45,     0,    42
+       2,     0,     1,     0,    16,    17,    18,     0,     0,    31,
+      33,     0,     0,     4,     0,     3,     0,     0,     0,     0,
+      13,     0,     0,     0,     0,     0,    37,    38,    40,     0,
+       0,    17,    18,    19,     0,     0,     0,     0,     0,     0,
+       0,     5,     0,     0,     7,     0,     9,     0,    11,     0,
+      29,    30,    27,    28,    43,     0,     0,    47,     0,     0,
+      32,     0,     0,     0,     0,    34,     0,    26,    21,    20,
+      22,    23,    24,    25,     6,    53,     0,     8,    10,    12,
+       0,    44,     0,    42,    45,    46,    39,    35,    36,    41,
+       0,     0,    51,    15,    14,    50,     0,     0,     0,    48,
+      52,     0,    49
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -19,   -19,   -19,   -11,   -19,   -19,    50
+     -18,   -18,   -18,   104,   -12,   -18,   -18,    33
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,    14,    15,    16,    17,    18
+       0,     1,    15,    55,    16,    17,    18,    19
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -620,81 +627,95 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      31,    19,    32,     4,    29,    30,    24,    25,    26,    48,
-      50,    52,    11,    35,    36,    37,    20,    38,    37,    27,
-      38,    13,    61,    62,    63,    64,    65,    66,     2,     3,
-      69,     4,     5,     6,    21,     7,     8,     9,    22,    10,
-      11,     4,    29,    30,     4,    29,    30,    12,    23,    13,
-      11,    42,    43,    11,    44,    45,    46,    47,    28,    13,
-      68,    53,    13,    81,     4,    29,    30,    82,     7,    83,
-      49,    51,    10,    11,    87,    54,    38,    59,    55,    56,
-      57,    67,    13,    33,    34,    35,    36,    37,    70,    38,
-      74,     0,    58,    79,    71,    80,    33,    34,    35,    36,
-      37,    72,    38,    75,     0,    76,    84,    77,    85,    33,
-      34,    35,    36,    37,    78,    38,     0,     0,     0,    60,
-      33,    34,    35,    36,    37,     0,    38,     0,     0,     0,
-      73,    33,    34,    35,    36,    37,     0,    38,     0,     0,
-       0,    86,    33,    34,    35,    36,    37,     0,    38,     0,
-       0,     0,    88,    33,    34,    35,    36,    37,     0,    38,
-      39,    40,    41,    33,    34,    35,    36,    37,     0,    38,
-       0,     0,    41
+      33,    61,    34,    44,    45,    62,    63,    64,    23,    50,
+      52,    56,    59,    35,    36,    37,    38,    39,    20,    40,
+      65,    46,    47,    68,    69,    70,    71,    72,    73,     2,
+       3,    76,     4,     5,     6,    21,     7,     8,     9,    10,
+      22,    11,    12,     4,    31,    32,     4,    31,    32,    13,
+      48,    49,    14,    12,    51,    53,    12,    37,    38,    39,
+      80,    40,    81,    14,    54,    30,    14,    57,    93,    24,
+      94,     4,    31,    32,     4,    31,    32,    25,    96,    97,
+      80,    12,    84,    39,    12,    40,   101,    60,    66,    40,
+      90,    14,    75,    74,    14,    95,     4,    31,    32,    77,
+       7,     8,     4,    31,    32,    11,    12,    26,    27,    28,
+      78,    79,    12,    86,     0,     0,    14,     0,    87,    88,
+      89,    29,    14,    35,    36,    37,    38,    39,    58,    40,
+       0,     0,    82,     0,    83,    35,    36,    37,    38,    39,
+       0,    40,     0,     0,    82,     0,    85,    35,    36,    37,
+      38,    39,     0,    40,     0,     0,    91,     0,    92,    35,
+      36,    37,    38,    39,     0,    40,     0,     0,    98,     0,
+      99,    35,    36,    37,    38,    39,     0,    40,     0,     0,
+       0,     0,    67,    35,    36,    37,    38,    39,     0,    40,
+       0,     0,     0,     0,   100,    35,    36,    37,    38,    39,
+       0,    40,     0,     0,     0,     0,   102,    35,    36,    37,
+      38,    39,     0,    40,    41,    42,     0,    43,    35,    36,
+      37,    38,    39,     0,    40,     0,     0,     0,    43
 };
 
 static const yytype_int8 yycheck[] =
 {
-      11,    19,    13,     3,     4,     5,     8,     9,    10,    20,
-      21,    22,    12,    14,    15,    16,    23,    18,    16,    21,
-      18,    21,    33,    34,    35,    36,    37,    38,     0,     1,
-      41,     3,     4,     5,    23,     7,     8,     9,    21,    11,
-      12,     3,     4,     5,     3,     4,     5,    19,    21,    21,
-      12,    19,    20,    12,    19,    20,    19,    20,    15,    21,
-      22,    22,    21,    22,     3,     4,     5,    78,     7,    80,
-      20,    21,    11,    12,    85,     5,    18,     5,     8,     9,
-      10,    19,    21,    12,    13,    14,    15,    16,    19,    18,
-      22,    -1,    22,    22,    19,    24,    12,    13,    14,    15,
-      16,    19,    18,    22,    -1,    22,    22,    22,    24,    12,
-      13,    14,    15,    16,    21,    18,    -1,    -1,    -1,    22,
-      12,    13,    14,    15,    16,    -1,    18,    -1,    -1,    -1,
-      22,    12,    13,    14,    15,    16,    -1,    18,    -1,    -1,
-      -1,    22,    12,    13,    14,    15,    16,    -1,    18,    -1,
-      -1,    -1,    22,    12,    13,    14,    15,    16,    -1,    18,
-      19,    20,    21,    12,    13,    14,    15,    16,    -1,    18,
-      -1,    -1,    21
+      12,     5,    14,    20,    21,     9,    10,    11,    23,    21,
+      22,    23,    24,    13,    14,    15,    16,    17,    20,    19,
+      24,    20,    21,    35,    36,    37,    38,    39,    40,     0,
+       1,    43,     3,     4,     5,    25,     7,     8,     9,    10,
+      25,    12,    13,     3,     4,     5,     3,     4,     5,    20,
+      20,    21,    23,    13,    21,    22,    13,    15,    16,    17,
+      22,    19,    24,    23,    24,    16,    23,    24,    80,    23,
+      82,     3,     4,     5,     3,     4,     5,    23,    90,    91,
+      22,    13,    24,    17,    13,    19,    98,    24,     5,    19,
+      23,    23,    24,    20,    23,    24,     3,     4,     5,    20,
+       7,     8,     3,     4,     5,    12,    13,     9,    10,    11,
+      20,    20,    13,    24,    -1,    -1,    23,    -1,    24,    24,
+      24,    23,    23,    13,    14,    15,    16,    17,    24,    19,
+      -1,    -1,    22,    -1,    24,    13,    14,    15,    16,    17,
+      -1,    19,    -1,    -1,    22,    -1,    24,    13,    14,    15,
+      16,    17,    -1,    19,    -1,    -1,    22,    -1,    24,    13,
+      14,    15,    16,    17,    -1,    19,    -1,    -1,    22,    -1,
+      24,    13,    14,    15,    16,    17,    -1,    19,    -1,    -1,
+      -1,    -1,    24,    13,    14,    15,    16,    17,    -1,    19,
+      -1,    -1,    -1,    -1,    24,    13,    14,    15,    16,    17,
+      -1,    19,    -1,    -1,    -1,    -1,    24,    13,    14,    15,
+      16,    17,    -1,    19,    20,    21,    -1,    23,    13,    14,
+      15,    16,    17,    -1,    19,    -1,    -1,    -1,    23
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    26,     0,     1,     3,     4,     5,     7,     8,     9,
-      11,    12,    19,    21,    27,    28,    29,    30,    31,    19,
-      23,    23,    21,    21,     8,     9,    10,    21,    15,     4,
-       5,    28,    28,    12,    13,    14,    15,    16,    18,    19,
-      20,    21,    19,    20,    19,    20,    19,    20,    28,    31,
-      28,    31,    28,    22,     5,     8,     9,    10,    22,     5,
-      22,    28,    28,    28,    28,    28,    28,    19,    22,    28,
-      19,    19,    19,    22,    22,    22,    22,    22,    21,    22,
-      24,    22,    28,    28,    22,    24,    22,    28,    22
+       0,    27,     0,     1,     3,     4,     5,     7,     8,     9,
+      10,    12,    13,    20,    23,    28,    30,    31,    32,    33,
+      20,    25,    25,    23,    23,    23,     9,    10,    11,    23,
+      16,     4,     5,    30,    30,    13,    14,    15,    16,    17,
+      19,    20,    21,    23,    20,    21,    20,    21,    20,    21,
+      30,    33,    30,    33,    24,    29,    30,    24,    29,    30,
+      24,     5,     9,    10,    11,    24,     5,    24,    30,    30,
+      30,    30,    30,    30,    20,    24,    30,    20,    20,    20,
+      22,    24,    22,    24,    24,    24,    24,    24,    24,    24,
+      23,    22,    24,    30,    30,    24,    30,    30,    22,    24,
+      24,    30,    24
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    25,    26,    26,    27,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    28,    28,    28,    28,    28,    28,
-      28,    28,    28,    28,    28,    29,    29,    29,    29,    30,
-      30,    30,    30,    30,    30,    30,    30,    30,    30,    30,
-      31,    31,    31,    31,    31,    31,    31
+       0,    26,    27,    27,    28,    28,    28,    28,    28,    28,
+      28,    28,    28,    28,    29,    29,    30,    30,    30,    30,
+      30,    30,    30,    30,    30,    30,    30,    31,    31,    31,
+      31,    32,    32,    32,    32,    32,    32,    32,    32,    32,
+      32,    32,    33,    33,    33,    33,    33,    33,    33,    33,
+      33,    33,    33,    33
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     0,     2,     1,     2,     3,     2,     3,     2,
-       3,     2,     3,     2,     1,     1,     1,     2,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     1,
-       3,     1,     3,     4,     4,     2,     2,     4,     2,     4,
-       4,     6,     8,     5,     4,     6,     3
+       3,     2,     3,     2,     3,     3,     1,     1,     1,     2,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     1,     3,     1,     3,     4,     4,     2,     2,     4,
+       2,     4,     4,     3,     4,     4,     4,     3,     6,     8,
+       5,     4,     6,     3
 };
 
 
@@ -1158,23 +1179,23 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* entrada: %empty  */
-#line 45 "bison.y"
+#line 47 "bison.y"
                         {
                             if (!script) {
                                 printf(CYAN">"RESET" ");
                             }
                         }
-#line 1168 "bison.tab.c"
+#line 1189 "bison.tab.c"
     break;
 
   case 4: /* linea: '\n'  */
-#line 53 "bison.y"
+#line 55 "bison.y"
                         { printf(CYAN">"RESET" "); }
-#line 1174 "bison.tab.c"
+#line 1195 "bison.tab.c"
     break;
 
   case 5: /* linea: expresion '\n'  */
-#line 54 "bison.y"
+#line 56 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-1].numero))) {
@@ -1187,11 +1208,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1191 "bison.tab.c"
+#line 1212 "bison.tab.c"
     break;
 
   case 6: /* linea: expresion ';' '\n'  */
-#line 66 "bison.y"
+#line 68 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1203,11 +1224,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1207 "bison.tab.c"
+#line 1228 "bison.tab.c"
     break;
 
   case 7: /* linea: asignacion '\n'  */
-#line 77 "bison.y"
+#line 79 "bison.y"
                               {
                             if (!error) {
                                 if (isnan((yyvsp[-1].numero))) {
@@ -1221,11 +1242,11 @@ yyreduce:
                             }
                             error = false;
                         }
-#line 1225 "bison.tab.c"
+#line 1246 "bison.tab.c"
     break;
 
   case 8: /* linea: asignacion ';' '\n'  */
-#line 90 "bison.y"
+#line 92 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1237,11 +1258,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1241 "bison.tab.c"
+#line 1262 "bison.tab.c"
     break;
 
   case 9: /* linea: comando '\n'  */
-#line 101 "bison.y"
+#line 103 "bison.y"
                                {
                                 if (isnan((yyvsp[-1].numero)) && !error) {
                                     lanzar_error("NAN_DETECTADO");
@@ -1251,11 +1272,11 @@ yyreduce:
                                 }
                                 error = false;
                             }
-#line 1255 "bison.tab.c"
+#line 1276 "bison.tab.c"
     break;
 
   case 10: /* linea: comando ';' '\n'  */
-#line 110 "bison.y"
+#line 112 "bison.y"
                                    {
                                     if (isnan((yyvsp[-2].numero)) && !error) {
                                         lanzar_error("NAN_DETECTADO");
@@ -1265,11 +1286,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1269 "bison.tab.c"
+#line 1290 "bison.tab.c"
     break;
 
   case 11: /* linea: funcion '\n'  */
-#line 119 "bison.y"
+#line 121 "bison.y"
                                 {
                                 if (!error) {
                                     if (isnan((yyvsp[-1].numero))) {
@@ -1282,11 +1303,11 @@ yyreduce:
                                 }
                                 error = false;
                             }
-#line 1286 "bison.tab.c"
+#line 1307 "bison.tab.c"
     break;
 
   case 12: /* linea: funcion ';' '\n'  */
-#line 131 "bison.y"
+#line 133 "bison.y"
                                  {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1298,32 +1319,59 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1302 "bison.tab.c"
+#line 1323 "bison.tab.c"
     break;
 
   case 13: /* linea: error '\n'  */
-#line 142 "bison.y"
+#line 144 "bison.y"
                             {
                                 yyerrok;
                                 if (!error) {
                                     printf(CYAN">"RESET" ");
                                 }
                             }
-#line 1313 "bison.tab.c"
+#line 1334 "bison.tab.c"
     break;
 
-  case 15: /* expresion: CONSTANTE  */
-#line 152 "bison.y"
+  case 14: /* lista_expresiones: expresion ',' expresion  */
+#line 154 "bison.y"
+                            {
+        // Crear un array con los dos primeros valores y agregar NAN al final
+        (yyval.arr) = malloc(3 * sizeof(double));
+        (yyval.arr)[0] = (yyvsp[-2].numero);
+        (yyval.arr)[1] = (yyvsp[0].numero);
+        (yyval.arr)[2] = NAN;  // Marcador de final
+    }
+#line 1346 "bison.tab.c"
+    break;
+
+  case 15: /* lista_expresiones: lista_expresiones ',' expresion  */
+#line 161 "bison.y"
+                                      {
+        // Obtener tamaño actual del array (contando hasta NAN)
+        int len = 0;
+        while (!isnan((yyvsp[-2].arr)[len])) len++;
+
+        // Ampliar el array para incluir una nueva expresión + NAN al final
+        (yyval.arr) = realloc((yyvsp[-2].arr), (len + 2) * sizeof(double));
+        (yyval.arr)[len] = (yyvsp[0].numero);
+        (yyval.arr)[len + 1] = NAN;  // Mantener NAN al final
+    }
+#line 1361 "bison.tab.c"
+    break;
+
+  case 17: /* expresion: CONSTANTE  */
+#line 174 "bison.y"
                             {
                             c = buscar_elemento((yyvsp[0].cadena));
                             (yyval.numero) = c.valor.var;
                             free((yyvsp[0].cadena));
                         }
-#line 1323 "bison.tab.c"
+#line 1371 "bison.tab.c"
     break;
 
-  case 16: /* expresion: VARIABLE  */
-#line 157 "bison.y"
+  case 18: /* expresion: VARIABLE  */
+#line 179 "bison.y"
                              {
                             if ((c = buscar_elemento((yyvsp[0].cadena))).lexema != NULL) {
                                 (yyval.numero) = c.valor.var;
@@ -1334,11 +1382,11 @@ yyreduce:
                             }
                             free((yyvsp[0].cadena));
                         }
-#line 1338 "bison.tab.c"
+#line 1386 "bison.tab.c"
     break;
 
-  case 17: /* expresion: '-' expresion  */
-#line 167 "bison.y"
+  case 19: /* expresion: '-' expresion  */
+#line 189 "bison.y"
                                   {
                                  if (!isnan((yyvsp[0].numero))) {
                                      (yyval.numero) = -(yyvsp[0].numero);
@@ -1346,11 +1394,11 @@ yyreduce:
                                      (yyval.numero) = NAN;
                                  }
                             }
-#line 1350 "bison.tab.c"
+#line 1398 "bison.tab.c"
     break;
 
-  case 18: /* expresion: expresion '+' expresion  */
-#line 174 "bison.y"
+  case 20: /* expresion: expresion '+' expresion  */
+#line 196 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) + (yyvsp[0].numero);
@@ -1358,11 +1406,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1362 "bison.tab.c"
+#line 1410 "bison.tab.c"
     break;
 
-  case 19: /* expresion: expresion '-' expresion  */
-#line 181 "bison.y"
+  case 21: /* expresion: expresion '-' expresion  */
+#line 203 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) - (yyvsp[0].numero);
@@ -1370,11 +1418,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1374 "bison.tab.c"
+#line 1422 "bison.tab.c"
     break;
 
-  case 20: /* expresion: expresion '*' expresion  */
-#line 188 "bison.y"
+  case 22: /* expresion: expresion '*' expresion  */
+#line 210 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) * (yyvsp[0].numero);
@@ -1382,11 +1430,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1386 "bison.tab.c"
+#line 1434 "bison.tab.c"
     break;
 
-  case 21: /* expresion: expresion '/' expresion  */
-#line 195 "bison.y"
+  case 23: /* expresion: expresion '/' expresion  */
+#line 217 "bison.y"
                                     {
                             if ((yyvsp[0].numero) == 0) {
                                 lanzar_error("DIV_CERO");
@@ -1400,11 +1448,11 @@ yyreduce:
                                 }
                             }
                         }
-#line 1404 "bison.tab.c"
+#line 1452 "bison.tab.c"
     break;
 
-  case 22: /* expresion: expresion '%' expresion  */
-#line 208 "bison.y"
+  case 24: /* expresion: expresion '%' expresion  */
+#line 230 "bison.y"
                                     {
                             if ((yyvsp[0].numero) == 0) {
                                 lanzar_error("MOD_CERO");
@@ -1418,11 +1466,11 @@ yyreduce:
                                 }
                             }
                         }
-#line 1422 "bison.tab.c"
+#line 1470 "bison.tab.c"
     break;
 
-  case 23: /* expresion: expresion '^' expresion  */
-#line 221 "bison.y"
+  case 25: /* expresion: expresion '^' expresion  */
+#line 243 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = pow((yyvsp[-2].numero), (yyvsp[0].numero));
@@ -1430,11 +1478,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1434 "bison.tab.c"
+#line 1482 "bison.tab.c"
     break;
 
-  case 24: /* expresion: '(' expresion ')'  */
-#line 228 "bison.y"
+  case 26: /* expresion: '(' expresion ')'  */
+#line 250 "bison.y"
                               {
                              if (!isnan((yyvsp[-1].numero))) {
                                  (yyval.numero) = (yyvsp[-1].numero);
@@ -1442,11 +1490,11 @@ yyreduce:
                                  (yyval.numero) = NAN;
                              }
                          }
-#line 1446 "bison.tab.c"
+#line 1494 "bison.tab.c"
     break;
 
-  case 25: /* asignacion: VARIABLE '=' expresion  */
-#line 237 "bison.y"
+  case 27: /* asignacion: VARIABLE '=' expresion  */
+#line 259 "bison.y"
                                          {
                            if (!error) {
                                if ((c = buscar_elemento((yyvsp[-2].cadena))).lexema != NULL) {
@@ -1462,11 +1510,11 @@ yyreduce:
                            (yyval.numero) = (yyvsp[0].numero);
                            free((yyvsp[-2].cadena));
                         }
-#line 1466 "bison.tab.c"
+#line 1514 "bison.tab.c"
     break;
 
-  case 26: /* asignacion: VARIABLE '=' funcion  */
-#line 252 "bison.y"
+  case 28: /* asignacion: VARIABLE '=' funcion  */
+#line 274 "bison.y"
                                  {
                            if (!error) {
                                if ((c = buscar_elemento((yyvsp[-2].cadena))).lexema != NULL) {
@@ -1482,53 +1530,53 @@ yyreduce:
                            (yyval.numero) = (yyvsp[0].numero);
                            free((yyvsp[-2].cadena));
                         }
-#line 1486 "bison.tab.c"
+#line 1534 "bison.tab.c"
     break;
 
-  case 27: /* asignacion: CONSTANTE '=' expresion  */
-#line 267 "bison.y"
+  case 29: /* asignacion: CONSTANTE '=' expresion  */
+#line 289 "bison.y"
                                   {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             (yyval.numero) = NAN;
                             free((yyvsp[-2].cadena));
                         }
-#line 1497 "bison.tab.c"
+#line 1545 "bison.tab.c"
     break;
 
-  case 28: /* asignacion: CONSTANTE '=' funcion  */
-#line 273 "bison.y"
+  case 30: /* asignacion: CONSTANTE '=' funcion  */
+#line 295 "bison.y"
                                 {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             (yyval.numero) = NAN;
                             free((yyvsp[-2].cadena));
                         }
-#line 1508 "bison.tab.c"
+#line 1556 "bison.tab.c"
     break;
 
-  case 29: /* comando: COMANDO0  */
-#line 282 "bison.y"
+  case 31: /* comando: COMANDO0  */
+#line 304 "bison.y"
                                     {
                                         c = buscar_elemento((yyvsp[0].cadena));
                                         free((yyvsp[0].cadena));
                                         (*(c.valor.funcptr))();
                                     }
-#line 1518 "bison.tab.c"
+#line 1566 "bison.tab.c"
     break;
 
-  case 30: /* comando: COMANDO0 '(' ')'  */
-#line 287 "bison.y"
+  case 32: /* comando: COMANDO0 '(' ')'  */
+#line 309 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-2].cadena));
                                         free((yyvsp[-2].cadena));
                                         (*(c.valor.funcptr))();
                                     }
-#line 1528 "bison.tab.c"
+#line 1576 "bison.tab.c"
     break;
 
-  case 31: /* comando: COMANDO1  */
-#line 292 "bison.y"
+  case 33: /* comando: COMANDO1  */
+#line 314 "bison.y"
                     {
                                         c = buscar_elemento((yyvsp[0].cadena));
                                         int result1 = strcmp(c.lexema, "clear");
@@ -1544,11 +1592,11 @@ yyreduce:
                                         }
                                         free((yyvsp[0].cadena));
                                     }
-#line 1548 "bison.tab.c"
+#line 1596 "bison.tab.c"
     break;
 
-  case 32: /* comando: COMANDO1 '(' ')'  */
-#line 307 "bison.y"
+  case 34: /* comando: COMANDO1 '(' ')'  */
+#line 329 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-2].cadena));
                                         int result1 = strcmp(c.lexema, "clear");
@@ -1564,11 +1612,11 @@ yyreduce:
                                         }
                                         free((yyvsp[-2].cadena));
                                        }
-#line 1568 "bison.tab.c"
+#line 1616 "bison.tab.c"
     break;
 
-  case 33: /* comando: COMANDO1 '(' COMANDO0 ')'  */
-#line 322 "bison.y"
+  case 35: /* comando: COMANDO1 '(' COMANDO0 ')'  */
+#line 344 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-3].cadena));
                                         int result1 = strcmp(c.lexema, "help");
@@ -1583,11 +1631,11 @@ yyreduce:
                                         free((yyvsp[-3].cadena));
                                         free((yyvsp[-1].cadena));
                                        }
-#line 1587 "bison.tab.c"
+#line 1635 "bison.tab.c"
     break;
 
-  case 34: /* comando: COMANDO1 '(' COMANDO1 ')'  */
-#line 336 "bison.y"
+  case 36: /* comando: COMANDO1 '(' COMANDO1 ')'  */
+#line 358 "bison.y"
                                        {
                                                 c = buscar_elemento((yyvsp[-3].cadena));
                                                 int result1 = strcmp(c.lexema, "help");
@@ -1602,11 +1650,11 @@ yyreduce:
                                                 free((yyvsp[-3].cadena));
                                                 free((yyvsp[-1].cadena));
                                                }
-#line 1606 "bison.tab.c"
+#line 1654 "bison.tab.c"
     break;
 
-  case 35: /* comando: COMANDO1 COMANDO0  */
-#line 350 "bison.y"
+  case 37: /* comando: COMANDO1 COMANDO0  */
+#line 372 "bison.y"
                                      {
                                         c = buscar_elemento((yyvsp[-1].cadena));
                                         int result1 = strcmp(c.lexema, "?");
@@ -1620,11 +1668,11 @@ yyreduce:
                                         free((yyvsp[-1].cadena));
                                         free((yyvsp[0].cadena));
                                      }
-#line 1624 "bison.tab.c"
+#line 1672 "bison.tab.c"
     break;
 
-  case 36: /* comando: COMANDO1 COMANDO1  */
-#line 363 "bison.y"
+  case 38: /* comando: COMANDO1 COMANDO1  */
+#line 385 "bison.y"
                                      {
                                                 c = buscar_elemento((yyvsp[-1].cadena));
                                                 int result1 = strcmp(c.lexema, "?");
@@ -1638,11 +1686,11 @@ yyreduce:
                                                 free((yyvsp[-1].cadena));
                                                 free((yyvsp[0].cadena));
                                              }
-#line 1642 "bison.tab.c"
+#line 1690 "bison.tab.c"
     break;
 
-  case 37: /* comando: COMANDO1 '(' VARIABLE ')'  */
-#line 376 "bison.y"
+  case 39: /* comando: COMANDO1 '(' VARIABLE ')'  */
+#line 398 "bison.y"
                                      {
                                          c = buscar_elemento((yyvsp[-3].cadena));
                                          int result1 = strcmp(c.lexema, "echo");
@@ -1659,33 +1707,33 @@ yyreduce:
                                          }
                                          free((yyvsp[-3].cadena));
                                       }
-#line 1663 "bison.tab.c"
+#line 1711 "bison.tab.c"
     break;
 
-  case 38: /* comando: COMANDO1 ARCHIVO  */
-#line 392 "bison.y"
+  case 40: /* comando: COMANDO1 ARCHIVO  */
+#line 414 "bison.y"
                                         {
                                         c = buscar_elemento((yyvsp[-1].cadena));
                                         (*(c.valor.funcptr))((yyvsp[0].cadena));
                                         free((yyvsp[-1].cadena));
                                         free((yyvsp[0].cadena));
                                      }
-#line 1674 "bison.tab.c"
+#line 1722 "bison.tab.c"
     break;
 
-  case 39: /* comando: COMANDO1 '(' ARCHIVO ')'  */
-#line 398 "bison.y"
+  case 41: /* comando: COMANDO1 '(' ARCHIVO ')'  */
+#line 420 "bison.y"
                                         {
                                         c = buscar_elemento((yyvsp[-3].cadena));
                                         (*(c.valor.funcptr))((yyvsp[-1].cadena));
                                         free((yyvsp[-3].cadena));
                                         free((yyvsp[-1].cadena));
                                      }
-#line 1685 "bison.tab.c"
+#line 1733 "bison.tab.c"
     break;
 
-  case 40: /* funcion: FUNC1 '(' expresion ')'  */
-#line 407 "bison.y"
+  case 42: /* funcion: FUNC1 '(' expresion ')'  */
+#line 429 "bison.y"
                                  {
                                                 c = buscar_elemento((yyvsp[-3].cadena));
                                                 if (c.lexema != NULL && c.valor.funcptr != NULL) {
@@ -1698,11 +1746,80 @@ yyreduce:
                                                 free((yyvsp[-3].cadena));
 
                                           }
-#line 1702 "bison.tab.c"
+#line 1750 "bison.tab.c"
     break;
 
-  case 41: /* funcion: LIB '/' VARIABLE '(' expresion ')'  */
-#line 419 "bison.y"
+  case 43: /* funcion: FUNC1 '(' ')'  */
+#line 441 "bison.y"
+                                          {
+                                                lanzar_error("La función tiene un argumento");
+                                                error = true;
+                                                (yyval.numero) = NAN;
+                                          }
+#line 1760 "bison.tab.c"
+    break;
+
+  case 44: /* funcion: FUNC1 '(' lista_expresiones ')'  */
+#line 446 "bison.y"
+                                                            {
+                                                lanzar_error("La función tiene un argumento");
+                                                error = true;
+                                                (yyval.numero) = NAN;
+                                          }
+#line 1770 "bison.tab.c"
+    break;
+
+  case 45: /* funcion: FUNC2 '(' lista_expresiones ')'  */
+#line 451 "bison.y"
+                                          {
+                                                c = buscar_elemento((yyvsp[-3].cadena));
+                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                    (yyval.numero) = (*(c.valor.funcptr))((yyvsp[-1].arr));
+                                                } else {
+                                                    lanzar_error("No se encuentra la función básica");
+                                                    error = true;
+                                                    (yyval.numero) = NAN;
+                                                }
+                                                free((yyvsp[-3].cadena));
+                                                free((yyvsp[-1].arr));
+                                          }
+#line 1787 "bison.tab.c"
+    break;
+
+  case 46: /* funcion: FUNC2 '(' expresion ')'  */
+#line 463 "bison.y"
+                                          {
+                                                double* array = (double *)malloc(2 * sizeof(double));
+                                                array[0] = (yyvsp[-1].numero);
+                                                array[1] = NAN;
+
+                                                c = buscar_elemento((yyvsp[-3].cadena));
+                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                    (yyval.numero) = (*(c.valor.funcptr))(array);
+                                                } else {
+                                                    lanzar_error("No se encuentra la función básica");
+                                                    error = true;
+                                                    (yyval.numero) = NAN;
+                                                }
+                                                free((yyvsp[-3].cadena));
+                                                free(array);
+
+                                          }
+#line 1809 "bison.tab.c"
+    break;
+
+  case 47: /* funcion: FUNC2 '(' ')'  */
+#line 480 "bison.y"
+                                          {
+                                                lanzar_error("La función tiene argumentos");
+                                                error = true;
+                                                (yyval.numero) = NAN;
+                                          }
+#line 1819 "bison.tab.c"
+    break;
+
+  case 48: /* funcion: LIB '/' VARIABLE '(' expresion ')'  */
+#line 485 "bison.y"
                                               {
                                                 /*
                                                 c = buscar_elemento($1);
@@ -1727,11 +1844,11 @@ yyreduce:
                                                 */
 
                                             }
-#line 1731 "bison.tab.c"
+#line 1848 "bison.tab.c"
     break;
 
-  case 42: /* funcion: LIB '/' VARIABLE '(' expresion ',' expresion ')'  */
-#line 443 "bison.y"
+  case 49: /* funcion: LIB '/' VARIABLE '(' expresion ',' expresion ')'  */
+#line 509 "bison.y"
                                                              {
                                                 /*
                                                 c = buscar_elemento($1);
@@ -1755,11 +1872,11 @@ yyreduce:
                                                 free($3);
                                                 */
                                             }
-#line 1759 "bison.tab.c"
+#line 1876 "bison.tab.c"
     break;
 
-  case 43: /* funcion: LIB '/' VARIABLE '(' ')'  */
-#line 466 "bison.y"
+  case 50: /* funcion: LIB '/' VARIABLE '(' ')'  */
+#line 532 "bison.y"
                                                  {
                                                 /*
                                                 lanzar_error("PARAMETROS_NON_INDICADOS");
@@ -1769,11 +1886,11 @@ yyreduce:
                                                 free($3);
                                                 */
                                             }
-#line 1773 "bison.tab.c"
+#line 1890 "bison.tab.c"
     break;
 
-  case 44: /* funcion: expresion '(' expresion ')'  */
-#line 475 "bison.y"
+  case 51: /* funcion: expresion '(' expresion ')'  */
+#line 541 "bison.y"
                                                         {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -1781,11 +1898,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 1785 "bison.tab.c"
+#line 1902 "bison.tab.c"
     break;
 
-  case 45: /* funcion: expresion '(' expresion ',' expresion ')'  */
-#line 482 "bison.y"
+  case 52: /* funcion: expresion '(' expresion ',' expresion ')'  */
+#line 548 "bison.y"
                                                               {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -1793,11 +1910,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 1797 "bison.tab.c"
+#line 1914 "bison.tab.c"
     break;
 
-  case 46: /* funcion: expresion '(' ')'  */
-#line 489 "bison.y"
+  case 53: /* funcion: expresion '(' ')'  */
+#line 555 "bison.y"
                                                   {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -1805,11 +1922,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 1809 "bison.tab.c"
+#line 1926 "bison.tab.c"
     break;
 
 
-#line 1813 "bison.tab.c"
+#line 1930 "bison.tab.c"
 
       default: break;
     }
@@ -2002,7 +2119,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 498 "bison.y"
+#line 564 "bison.y"
 
 
 void yyerror(char* s) {
