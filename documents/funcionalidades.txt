@@ -17,3 +17,4 @@ A implementar:
     - hacer que "error: sintaxis no válida" no termine el programa
     - history de comandos y desplazarse / borrar pantalla (clean)
     - import de libreria dinamica
+    - incorporar alguna funcion de 2 argumentos, como max y min, con COMANDO2 o FUNC2 (ver)

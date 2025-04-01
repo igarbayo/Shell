@@ -139,6 +139,12 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
+        | error '\n'        {
+                                yyerrok;
+                                if (!error) {
+                                    printf(CYAN">"RESET" ");
+                                }
+                            }
 
 ;
 
@@ -492,7 +498,7 @@ funcion:
 %%
 
 void yyerror(char* s) {
-    lanzar_error("Sintaxis no válida");
+    lanzar_error("ERROR SINTÁCTICO");
 }
 
 void cambiar_echo(double valor) {
