@@ -91,7 +91,7 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
 <<EOF>>	{
                         if (yyin != stdin) {  // Si estamos leyendo desde un archivo
                             fclose(yyin);      // Cierra el archivo
-                            yyin = stdin;      // Cambia la entrada a stdin
+                            yyin = original_file;      // Cambia la entrada a stdin
                             yyrestart(yyin);   // Reinicia el analizador léxico
                             ejecutar_script(0);
                         } else {

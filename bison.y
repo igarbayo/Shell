@@ -1,15 +1,16 @@
 %{
-#include <math.h>
 #include "flex.yy.h"
 #include "tabla_simbolos.h"
 #include "errores.h"
 #include <stdbool.h>
+# include "interprete.h"
 
 // Variables globales
 contenedor c;
 bool hacerEcho = true;
 bool script = false;
 bool error = false;
+double ANS = NAN;
 
 %}
 
@@ -59,6 +60,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN_DETECTADO");
                                         }
                                         printf(VERDE"  %lf"RESET"\n\n", $1);
+                                        ANS = $1;
                                     }
                                     if (!script) {
                                         printf(CYAN">"RESET" ");
@@ -83,6 +85,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 } else if (hacerEcho) {
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
                                 }
+                                ANS = $1;
                             }
                             if (!script) {
                                 printf(CYAN">"RESET" ");
@@ -124,6 +127,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         lanzar_error("NAN_DETECTADO");
                                     }
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
+                                    ANS = $1;
                                 }
                                 if (!script) {
                                     printf(CYAN">"RESET" ");
@@ -180,9 +184,14 @@ expresion:    NUM
                             if ((c = buscar_elemento($1)).lexema != NULL) {
                                 $$ = c.valor.var;
                             } else {
-                                lanzar_error("VARIABLE_NON_DEFINIDA");
-                                error = true;
-                                $$ = NAN;
+                                int result = strcmp($1, "ANS");
+                                if (result == 0) {
+                                    $$ = ANS;
+                                } else {
+                                    lanzar_error("VARIABLE_NON_DEFINIDA");
+                                    error = true;
+                                    $$ = NAN;
+                                }
                             }
                             free($1);
                         }
@@ -215,11 +224,11 @@ expresion:    NUM
                             }
                         }
         | expresion '/' expresion   {
-                            if ($3 == 0) {
+                            if (fabs($3) < TOLERANCIA) {
                                 lanzar_error("DIV_CERO");
                                 error = true;
                                 $$ = NAN;
-                            } else {
+                            } else { printf("\nNo es 0\n");
                                 if (!isnan($1) && !isnan($3)) {
                                     $$ = $1 / $3;
                                 } else {
@@ -228,7 +237,7 @@ expresion:    NUM
                             }
                         }
         | expresion '%' expresion   {
-                            if ($3 == 0) {
+                            if (fabs($3) < TOLERANCIA) {
                                 lanzar_error("MOD_CERO");
                                 error = true;
                                 $$ = NAN;
@@ -248,12 +257,12 @@ expresion:    NUM
                             }
                         }
         | '(' expresion ')'   {
-                             if (!isnan($2)) {
-                                 $$ = $2;
-                             } else {
-                                 $$ = NAN;
-                             }
-                         }
+                                                       if (!isnan($2)) {
+                                                           $$ = $2;
+                                                       } else {
+                                                           $$ = NAN;
+                                                       }
+                                                   }
 ;
 
 asignacion:   VARIABLE '=' expresion     {
@@ -482,6 +491,69 @@ funcion:
                                                 error = true;
                                                 $$ = NAN;
                                           }
+        | funcion '+' funcion{
+                                    if (!isnan($1) && !isnan($3)) {
+                                        $$ = $1 + $3;
+                                    } else {
+                                        $$ = NAN;
+                                    }
+                                }
+        | funcion '-' funcion   {
+                                   if (!isnan($1) && !isnan($3)) {
+                                       $$ = $1 - $3;
+                                   } else {
+                                       $$ = NAN;
+                                   }
+                               }
+        | funcion '*' funcion   {
+                                   if (!isnan($1) && !isnan($3)) {
+                                       $$ = $1 * $3;
+                                   } else {
+                                       $$ = NAN;
+                                   }
+                               }
+        | funcion '/' funcion   {
+                                   if (fabs($3) < TOLERANCIA) {
+                                       lanzar_error("DIV_CERO");
+                                       error = true;
+                                       $$ = NAN;
+                                   } else {
+                                       if (!isnan($1) && !isnan($3)) {
+                                           $$ = $1 / $3;
+                                       } else {
+                                           $$ = NAN;
+                                       }
+                                   }
+                               }
+        | funcion '%' funcion   {
+                                   if (fabs($3) < TOLERANCIA) {
+                                       lanzar_error("MOD_CERO");
+                                       error = true;
+                                       $$ = NAN;
+                                   } else {
+                                       if (!isnan($1) && !isnan($3)) {
+                                           $$ = fmod($1, $3);
+                                       } else {
+                                           $$ = NAN;
+                                       }
+                                   }
+                               }
+        | funcion '^' funcion   {
+                                   if (!isnan($1) && !isnan($3)) {
+                                       $$ = pow($1, $3);
+                                   } else {
+                                       $$ = NAN;
+                                   }
+                               }
+        | '(' funcion ')'   {
+                                    if (!isnan($2)) {
+                                        $$ = $2;
+                                    } else {
+                                        $$ = NAN;
+                                    }
+                                }
+
+
         | LIB '/' VARIABLE '(' expresion ')'  {
                                                 /*
                                                 c = buscar_elemento($1);

@@ -886,8 +886,9 @@ case YY_STATE_EOF(INITIAL):
 #line 91 "flex.l"
 {
                         if (yyin != stdin) {  // Si estamos leyendo desde un archivo
+                            FILE* original_file = yyin;
                             fclose(yyin);      // Cierra el archivo
-                            yyin = stdin;      // Cambia la entrada a stdin
+                            yyin = original_file;      // Cambia la entrada a stdin
                             yyrestart(yyin);   // Reinicia el analizador léxico
                             ejecutar_script(0);
                         } else {
@@ -897,15 +898,15 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 101 "flex.l"
+#line 102 "flex.l"
 { printf("UNKNOWN: %s\n", yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 103 "flex.l"
+#line 104 "flex.l"
 ECHO;
 	YY_BREAK
-#line 909 "flex.yy.c"
+#line 910 "flex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1871,7 +1872,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 103 "flex.l"
+#line 104 "flex.l"
 
 
 /* Código adicional después de la sección de reglas */

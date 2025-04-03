@@ -13,9 +13,14 @@ Implementadas:
     12. load desde fichero
     13. (error sintáctico no termina el programa)
     14. funciones con un array de argumentos (max, min)
+    15. las funciones se pueden usar como partes de expresiones (no del todo)
+    16. clear de la pantalla (probar por terminal)
+    17. ans para último resultado
 
 
 A implementar:
-    - history de comandos y desplazarse / borrar pantalla (clean)
+    - history de comandos y desplazarse
     - import de libreria dinamica
-    - operaciones entre resultados de funciones (p.ej. max(a,b)*min(a,b))
+    - definir funciones en el lenguaje
+    - poder operar expresiones con funciones y viceversa
+    - script con loads recursivos, con una pila

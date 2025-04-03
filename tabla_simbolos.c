@@ -114,7 +114,7 @@ void _inorden_eliminar_variables(tabla_simbolos tabla) {
         _inorden_eliminar_variables(izq(tabla));
         leer(tabla, &e);
         // Eliminación
-        if (e.comp_lexico == VARIABLE) {
+        if (e.comp_lexico == VARIABLE ) {
             eliminar_variable(e.lexema);
         }
         _inorden_eliminar_variables(der(tabla));

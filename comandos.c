@@ -10,6 +10,7 @@
 #include "errores.h"
 #include "tabla_simbolos.h"
 #include "interprete.h"
+#include <math.h>
 
 
 bool variableEcho = true;
@@ -118,6 +119,8 @@ double clear(char* lexema) {
 }
 
 double clean() {
+    // Secuencia de escape ANSI para limpiar la pantalla
+    printf("\033[H\033[J");
     return 0;
 }
 

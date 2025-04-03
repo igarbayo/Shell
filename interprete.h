@@ -11,6 +11,9 @@
 #define AMARILLO  "\x1b[33m"
 #define RESET "\x1b[0m"
 
+// Tolerancia
+#define TOLERANCIA 1e-10
+
 // Contenedor
 typedef struct {
     int comp_lexico;
