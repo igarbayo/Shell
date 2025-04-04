@@ -37,7 +37,7 @@ COMENTARIO_MULTI    \/\*(.|\n)*\*\/
 
 /* Componentes lexicos */
 TABULADO        [ \t]
-SIMBOLO         [\+\-\*\/^=\(\),;\r\n]
+SIMBOLO         [\+\-\*\/^=\(\)\{\},;\r\n]
 NUM             {ENTERO}|{DECIMAL}
 ARCHIVO         ({LETRA}|{DIGITO})+(\.({LETRA}|{DIGITO})+)+|(\/({LETRA}|{DIGITO})*)*\/({LETRA}|{DIGITO})+(\.({LETRA}|{DIGITO})+)+
 
@@ -64,6 +64,9 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                     yylval.cadena = strdup(yytext);
                     return ARCHIVO;
                 }
+
+"def"    { return DEF; }
+"return" { return RETURN; }
 
 {IDENTIFICADOR} {
                     yylval.cadena = strdup(yytext);

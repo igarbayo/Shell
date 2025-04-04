@@ -22,6 +22,7 @@ typedef struct {
     union {
         double var;
         double (*funcptr)();
+        double (*nueva_puntero)(double* nueva_args);
         void *libhandle;
     } valor;
 } contenedor;

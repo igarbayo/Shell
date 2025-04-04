@@ -28,7 +28,7 @@ double ANS = NAN;
 %start entrada
 
 %token <numero> NUM
-%token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 FUNC2 COMANDO0 COMANDO1 ARCHIVO LIB
+%token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 FUNC2 COMANDO0 COMANDO1 ARCHIVO LIB RETURN DEF
 
 %type <numero> expresion asignacion comando funcion
 %type <arr> lista_expresiones
@@ -61,7 +61,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         printf(VERDE"  %lf"RESET"\n\n", $1);
                                         ANS = $1;
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -72,7 +72,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN_DETECTADO");
                                         }
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -86,7 +86,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
                                 ANS = $1;
                             }
-                            if (!script) {
+                            if (!script && consultar_profundidad() <= 1) {
                                 printf(CYAN">"RESET" ");
                             }
                             error = false;
@@ -97,7 +97,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN_DETECTADO");
                                         }
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -128,7 +128,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
                                     ANS = $1;
                                 }
-                                if (!script) {
+                                if (!script && consultar_profundidad() <= 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -139,7 +139,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN_DETECTADO");
                                         }
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -150,7 +150,6 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     printf(CYAN">"RESET" ");
                                 }
                             }
-
 ;
 
 lista_expresiones:
@@ -194,6 +193,62 @@ expresion:    NUM
                             }
                             free($1);
                         }
+        | FUNC1 '(' expresion ')'  {
+                    c = buscar_elemento($1);
+                    if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                        $$ = (*(c.valor.funcptr))($3);
+                                                        } else {
+                                                            lanzar_error("No se encuentra la función básica");
+                                                            error = true;
+                                                            $$ = NAN;
+                                                        }
+                                                        free($1);
+
+                                                  }
+        | FUNC1 '(' ')'                   {
+                                                        lanzar_error("La función tiene un argumento");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                  }
+        | FUNC1 '(' lista_expresiones ')'                   {
+                                                        lanzar_error("La función tiene un argumento");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                  }
+        | FUNC2 '(' lista_expresiones ')' {
+                                                        c = buscar_elemento($1);
+                                                        if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                            $$ = (*(c.valor.funcptr))($3);
+                                                        } else {
+                                                            lanzar_error("No se encuentra la función básica");
+                                                            error = true;
+                                                            $$ = NAN;
+                                                        }
+                                                        free($1);
+                                                        free($3);
+                                                  }
+        | FUNC2 '(' expresion ')'         {
+                                                        double* array = (double *)malloc(2 * sizeof(double));
+                                                        array[0] = $3;
+                                                        array[1] = NAN;
+
+                                                        c = buscar_elemento($1);
+                                                        if (c.lexema != NULL && c.valor.funcptr != NULL) {
+                                                            $$ = (*(c.valor.funcptr))(array);
+                                                        } else {
+                                                            lanzar_error("No se encuentra la función básica");
+                                                            error = true;
+                                                            $$ = NAN;
+                                                        }
+                                                        free($1);
+                                                        free(array);
+
+                                                  }
+        | FUNC2 '(' ')'                   {
+                                                        lanzar_error("La función tiene argumentos");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                  }
         | '-' expresion %prec NEG {
                                  if (!isnan($2)) {
                                      $$ = -$2;
@@ -227,7 +282,7 @@ expresion:    NUM
                                 lanzar_error("DIV_CERO");
                                 error = true;
                                 $$ = NAN;
-                            } else { printf("\nNo es 0\n");
+                            } else {
                                 if (!isnan($1) && !isnan($3)) {
                                     $$ = $1 / $3;
                                 } else {
@@ -263,6 +318,7 @@ expresion:    NUM
                                                        }
                                                    }
 ;
+
 
 asignacion:   VARIABLE '=' expresion     {
                            if (!error) {
@@ -434,125 +490,6 @@ comando:
 ;
 
 funcion:
-        FUNC1 '(' expresion ')'  {
-                                                c = buscar_elemento($1);
-                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
-                                                    $$ = (*(c.valor.funcptr))($3);
-                                                } else {
-                                                    lanzar_error("No se encuentra la función básica");
-                                                    error = true;
-                                                    $$ = NAN;
-                                                }
-                                                free($1);
-
-                                          }
-        | FUNC1 '(' ')'                   {
-                                                lanzar_error("La función tiene un argumento");
-                                                error = true;
-                                                $$ = NAN;
-                                          }
-        | FUNC1 '(' lista_expresiones ')'                   {
-                                                lanzar_error("La función tiene un argumento");
-                                                error = true;
-                                                $$ = NAN;
-                                          }
-        | FUNC2 '(' lista_expresiones ')' {
-                                                c = buscar_elemento($1);
-                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
-                                                    $$ = (*(c.valor.funcptr))($3);
-                                                } else {
-                                                    lanzar_error("No se encuentra la función básica");
-                                                    error = true;
-                                                    $$ = NAN;
-                                                }
-                                                free($1);
-                                                free($3);
-                                          }
-        | FUNC2 '(' expresion ')'         {
-                                                double* array = (double *)malloc(2 * sizeof(double));
-                                                array[0] = $3;
-                                                array[1] = NAN;
-
-                                                c = buscar_elemento($1);
-                                                if (c.lexema != NULL && c.valor.funcptr != NULL) {
-                                                    $$ = (*(c.valor.funcptr))(array);
-                                                } else {
-                                                    lanzar_error("No se encuentra la función básica");
-                                                    error = true;
-                                                    $$ = NAN;
-                                                }
-                                                free($1);
-                                                free(array);
-
-                                          }
-        | FUNC2 '(' ')'                   {
-                                                lanzar_error("La función tiene argumentos");
-                                                error = true;
-                                                $$ = NAN;
-                                          }
-        | funcion '+' funcion{
-                                    if (!isnan($1) && !isnan($3)) {
-                                        $$ = $1 + $3;
-                                    } else {
-                                        $$ = NAN;
-                                    }
-                                }
-        | funcion '-' funcion   {
-                                   if (!isnan($1) && !isnan($3)) {
-                                       $$ = $1 - $3;
-                                   } else {
-                                       $$ = NAN;
-                                   }
-                               }
-        | funcion '*' funcion   {
-                                   if (!isnan($1) && !isnan($3)) {
-                                       $$ = $1 * $3;
-                                   } else {
-                                       $$ = NAN;
-                                   }
-                               }
-        | funcion '/' funcion   {
-                                   if (fabs($3) < TOLERANCIA) {
-                                       lanzar_error("DIV_CERO");
-                                       error = true;
-                                       $$ = NAN;
-                                   } else {
-                                       if (!isnan($1) && !isnan($3)) {
-                                           $$ = $1 / $3;
-                                       } else {
-                                           $$ = NAN;
-                                       }
-                                   }
-                               }
-        | funcion '%' funcion   {
-                                   if (fabs($3) < TOLERANCIA) {
-                                       lanzar_error("MOD_CERO");
-                                       error = true;
-                                       $$ = NAN;
-                                   } else {
-                                       if (!isnan($1) && !isnan($3)) {
-                                           $$ = fmod($1, $3);
-                                       } else {
-                                           $$ = NAN;
-                                       }
-                                   }
-                               }
-        | funcion '^' funcion   {
-                                   if (!isnan($1) && !isnan($3)) {
-                                       $$ = pow($1, $3);
-                                   } else {
-                                       $$ = NAN;
-                                   }
-                               }
-        | '(' funcion ')'   {
-                                    if (!isnan($2)) {
-                                        $$ = $2;
-                                    } else {
-                                        $$ = NAN;
-                                    }
-                                }
-
-
         | LIB '/' VARIABLE '(' expresion ')'  {
                                                 /*
                                                 c = buscar_elemento($1);
@@ -609,28 +546,8 @@ funcion:
                                                 free($3);
                                                 */
                                             }
-        | expresion '(' expresion ')'                   {
-                                                /*
-                                                lanzar_error("LIBRERIA_NON_ATOPADA");
-                                                error = true;
-                                                $$ = NAN;
-                                                */
-                                            }
-        | expresion '(' expresion ',' expresion ')'           {
-                                                /*
-                                                lanzar_error("LIBRERIA_NON_ATOPADA");
-                                                error = true;
-                                                $$ = NAN;
-                                                */
-                                            }
-        | expresion '(' ')'                       {
-                                                /*
-                                                lanzar_error("LIBRERIA_NON_ATOPADA");
-                                                error = true;
-                                                $$ = NAN;
-                                                */
-                                            }
 ;
+
 
 %%
 
@@ -646,7 +563,10 @@ void cambiar_echo(double valor) {
 void ejecutar_script(int valor) {
     script = valor;
     if (script && hacerEcho == true) {
-        printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n"CYAN">"RESET" ");
+        printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n");
+        if (consultar_profundidad() < 1) {
+            printf(CYAN">"RESET" ");
+        }
     }
 }
 

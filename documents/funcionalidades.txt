@@ -13,15 +13,17 @@ Implementadas:
     12. load desde fichero
     13. (error sintáctico no termina el programa)
     14. funciones con un array de argumentos (max, min)
-    15. las funciones se pueden usar como partes de expresiones (no del todo)
+    15. las funciones se pueden usar como partes de expresiones
     16. clear de la pantalla (probar por terminal)
-    17. ans para último resultado
+    17. ans para último resultado (impreso)
     18. script con loads recursivos, con una pila
 
 
 A implementar:
-    - history de comandos y desplazarse
     - import de libreria dinamica
+    - profundidad de pila para imprimir loads (evitar > >)
+    - bucles y condicionales
+
+No se va a hacer (demasiado trabajo):
     - definir funciones en el lenguaje
-    - poder operar expresiones con funciones y viceversa
-    - profundidad de pila para imprimir loads
+    - history de comandos y desplazarse
