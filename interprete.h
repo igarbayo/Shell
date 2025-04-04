@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include "bison.tab.h"
+#include "pila.h"
 
 /* Colores */
 #define ROJO "\x1b[31m"
@@ -37,6 +38,16 @@ int es_funcion_registrada(char *nombre);
  * @param arg
  */
 void interprete(char* arg);
+
+void push_wrapper(tipoelemPila E);
+
+void pop_wrapper();
+
+unsigned esVaciaPila_wrapper();
+
+tipoelemPila tope_wrapper();
+
+int consultar_profundidad();
 
 
 #endif //P1_COMPGO_INTERPRETE_H

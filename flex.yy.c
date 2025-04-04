@@ -514,7 +514,9 @@ char *yytext;
 #include "errores.h"
 #include <string.h>
 #include <math.h>
-#line 518 "flex.yy.c"
+#include "pila.h"
+#include "interprete.h"
+#line 520 "flex.yy.c"
 /*
  Indícase que só se lerá un ficheiro de entrada,
  que se creará un ficheiro cabeceira chamado lex.yy.h e
@@ -527,7 +529,7 @@ char *yytext;
 /* Comentarios */
 /* Componentes lexicos */
 /* Errores léxicos */
-#line 531 "flex.yy.c"
+#line 533 "flex.yy.c"
 
 #define INITIAL 0
 
@@ -742,10 +744,10 @@ YY_DECL
 		}
 
 	{
-#line 47 "flex.l"
+#line 49 "flex.l"
 
 
-#line 749 "flex.yy.c"
+#line 751 "flex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -804,7 +806,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 49 "flex.l"
+#line 51 "flex.l"
 
 	YY_BREAK
 case 2:
@@ -812,18 +814,18 @@ case 2:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 50 "flex.l"
+#line 52 "flex.l"
 
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 51 "flex.l"
+#line 53 "flex.l"
 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 53 "flex.l"
+#line 55 "flex.l"
 {
                     yylval.numero = atof(yytext);
                     return NUM;
@@ -832,14 +834,14 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 58 "flex.l"
+#line 60 "flex.l"
 {
                     return (int) *yytext;
                 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 61 "flex.l"
+#line 63 "flex.l"
 {
                     yylval.cadena = strdup(yytext);
                     return ARCHIVO;
@@ -847,7 +849,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 66 "flex.l"
+#line 68 "flex.l"
 {
                     yylval.cadena = strdup(yytext);
                     contenedor c = buscar_elemento(yylval.cadena);
@@ -860,7 +862,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 76 "flex.l"
+#line 78 "flex.l"
 {
                     yylval.cadena = strdup(yytext);
                     contenedor c = buscar_elemento(yylval.cadena);
@@ -874,21 +876,24 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 87 "flex.l"
+#line 89 "flex.l"
 { lanzar_error("\"_\" debe separar dos dígitos"); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 88 "flex.l"
+#line 90 "flex.l"
 { lanzar_error("no puede haber dos o más \"_\" seguidas"); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 91 "flex.l"
+#line 93 "flex.l"
 {
                         if (yyin != stdin) {  // Si estamos leyendo desde un archivo
-                            FILE* original_file = yyin;
-                            fclose(yyin);      // Cierra el archivo
-                            yyin = original_file;      // Cambia la entrada a stdin
+                            unload(tope_wrapper()); // elimina el fichero actual de la pika
+                            if (!esVaciaPila_wrapper()) {   // si quedan ficheros inacabados
+                                yyin = tope_wrapper();      // carga el último
+                            } else {
+                                yyin = stdin;       // carga la entrada estándar
+                            }
                             yyrestart(yyin);   // Reinicia el analizador léxico
                             ejecutar_script(0);
                         } else {
@@ -898,15 +903,15 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 102 "flex.l"
+#line 107 "flex.l"
 { printf("UNKNOWN: %s\n", yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 104 "flex.l"
+#line 109 "flex.l"
 ECHO;
 	YY_BREAK
-#line 910 "flex.yy.c"
+#line 915 "flex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1872,7 +1877,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 104 "flex.l"
+#line 109 "flex.l"
 
 
 /* Código adicional después de la sección de reglas */

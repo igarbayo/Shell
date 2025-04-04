@@ -97,6 +97,12 @@ build CMakeFiles/P1_CompGo.dir/comandos.c.o: C_COMPILER__P1_CompGo_unscanned_Deb
   OBJECT_DIR = CMakeFiles/P1_CompGo.dir
   OBJECT_FILE_DIR = CMakeFiles/P1_CompGo.dir
 
+build CMakeFiles/P1_CompGo.dir/pila.c.o: C_COMPILER__P1_CompGo_unscanned_Debug /home/ignacio/Escritorio/Cuarto/Segundo$ Cuatri/Compiladores/P3-Bison/pila.c || cmake_object_order_depends_target_P1_CompGo
+  DEP_FILE = CMakeFiles/P1_CompGo.dir/pila.c.o.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/P1_CompGo.dir
+  OBJECT_FILE_DIR = CMakeFiles/P1_CompGo.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target P1_CompGo
@@ -105,7 +111,7 @@ build CMakeFiles/P1_CompGo.dir/comandos.c.o: C_COMPILER__P1_CompGo_unscanned_Deb
 #############################################
 # Link the executable P1_CompGo
 
-build P1_CompGo: C_EXECUTABLE_LINKER__P1_CompGo_Debug CMakeFiles/P1_CompGo.dir/main.c.o CMakeFiles/P1_CompGo.dir/avl.c.o CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o CMakeFiles/P1_CompGo.dir/errores.c.o CMakeFiles/P1_CompGo.dir/flex.yy.c.o CMakeFiles/P1_CompGo.dir/bison.tab.c.o CMakeFiles/P1_CompGo.dir/interprete.c.o CMakeFiles/P1_CompGo.dir/comandos.c.o
+build P1_CompGo: C_EXECUTABLE_LINKER__P1_CompGo_Debug CMakeFiles/P1_CompGo.dir/main.c.o CMakeFiles/P1_CompGo.dir/avl.c.o CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o CMakeFiles/P1_CompGo.dir/errores.c.o CMakeFiles/P1_CompGo.dir/flex.yy.c.o CMakeFiles/P1_CompGo.dir/bison.tab.c.o CMakeFiles/P1_CompGo.dir/interprete.c.o CMakeFiles/P1_CompGo.dir/comandos.c.o CMakeFiles/P1_CompGo.dir/pila.c.o
   FLAGS = -g
   LINK_LIBRARIES = -lm
   OBJECT_DIR = CMakeFiles/P1_CompGo.dir

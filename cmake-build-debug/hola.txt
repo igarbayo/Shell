@@ -2,3 +2,4 @@ a=sin(1);
 b=cos(1);
 load(hola2.txt);
 c=a*a+b*b;
+k=104050303

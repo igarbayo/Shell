@@ -18,6 +18,8 @@ add_executable(P1_CompGo main.c
         interprete.c
         comandos.h
         comandos.c
+        pila.c
+        pila.h
 )
 
 target_link_libraries(P1_CompGo m)

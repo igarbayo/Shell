@@ -82,8 +82,7 @@ bool script = false;
 bool error = false;
 double ANS = NAN;
 
-
-#line 87 "bison.tab.c"
+#line 86 "bison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -531,13 +530,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    48,    48,    53,    56,    57,    70,    81,    95,   106,
-     115,   124,   137,   148,   158,   165,   177,   178,   183,   198,
-     205,   212,   219,   226,   239,   252,   259,   268,   283,   298,
-     304,   313,   318,   323,   338,   353,   367,   381,   394,   407,
-     423,   429,   438,   450,   455,   460,   472,   489,   494,   501,
-     508,   515,   528,   541,   548,   557,   581,   604,   613,   620,
-     627
+       0,    47,    47,    52,    55,    56,    69,    80,    94,   105,
+     114,   123,   136,   147,   157,   164,   176,   177,   182,   197,
+     204,   211,   218,   225,   238,   251,   258,   267,   282,   297,
+     303,   312,   317,   322,   337,   352,   366,   380,   393,   406,
+     422,   428,   437,   449,   454,   459,   471,   488,   493,   500,
+     507,   514,   527,   540,   547,   556,   580,   603,   612,   619,
+     626
 };
 #endif
 
@@ -1194,23 +1193,23 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* entrada: %empty  */
-#line 48 "bison.y"
+#line 47 "bison.y"
                         {
                             if (!script) {
                                 printf(CYAN">"RESET" ");
                             }
                         }
-#line 1204 "bison.tab.c"
+#line 1203 "bison.tab.c"
     break;
 
   case 4: /* linea: '\n'  */
-#line 56 "bison.y"
+#line 55 "bison.y"
                         { printf(CYAN">"RESET" "); }
-#line 1210 "bison.tab.c"
+#line 1209 "bison.tab.c"
     break;
 
   case 5: /* linea: expresion '\n'  */
-#line 57 "bison.y"
+#line 56 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-1].numero))) {
@@ -1224,11 +1223,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1228 "bison.tab.c"
+#line 1227 "bison.tab.c"
     break;
 
   case 6: /* linea: expresion ';' '\n'  */
-#line 70 "bison.y"
+#line 69 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1240,11 +1239,11 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1244 "bison.tab.c"
+#line 1243 "bison.tab.c"
     break;
 
   case 7: /* linea: asignacion '\n'  */
-#line 81 "bison.y"
+#line 80 "bison.y"
                               {
                             if (!error) {
                                 if (isnan((yyvsp[-1].numero))) {
@@ -1259,11 +1258,11 @@ yyreduce:
                             }
                             error = false;
                         }
-#line 1263 "bison.tab.c"
+#line 1262 "bison.tab.c"
     break;
 
   case 8: /* linea: asignacion ';' '\n'  */
-#line 95 "bison.y"
+#line 94 "bison.y"
                                       {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1275,39 +1274,39 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1279 "bison.tab.c"
+#line 1278 "bison.tab.c"
     break;
 
   case 9: /* linea: comando '\n'  */
-#line 106 "bison.y"
+#line 105 "bison.y"
                                {
                                 if (isnan((yyvsp[-1].numero)) && !error) {
                                     lanzar_error("NAN_DETECTADO");
                                 }
-                                if (!script) {
+                                if (!script && consultar_profundidad() ==0) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
                             }
-#line 1293 "bison.tab.c"
+#line 1292 "bison.tab.c"
     break;
 
   case 10: /* linea: comando ';' '\n'  */
-#line 115 "bison.y"
+#line 114 "bison.y"
                                    {
                                     if (isnan((yyvsp[-2].numero)) && !error) {
                                         lanzar_error("NAN_DETECTADO");
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() == 0) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
                                 }
-#line 1307 "bison.tab.c"
+#line 1306 "bison.tab.c"
     break;
 
   case 11: /* linea: funcion '\n'  */
-#line 124 "bison.y"
+#line 123 "bison.y"
                                 {
                                 if (!error) {
                                     if (isnan((yyvsp[-1].numero))) {
@@ -1321,11 +1320,11 @@ yyreduce:
                                 }
                                 error = false;
                             }
-#line 1325 "bison.tab.c"
+#line 1324 "bison.tab.c"
     break;
 
   case 12: /* linea: funcion ';' '\n'  */
-#line 137 "bison.y"
+#line 136 "bison.y"
                                  {
                                     if (!error) {
                                         if (isnan((yyvsp[-2].numero))) {
@@ -1337,22 +1336,22 @@ yyreduce:
                                     }
                                     error = false;
                                 }
-#line 1341 "bison.tab.c"
+#line 1340 "bison.tab.c"
     break;
 
   case 13: /* linea: error '\n'  */
-#line 148 "bison.y"
+#line 147 "bison.y"
                             {
                                 yyerrok;
                                 if (!error) {
                                     printf(CYAN">"RESET" ");
                                 }
                             }
-#line 1352 "bison.tab.c"
+#line 1351 "bison.tab.c"
     break;
 
   case 14: /* lista_expresiones: expresion ',' expresion  */
-#line 158 "bison.y"
+#line 157 "bison.y"
                             {
         // Crear un array con los dos primeros valores y agregar NAN al final
         (yyval.arr) = malloc(3 * sizeof(double));
@@ -1360,11 +1359,11 @@ yyreduce:
         (yyval.arr)[1] = (yyvsp[0].numero);
         (yyval.arr)[2] = NAN;  // Marcador de final
     }
-#line 1364 "bison.tab.c"
+#line 1363 "bison.tab.c"
     break;
 
   case 15: /* lista_expresiones: lista_expresiones ',' expresion  */
-#line 165 "bison.y"
+#line 164 "bison.y"
                                       {
         // Obtener tamaño actual del array (contando hasta NAN)
         int len = 0;
@@ -1375,21 +1374,21 @@ yyreduce:
         (yyval.arr)[len] = (yyvsp[0].numero);
         (yyval.arr)[len + 1] = NAN;  // Mantener NAN al final
     }
-#line 1379 "bison.tab.c"
+#line 1378 "bison.tab.c"
     break;
 
   case 17: /* expresion: CONSTANTE  */
-#line 178 "bison.y"
+#line 177 "bison.y"
                             {
                             c = buscar_elemento((yyvsp[0].cadena));
                             (yyval.numero) = c.valor.var;
                             free((yyvsp[0].cadena));
                         }
-#line 1389 "bison.tab.c"
+#line 1388 "bison.tab.c"
     break;
 
   case 18: /* expresion: VARIABLE  */
-#line 183 "bison.y"
+#line 182 "bison.y"
                              {
                             if ((c = buscar_elemento((yyvsp[0].cadena))).lexema != NULL) {
                                 (yyval.numero) = c.valor.var;
@@ -1405,11 +1404,11 @@ yyreduce:
                             }
                             free((yyvsp[0].cadena));
                         }
-#line 1409 "bison.tab.c"
+#line 1408 "bison.tab.c"
     break;
 
   case 19: /* expresion: '-' expresion  */
-#line 198 "bison.y"
+#line 197 "bison.y"
                                   {
                                  if (!isnan((yyvsp[0].numero))) {
                                      (yyval.numero) = -(yyvsp[0].numero);
@@ -1417,11 +1416,11 @@ yyreduce:
                                      (yyval.numero) = NAN;
                                  }
                             }
-#line 1421 "bison.tab.c"
+#line 1420 "bison.tab.c"
     break;
 
   case 20: /* expresion: expresion '+' expresion  */
-#line 205 "bison.y"
+#line 204 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) + (yyvsp[0].numero);
@@ -1429,11 +1428,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1433 "bison.tab.c"
+#line 1432 "bison.tab.c"
     break;
 
   case 21: /* expresion: expresion '-' expresion  */
-#line 212 "bison.y"
+#line 211 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) - (yyvsp[0].numero);
@@ -1441,11 +1440,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1445 "bison.tab.c"
+#line 1444 "bison.tab.c"
     break;
 
   case 22: /* expresion: expresion '*' expresion  */
-#line 219 "bison.y"
+#line 218 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = (yyvsp[-2].numero) * (yyvsp[0].numero);
@@ -1453,11 +1452,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1457 "bison.tab.c"
+#line 1456 "bison.tab.c"
     break;
 
   case 23: /* expresion: expresion '/' expresion  */
-#line 226 "bison.y"
+#line 225 "bison.y"
                                     {
                             if (fabs((yyvsp[0].numero)) < TOLERANCIA) {
                                 lanzar_error("DIV_CERO");
@@ -1471,11 +1470,11 @@ yyreduce:
                                 }
                             }
                         }
-#line 1475 "bison.tab.c"
+#line 1474 "bison.tab.c"
     break;
 
   case 24: /* expresion: expresion '%' expresion  */
-#line 239 "bison.y"
+#line 238 "bison.y"
                                     {
                             if (fabs((yyvsp[0].numero)) < TOLERANCIA) {
                                 lanzar_error("MOD_CERO");
@@ -1489,11 +1488,11 @@ yyreduce:
                                 }
                             }
                         }
-#line 1493 "bison.tab.c"
+#line 1492 "bison.tab.c"
     break;
 
   case 25: /* expresion: expresion '^' expresion  */
-#line 252 "bison.y"
+#line 251 "bison.y"
                                     {
                             if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                 (yyval.numero) = pow((yyvsp[-2].numero), (yyvsp[0].numero));
@@ -1501,11 +1500,11 @@ yyreduce:
                                 (yyval.numero) = NAN;
                             }
                         }
-#line 1505 "bison.tab.c"
+#line 1504 "bison.tab.c"
     break;
 
   case 26: /* expresion: '(' expresion ')'  */
-#line 259 "bison.y"
+#line 258 "bison.y"
                               {
                                                        if (!isnan((yyvsp[-1].numero))) {
                                                            (yyval.numero) = (yyvsp[-1].numero);
@@ -1513,11 +1512,11 @@ yyreduce:
                                                            (yyval.numero) = NAN;
                                                        }
                                                    }
-#line 1517 "bison.tab.c"
+#line 1516 "bison.tab.c"
     break;
 
   case 27: /* asignacion: VARIABLE '=' expresion  */
-#line 268 "bison.y"
+#line 267 "bison.y"
                                          {
                            if (!error) {
                                if ((c = buscar_elemento((yyvsp[-2].cadena))).lexema != NULL) {
@@ -1533,11 +1532,11 @@ yyreduce:
                            (yyval.numero) = (yyvsp[0].numero);
                            free((yyvsp[-2].cadena));
                         }
-#line 1537 "bison.tab.c"
+#line 1536 "bison.tab.c"
     break;
 
   case 28: /* asignacion: VARIABLE '=' funcion  */
-#line 283 "bison.y"
+#line 282 "bison.y"
                                  {
                            if (!error) {
                                if ((c = buscar_elemento((yyvsp[-2].cadena))).lexema != NULL) {
@@ -1553,53 +1552,53 @@ yyreduce:
                            (yyval.numero) = (yyvsp[0].numero);
                            free((yyvsp[-2].cadena));
                         }
-#line 1557 "bison.tab.c"
+#line 1556 "bison.tab.c"
     break;
 
   case 29: /* asignacion: CONSTANTE '=' expresion  */
-#line 298 "bison.y"
+#line 297 "bison.y"
                                   {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             (yyval.numero) = NAN;
                             free((yyvsp[-2].cadena));
                         }
-#line 1568 "bison.tab.c"
+#line 1567 "bison.tab.c"
     break;
 
   case 30: /* asignacion: CONSTANTE '=' funcion  */
-#line 304 "bison.y"
+#line 303 "bison.y"
                                 {
                             lanzar_error("CONSTANTE_NON_MODIFICABLE");
                             error = true;
                             (yyval.numero) = NAN;
                             free((yyvsp[-2].cadena));
                         }
-#line 1579 "bison.tab.c"
+#line 1578 "bison.tab.c"
     break;
 
   case 31: /* comando: COMANDO0  */
-#line 313 "bison.y"
+#line 312 "bison.y"
                                     {
                                         c = buscar_elemento((yyvsp[0].cadena));
                                         free((yyvsp[0].cadena));
                                         (*(c.valor.funcptr))();
                                     }
-#line 1589 "bison.tab.c"
+#line 1588 "bison.tab.c"
     break;
 
   case 32: /* comando: COMANDO0 '(' ')'  */
-#line 318 "bison.y"
+#line 317 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-2].cadena));
                                         free((yyvsp[-2].cadena));
                                         (*(c.valor.funcptr))();
                                     }
-#line 1599 "bison.tab.c"
+#line 1598 "bison.tab.c"
     break;
 
   case 33: /* comando: COMANDO1  */
-#line 323 "bison.y"
+#line 322 "bison.y"
                     {
                                         c = buscar_elemento((yyvsp[0].cadena));
                                         int result1 = strcmp(c.lexema, "clear");
@@ -1615,11 +1614,11 @@ yyreduce:
                                         }
                                         free((yyvsp[0].cadena));
                                     }
-#line 1619 "bison.tab.c"
+#line 1618 "bison.tab.c"
     break;
 
   case 34: /* comando: COMANDO1 '(' ')'  */
-#line 338 "bison.y"
+#line 337 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-2].cadena));
                                         int result1 = strcmp(c.lexema, "clear");
@@ -1635,11 +1634,11 @@ yyreduce:
                                         }
                                         free((yyvsp[-2].cadena));
                                        }
-#line 1639 "bison.tab.c"
+#line 1638 "bison.tab.c"
     break;
 
   case 35: /* comando: COMANDO1 '(' COMANDO0 ')'  */
-#line 353 "bison.y"
+#line 352 "bison.y"
                                        {
                                         c = buscar_elemento((yyvsp[-3].cadena));
                                         int result1 = strcmp(c.lexema, "help");
@@ -1654,11 +1653,11 @@ yyreduce:
                                         free((yyvsp[-3].cadena));
                                         free((yyvsp[-1].cadena));
                                        }
-#line 1658 "bison.tab.c"
+#line 1657 "bison.tab.c"
     break;
 
   case 36: /* comando: COMANDO1 '(' COMANDO1 ')'  */
-#line 367 "bison.y"
+#line 366 "bison.y"
                                        {
                                                 c = buscar_elemento((yyvsp[-3].cadena));
                                                 int result1 = strcmp(c.lexema, "help");
@@ -1673,11 +1672,11 @@ yyreduce:
                                                 free((yyvsp[-3].cadena));
                                                 free((yyvsp[-1].cadena));
                                                }
-#line 1677 "bison.tab.c"
+#line 1676 "bison.tab.c"
     break;
 
   case 37: /* comando: COMANDO1 COMANDO0  */
-#line 381 "bison.y"
+#line 380 "bison.y"
                                      {
                                         c = buscar_elemento((yyvsp[-1].cadena));
                                         int result1 = strcmp(c.lexema, "?");
@@ -1691,11 +1690,11 @@ yyreduce:
                                         free((yyvsp[-1].cadena));
                                         free((yyvsp[0].cadena));
                                      }
-#line 1695 "bison.tab.c"
+#line 1694 "bison.tab.c"
     break;
 
   case 38: /* comando: COMANDO1 COMANDO1  */
-#line 394 "bison.y"
+#line 393 "bison.y"
                                      {
                                                 c = buscar_elemento((yyvsp[-1].cadena));
                                                 int result1 = strcmp(c.lexema, "?");
@@ -1709,11 +1708,11 @@ yyreduce:
                                                 free((yyvsp[-1].cadena));
                                                 free((yyvsp[0].cadena));
                                              }
-#line 1713 "bison.tab.c"
+#line 1712 "bison.tab.c"
     break;
 
   case 39: /* comando: COMANDO1 '(' VARIABLE ')'  */
-#line 407 "bison.y"
+#line 406 "bison.y"
                                      {
                                          c = buscar_elemento((yyvsp[-3].cadena));
                                          int result1 = strcmp(c.lexema, "echo");
@@ -1730,33 +1729,33 @@ yyreduce:
                                          }
                                          free((yyvsp[-3].cadena));
                                       }
-#line 1734 "bison.tab.c"
+#line 1733 "bison.tab.c"
     break;
 
   case 40: /* comando: COMANDO1 ARCHIVO  */
-#line 423 "bison.y"
+#line 422 "bison.y"
                                         {
                                         c = buscar_elemento((yyvsp[-1].cadena));
                                         (*(c.valor.funcptr))((yyvsp[0].cadena));
                                         free((yyvsp[-1].cadena));
                                         free((yyvsp[0].cadena));
                                      }
-#line 1745 "bison.tab.c"
+#line 1744 "bison.tab.c"
     break;
 
   case 41: /* comando: COMANDO1 '(' ARCHIVO ')'  */
-#line 429 "bison.y"
+#line 428 "bison.y"
                                         {
                                         c = buscar_elemento((yyvsp[-3].cadena));
                                         (*(c.valor.funcptr))((yyvsp[-1].cadena));
                                         free((yyvsp[-3].cadena));
                                         free((yyvsp[-1].cadena));
                                      }
-#line 1756 "bison.tab.c"
+#line 1755 "bison.tab.c"
     break;
 
   case 42: /* funcion: FUNC1 '(' expresion ')'  */
-#line 438 "bison.y"
+#line 437 "bison.y"
                                  {
                                                 c = buscar_elemento((yyvsp[-3].cadena));
                                                 if (c.lexema != NULL && c.valor.funcptr != NULL) {
@@ -1769,31 +1768,31 @@ yyreduce:
                                                 free((yyvsp[-3].cadena));
 
                                           }
-#line 1773 "bison.tab.c"
+#line 1772 "bison.tab.c"
     break;
 
   case 43: /* funcion: FUNC1 '(' ')'  */
-#line 450 "bison.y"
+#line 449 "bison.y"
                                           {
                                                 lanzar_error("La función tiene un argumento");
                                                 error = true;
                                                 (yyval.numero) = NAN;
                                           }
-#line 1783 "bison.tab.c"
+#line 1782 "bison.tab.c"
     break;
 
   case 44: /* funcion: FUNC1 '(' lista_expresiones ')'  */
-#line 455 "bison.y"
+#line 454 "bison.y"
                                                             {
                                                 lanzar_error("La función tiene un argumento");
                                                 error = true;
                                                 (yyval.numero) = NAN;
                                           }
-#line 1793 "bison.tab.c"
+#line 1792 "bison.tab.c"
     break;
 
   case 45: /* funcion: FUNC2 '(' lista_expresiones ')'  */
-#line 460 "bison.y"
+#line 459 "bison.y"
                                           {
                                                 c = buscar_elemento((yyvsp[-3].cadena));
                                                 if (c.lexema != NULL && c.valor.funcptr != NULL) {
@@ -1806,11 +1805,11 @@ yyreduce:
                                                 free((yyvsp[-3].cadena));
                                                 free((yyvsp[-1].arr));
                                           }
-#line 1810 "bison.tab.c"
+#line 1809 "bison.tab.c"
     break;
 
   case 46: /* funcion: FUNC2 '(' expresion ')'  */
-#line 472 "bison.y"
+#line 471 "bison.y"
                                           {
                                                 double* array = (double *)malloc(2 * sizeof(double));
                                                 array[0] = (yyvsp[-1].numero);
@@ -1828,21 +1827,21 @@ yyreduce:
                                                 free(array);
 
                                           }
-#line 1832 "bison.tab.c"
+#line 1831 "bison.tab.c"
     break;
 
   case 47: /* funcion: FUNC2 '(' ')'  */
-#line 489 "bison.y"
+#line 488 "bison.y"
                                           {
                                                 lanzar_error("La función tiene argumentos");
                                                 error = true;
                                                 (yyval.numero) = NAN;
                                           }
-#line 1842 "bison.tab.c"
+#line 1841 "bison.tab.c"
     break;
 
   case 48: /* funcion: funcion '+' funcion  */
-#line 494 "bison.y"
+#line 493 "bison.y"
                              {
                                     if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                         (yyval.numero) = (yyvsp[-2].numero) + (yyvsp[0].numero);
@@ -1850,11 +1849,11 @@ yyreduce:
                                         (yyval.numero) = NAN;
                                     }
                                 }
-#line 1854 "bison.tab.c"
+#line 1853 "bison.tab.c"
     break;
 
   case 49: /* funcion: funcion '-' funcion  */
-#line 501 "bison.y"
+#line 500 "bison.y"
                                 {
                                    if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                        (yyval.numero) = (yyvsp[-2].numero) - (yyvsp[0].numero);
@@ -1862,11 +1861,11 @@ yyreduce:
                                        (yyval.numero) = NAN;
                                    }
                                }
-#line 1866 "bison.tab.c"
+#line 1865 "bison.tab.c"
     break;
 
   case 50: /* funcion: funcion '*' funcion  */
-#line 508 "bison.y"
+#line 507 "bison.y"
                                 {
                                    if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                        (yyval.numero) = (yyvsp[-2].numero) * (yyvsp[0].numero);
@@ -1874,11 +1873,11 @@ yyreduce:
                                        (yyval.numero) = NAN;
                                    }
                                }
-#line 1878 "bison.tab.c"
+#line 1877 "bison.tab.c"
     break;
 
   case 51: /* funcion: funcion '/' funcion  */
-#line 515 "bison.y"
+#line 514 "bison.y"
                                 {
                                    if (fabs((yyvsp[0].numero)) < TOLERANCIA) {
                                        lanzar_error("DIV_CERO");
@@ -1892,11 +1891,11 @@ yyreduce:
                                        }
                                    }
                                }
-#line 1896 "bison.tab.c"
+#line 1895 "bison.tab.c"
     break;
 
   case 52: /* funcion: funcion '%' funcion  */
-#line 528 "bison.y"
+#line 527 "bison.y"
                                 {
                                    if (fabs((yyvsp[0].numero)) < TOLERANCIA) {
                                        lanzar_error("MOD_CERO");
@@ -1910,11 +1909,11 @@ yyreduce:
                                        }
                                    }
                                }
-#line 1914 "bison.tab.c"
+#line 1913 "bison.tab.c"
     break;
 
   case 53: /* funcion: funcion '^' funcion  */
-#line 541 "bison.y"
+#line 540 "bison.y"
                                 {
                                    if (!isnan((yyvsp[-2].numero)) && !isnan((yyvsp[0].numero))) {
                                        (yyval.numero) = pow((yyvsp[-2].numero), (yyvsp[0].numero));
@@ -1922,11 +1921,11 @@ yyreduce:
                                        (yyval.numero) = NAN;
                                    }
                                }
-#line 1926 "bison.tab.c"
+#line 1925 "bison.tab.c"
     break;
 
   case 54: /* funcion: '(' funcion ')'  */
-#line 548 "bison.y"
+#line 547 "bison.y"
                             {
                                     if (!isnan((yyvsp[-1].numero))) {
                                         (yyval.numero) = (yyvsp[-1].numero);
@@ -1934,11 +1933,11 @@ yyreduce:
                                         (yyval.numero) = NAN;
                                     }
                                 }
-#line 1938 "bison.tab.c"
+#line 1937 "bison.tab.c"
     break;
 
   case 55: /* funcion: LIB '/' VARIABLE '(' expresion ')'  */
-#line 557 "bison.y"
+#line 556 "bison.y"
                                               {
                                                 /*
                                                 c = buscar_elemento($1);
@@ -1963,11 +1962,11 @@ yyreduce:
                                                 */
 
                                             }
-#line 1967 "bison.tab.c"
+#line 1966 "bison.tab.c"
     break;
 
   case 56: /* funcion: LIB '/' VARIABLE '(' expresion ',' expresion ')'  */
-#line 581 "bison.y"
+#line 580 "bison.y"
                                                              {
                                                 /*
                                                 c = buscar_elemento($1);
@@ -1991,11 +1990,11 @@ yyreduce:
                                                 free($3);
                                                 */
                                             }
-#line 1995 "bison.tab.c"
+#line 1994 "bison.tab.c"
     break;
 
   case 57: /* funcion: LIB '/' VARIABLE '(' ')'  */
-#line 604 "bison.y"
+#line 603 "bison.y"
                                                  {
                                                 /*
                                                 lanzar_error("PARAMETROS_NON_INDICADOS");
@@ -2005,11 +2004,11 @@ yyreduce:
                                                 free($3);
                                                 */
                                             }
-#line 2009 "bison.tab.c"
+#line 2008 "bison.tab.c"
     break;
 
   case 58: /* funcion: expresion '(' expresion ')'  */
-#line 613 "bison.y"
+#line 612 "bison.y"
                                                         {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -2017,11 +2016,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 2021 "bison.tab.c"
+#line 2020 "bison.tab.c"
     break;
 
   case 59: /* funcion: expresion '(' expresion ',' expresion ')'  */
-#line 620 "bison.y"
+#line 619 "bison.y"
                                                               {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -2029,11 +2028,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 2033 "bison.tab.c"
+#line 2032 "bison.tab.c"
     break;
 
   case 60: /* funcion: expresion '(' ')'  */
-#line 627 "bison.y"
+#line 626 "bison.y"
                                                   {
                                                 /*
                                                 lanzar_error("LIBRERIA_NON_ATOPADA");
@@ -2041,11 +2040,11 @@ yyreduce:
                                                 $$ = NAN;
                                                 */
                                             }
-#line 2045 "bison.tab.c"
+#line 2044 "bison.tab.c"
     break;
 
 
-#line 2049 "bison.tab.c"
+#line 2048 "bison.tab.c"
 
       default: break;
     }
@@ -2238,7 +2237,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 636 "bison.y"
+#line 635 "bison.y"
 
 
 void yyerror(char* s) {
@@ -2252,7 +2251,7 @@ void cambiar_echo(double valor) {
 
 void ejecutar_script(int valor) {
     script = valor;
-    if (script) {
+    if (script && hacerEcho == true) {
         printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n"CYAN">"RESET" ");
     }
 }

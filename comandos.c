@@ -11,7 +11,7 @@
 #include "tabla_simbolos.h"
 #include "interprete.h"
 #include <math.h>
-
+#include "pila.h"
 
 bool variableEcho = true;
 
@@ -27,6 +27,10 @@ void _ayuda_general() {
 
 /// FUNCIONES PÚBLICAS
 
+void unload(char* archivo) {
+    pop_wrapper();
+}
+
 double load(char *archivo) {
     yyin = fopen(archivo, "r");
 
@@ -34,6 +38,7 @@ double load(char *archivo) {
         lanzar_error("FICHEIRO_NON_ATOPADO");
         yyin = stdin;
     } else {
+        push_wrapper(yyin);
         ejecutar_script(1);
     }
 

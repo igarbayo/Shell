@@ -73,7 +73,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 23 "bison.y"
+#line 22 "bison.y"
 
     double numero;
     char *cadena;
@@ -94,7 +94,7 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 /* "%code provides" blocks.  */
-#line 17 "bison.y"
+#line 16 "bison.y"
 
     void yyerror(char* s);
     void cambiar_echo(double valor);

@@ -16,6 +16,7 @@ Implementadas:
     15. las funciones se pueden usar como partes de expresiones (no del todo)
     16. clear de la pantalla (probar por terminal)
     17. ans para último resultado
+    18. script con loads recursivos, con una pila
 
 
 A implementar:
@@ -23,4 +24,4 @@ A implementar:
     - import de libreria dinamica
     - definir funciones en el lenguaje
     - poder operar expresiones con funciones y viceversa
-    - script con loads recursivos, con una pila
+    - profundidad de pila para imprimir loads

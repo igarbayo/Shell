@@ -11,7 +11,6 @@ bool hacerEcho = true;
 bool script = false;
 bool error = false;
 double ANS = NAN;
-
 %}
 
 %code provides {
@@ -107,7 +106,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 if (isnan($1) && !error) {
                                     lanzar_error("NAN_DETECTADO");
                                 }
-                                if (!script) {
+                                if (!script && consultar_profundidad() <= 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -116,7 +115,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (isnan($1) && !error) {
                                         lanzar_error("NAN_DETECTADO");
                                     }
-                                    if (!script) {
+                                    if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -646,7 +645,7 @@ void cambiar_echo(double valor) {
 
 void ejecutar_script(int valor) {
     script = valor;
-    if (script) {
+    if (script && hacerEcho == true) {
         printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n"CYAN">"RESET" ");
     }
 }
