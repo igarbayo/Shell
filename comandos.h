@@ -5,8 +5,6 @@
 #ifndef P1_COMPGO_COMANDOS_H
 #define P1_COMPGO_COMANDOS_H
 
-void unload(char* archivo);
-
 double load(char* archivo);
 
 double quit();

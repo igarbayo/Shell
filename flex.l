@@ -21,7 +21,7 @@
 
 
 /* Auxiliares */
-LETRA        		[a-zA-Z_]|_
+LETRA        		[a-zA-Z_]|_|-
 IDENTIFICADOR  		{LETRA}({LETRA}|{DIGITO})*
 
 /* Numeros */
@@ -110,7 +110,7 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
 
 <<EOF>>	{
                         if (yyin != stdin) {  // Si estamos leyendo desde un archivo
-                            unload(tope_wrapper()); // elimina el fichero actual de la pika
+                            pop_wrapper(); // elimina el fichero actual de la pika
                             if (!esVaciaPila_wrapper()) {   // si quedan ficheros inacabados
                                 yyin = tope_wrapper();      // carga el último
                             } else {

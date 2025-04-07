@@ -1,6 +1,6 @@
 a=sin(1)
 b=cos(1)
-load(hola2.txt)
+load(cmake-build-debug/hola2.txt)
 c=a^2 + b*b
 k=104050303
 k> a+b

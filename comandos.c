@@ -61,15 +61,11 @@ char* _extraer_nombre(char* ruta) {
 
 /// FUNCIONES PÚBLICAS
 
-void unload(char* archivo) {
-    pop_wrapper();
-}
-
 double load(char *archivo) {
     yyin = fopen(archivo, "r");
 
     if (yyin == NULL) {
-        lanzar_error("FICHEIRO_NON_ATOPADO");
+        lanzar_error("No se encuentra el fichero");
         yyin = stdin;
     } else {
         push_wrapper(yyin);
@@ -81,7 +77,6 @@ double load(char *archivo) {
 
 double quit() {
     printf(AMARILLO"Saliendo del intérprete..."RESET"\n\n");
-    imprimir_tabla();
     eliminar_tabla();
     //yylex()_destroy();
     exit(EXIT_SUCCESS);
@@ -194,7 +189,7 @@ double echo(char* lexema) {
 }
 
 double import(char* libreria) {
-    contenedor c = {0, NULL};
+    contenedor c = {0, NULL, .valor.var=0};
     c.valor.libhandle = dlopen(libreria, RTLD_LAZY);
     if (c.valor.libhandle == NULL) {
         lanzar_error("Error al cargar la libreria");

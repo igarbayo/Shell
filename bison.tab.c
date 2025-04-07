@@ -1221,7 +1221,7 @@ yyreduce:
                                         verdad = false;
                                         ANS = (yyvsp[-1].numero);
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -1237,7 +1237,7 @@ yyreduce:
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -1256,7 +1256,7 @@ yyreduce:
                                 }
                                 ANS = (yyvsp[-1].numero);
                             }
-                            if (!script && consultar_profundidad() <= 1) {
+                            if (!script && consultar_profundidad() < 1) {
                                 printf(CYAN">"RESET" ");
                             }
                             error = false;
@@ -1272,7 +1272,7 @@ yyreduce:
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -1286,7 +1286,7 @@ yyreduce:
                                 if (isnan((yyvsp[-1].numero)) && !error) {
                                     lanzar_error("NAN detectado");
                                 }
-                                if (!script && consultar_profundidad() <= 1) {
+                                if (!script && consultar_profundidad() < 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -1300,7 +1300,7 @@ yyreduce:
                                     if (isnan((yyvsp[-2].numero)) && !error) {
                                         lanzar_error("NAN detectado");
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -1318,7 +1318,7 @@ yyreduce:
                                     printf(VERDE"  %lf"RESET"\n\n", (yyvsp[-1].numero));
                                     ANS = (yyvsp[-1].numero);
                                 }
-                                if (!script && consultar_profundidad() <= 1) {
+                                if (!script && consultar_profundidad() < 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -1334,7 +1334,7 @@ yyreduce:
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -2190,7 +2190,7 @@ yyreturnlab:
 
 
 void yyerror(char* s) {
-    lanzar_error("Error sintáctico");
+    lanzar_error(s);
     error=false;
 }
 
@@ -2203,9 +2203,9 @@ void ejecutar_script(int valor) {
     script = valor;
     if (script && hacerEcho == true) {
         printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n");
-        if (consultar_profundidad() < 1) {
-            printf(CYAN">"RESET" ");
-        }
+    }
+    if (consultar_profundidad() < 1) {
+        printf(CYAN">"RESET" ");
     }
 }
 

@@ -37,7 +37,7 @@ tipoelem funciones_registradas[] = {
         {FUNC2, "prod", .valor.funcptr=prod},
         {FUNC2, "argmin", .valor.funcptr=argmin},
         {FUNC2, "argmax", .valor.funcptr=argmax},
-        {-1, NULL},
+        {-1, NULL, .valor.var=0},
 };
 
 
@@ -161,7 +161,7 @@ void crear_tabla() {
             {COMANDO1, "import", .valor.funcptr=import},
     };
 
-    for (int i = 0; i < (sizeof(inicializacion) / sizeof(tipoelem)); i++) {
+    for (int i = 0; i < (int) (sizeof(inicializacion) / sizeof(tipoelem)); i++) {
         insertar_elemento(inicializacion[i]);
     }
 
@@ -188,7 +188,7 @@ tipoelem buscar_elemento(char* clave) {
 }
 
 tipoelem buscar_funcion_lib(void* handle, char* lexema, char* lib, int numargs) {
-    tipoelem e = {0, NULL};
+    tipoelem e = {0, NULL, .valor.var=0};
     // Si está, se utiliza
     buscar_nodo(tabla, lexema, &e);
     // Si no está en la TS, se busca con dlsym
@@ -239,7 +239,7 @@ void imprimir_tabla() {
 }
 
 void asignar_valor(char* lexema, double valor) {
-    tipoelem c = {0, NULL};
+    tipoelem c = {0, NULL, .valor.var=0};
     buscar_nodo(tabla, lexema, &c);
     if (c.lexema != NULL) {
         asignar_valor_nodo(&tabla, lexema, valor);

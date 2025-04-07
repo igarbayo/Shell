@@ -1,8 +1,0 @@
-Para compilar todo, colócate en la carpeta con los archivos y ejecuta:
-    make
-Para ejecutar con <nombre_fichero>, haz:
-    ./P3_Bison <nombre_fichero>
-Si quieres verificar el buen uso de memoria, ejecuta, con valgrind previamente instalado:
-    valgrind ./P3_Bison <nombre_fichero>
-Para borrar los archivos objeto y el ejecutable, en la misma carpeta, haz:
-    make clean

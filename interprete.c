@@ -13,6 +13,7 @@ int profundidadPila = 0;
 pila pilaFicheros;
 
 void interprete(char* arg) {
+    clean();
     printf(AMARILLO"\nBienvenido al intérprete. Si necesitas ayuda, teclea ? o help().\n\n"RESET);
 
     if (arg != NULL) {

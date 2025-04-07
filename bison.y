@@ -81,7 +81,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                         verdad = false;
                                         ANS = $1;
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -92,7 +92,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -106,7 +106,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
                                 ANS = $1;
                             }
-                            if (!script && consultar_profundidad() <= 1) {
+                            if (!script && consultar_profundidad() < 1) {
                                 printf(CYAN">"RESET" ");
                             }
                             error = false;
@@ -117,7 +117,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -126,7 +126,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 if (isnan($1) && !error) {
                                     lanzar_error("NAN detectado");
                                 }
-                                if (!script && consultar_profundidad() <= 1) {
+                                if (!script && consultar_profundidad() < 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -135,7 +135,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     if (isnan($1) && !error) {
                                         lanzar_error("NAN detectado");
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -148,7 +148,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
                                     ANS = $1;
                                 }
-                                if (!script && consultar_profundidad() <= 1) {
+                                if (!script && consultar_profundidad() < 1) {
                                     printf(CYAN">"RESET" ");
                                 }
                                 error = false;
@@ -159,7 +159,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                             lanzar_error("NAN detectado");
                                         }
                                     }
-                                    if (!script && consultar_profundidad() <= 1) {
+                                    if (!script && consultar_profundidad() < 1) {
                                         printf(CYAN">"RESET" ");
                                     }
                                     error = false;
@@ -625,7 +625,7 @@ funcion:
 %%
 
 void yyerror(char* s) {
-    lanzar_error("Error sintáctico");
+    lanzar_error(s);
     error=false;
 }
 
@@ -638,9 +638,9 @@ void ejecutar_script(int valor) {
     script = valor;
     if (script && hacerEcho == true) {
         printf("\n"AMARILLO"Script ejecutado correctamente."RESET"\n\n");
-        if (consultar_profundidad() < 1) {
-            printf(CYAN">"RESET" ");
-        }
+    }
+    if (consultar_profundidad() < 1) {
+        printf(CYAN">"RESET" ");
     }
 }
 

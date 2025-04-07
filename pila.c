@@ -32,6 +32,7 @@ unsigned esVaciaPila(pila P) {
 tipoelemPila tope(pila P) {
     if (!esVaciaPila(P)) /*si pila no vacía*/
         return P->elemento;
+    return NULL;
 }
 
 void push(pila *P, tipoelemPila E) {
