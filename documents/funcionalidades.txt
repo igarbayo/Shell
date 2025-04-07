@@ -12,18 +12,21 @@ Implementadas:
     11. echo on/off en sentencias de asignacion
     12. load desde fichero
     13. (error sintáctico no termina el programa)
-    14. funciones con un array de argumentos (max, min)
+    14. funciones con un array de argumentos (max, min, media, var, sum, prod, argmin, argmax)
+        NOTA: los índices devueltos empiezan en 0
     15. las funciones se pueden usar como partes de expresiones
     16. clear de la pantalla (probar por terminal)
     17. ans para último resultado (impreso)
     18. script con loads recursivos, con una pila
+    19. sentencias de verdad (<, >, <=, >=, ==, !=), con tolerancia de 1.e-6 consultable como constante TOL.
 
 
 A implementar:
     - import de libreria dinamica
-    - profundidad de pila para imprimir loads (evitar > >)
-    - bucles y condicionales
+    - cambiar lanzar error para errores propios
 
 No se va a hacer (demasiado trabajo):
     - definir funciones en el lenguaje
     - history de comandos y desplazarse
+    - bucles
+    - evitar > > en pila al imprimir loads

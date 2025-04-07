@@ -176,3 +176,90 @@ double min(double arr[]) {
     }
     return min_val;
 }
+
+double media(double arr[]) {
+    if (isnan(arr[0])) return NAN; // Caso especial: array vacío
+
+    double suma = 0.0;
+    int count = 0;
+    for (int i = 0; !isnan(arr[i]); i++) {
+        suma += arr[i];
+        count++;
+    }
+    return count > 0 ? suma / count : NAN;
+}
+
+double var(double arr[]) {
+    if (isnan(arr[0])) return NAN; // Caso especial: array vacío
+
+    double suma = 0.0;
+    int count = 0;
+    for (int i = 0; !isnan(arr[i]); i++) {
+        suma += arr[i];
+        count++;
+    }
+
+    if (count < 2) return NAN; // No se puede calcular cuasivarianza con menos de 2 elementos
+
+    double media = suma / count;
+    double suma_cuadrados = 0.0;
+    for (int i = 0; !isnan(arr[i]); i++) {
+        double diff = arr[i] - media;
+        suma_cuadrados += diff * diff;
+    }
+
+    return suma_cuadrados / (count - 1);
+}
+
+double sum(double arr[]) {
+    if (isnan(arr[0])) return 0.0; // Array vacío: suma = 0
+
+    double total = 0.0;
+    for (int i = 0; !isnan(arr[i]); i++) {
+        total += arr[i];
+    }
+    return total;
+}
+
+double prod(double arr[]) {
+    if (isnan(arr[0])) return 1.0; // Array vacío: producto neutro = 1
+
+    double total = 1.0;
+    for (int i = 0; !isnan(arr[i]); i++) {
+        total *= arr[i];
+    }
+    return total;
+}
+
+double argmin(double arr[]) {
+    if (isnan(arr[0])) return -1; // Array vacío: sin índice válido
+
+    double min_val = arr[0];
+    int min_index = 0;
+
+    for (int i = 1; !isnan(arr[i]); i++) {
+        if (arr[i] < min_val) {
+            min_val = arr[i];
+            min_index = i;
+        }
+    }
+    return (double) min_index;
+}
+
+double argmax(double arr[]) {
+    if (isnan(arr[0])) return -1; // Array vacío: sin índice válido
+
+    double max_val = arr[0];
+    int max_index = 0;
+
+    for (int i = 1; !isnan(arr[i]); i++) {
+        if (arr[i] > max_val) {
+            max_val = arr[i];
+            max_index = i;
+        }
+    }
+    return (double) max_index;
+}
+
+
+

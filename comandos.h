@@ -27,4 +27,16 @@ double max(double arr[]);
 
 double min(double arr[]);
 
+double media(double arr[]);
+
+double var(double arr[]);
+
+double sum(double arr[]);
+
+double prod(double arr[]);
+
+double argmin(double arr[]);
+
+double argmax(double arr[]);
+
 #endif //P1_COMPGO_COMANDOS_H

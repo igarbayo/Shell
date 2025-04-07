@@ -44,6 +44,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 17 "bison.y"
+
+    #include <stdbool.h>
+
+#line 53 "bison.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -66,7 +72,13 @@ extern int yydebug;
     LIB = 267,                     /* LIB  */
     RETURN = 268,                  /* RETURN  */
     DEF = 269,                     /* DEF  */
-    NEG = 270                      /* NEG  */
+    GT = 270,                      /* GT  */
+    LT = 271,                      /* LT  */
+    EQ = 272,                      /* EQ  */
+    NE = 273,                      /* NE  */
+    LE = 274,                      /* LE  */
+    GE = 275,                      /* GE  */
+    NEG = 276                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -75,13 +87,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 22 "bison.y"
+#line 27 "bison.y"
 
     double numero;
     char *cadena;
     double *arr;
 
-#line 85 "bison.tab.h"
+#line 97 "bison.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -96,12 +108,12 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 /* "%code provides" blocks.  */
-#line 16 "bison.y"
+#line 21 "bison.y"
 
     void yyerror(char* s);
     void cambiar_echo(double valor);
     void ejecutar_script(int valor);
 
-#line 106 "bison.tab.h"
+#line 118 "bison.tab.h"
 
 #endif /* !YY_YY_BISON_TAB_H_INCLUDED  */

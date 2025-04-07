@@ -30,6 +30,12 @@ tipoelem funciones_registradas[] = {
         {FUNC1, "sqrt", .valor.funcptr=sqrt},
         {FUNC2, "max", .valor.funcptr=max},
         {FUNC2, "min", .valor.funcptr=min},
+        {FUNC2, "media", .valor.funcptr=media},
+        {FUNC2, "var", .valor.funcptr=var},
+        {FUNC2, "sum", .valor.funcptr=sum},
+        {FUNC2, "prod", .valor.funcptr=prod},
+        {FUNC2, "argmin", .valor.funcptr=argmin},
+        {FUNC2, "argmax", .valor.funcptr=argmax},
         {-1, NULL},
 };
 
@@ -142,6 +148,7 @@ void crear_tabla() {
     tipoelem inicializacion[] = {
             {CONSTANTE, "PI", .valor.var=3.14159265358979323846},
             {CONSTANTE, "E", .valor.var=2.7182818284590452354},
+            {CONSTANTE, "TOL", .valor.var=TOLERANCIA},
             {COMANDO0, "quit", .valor.funcptr=quit},
             {COMANDO1, "help", .valor.funcptr=help},
             {COMANDO1, "?", .valor.funcptr=help},
@@ -176,6 +183,11 @@ tipoelem buscar_elemento(char* clave) {
     // Si no se encuentra
     e.comp_lexico = -1;
     e.lexema = NULL;
+    return e;
+}
+
+tipoelem buscar_funcion_lib(void* lib, char* lexema, char* libfunc) {
+    tipoelem e;
     return e;
 }
 

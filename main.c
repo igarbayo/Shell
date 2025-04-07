@@ -3,6 +3,7 @@
 #include "interprete.h"
 #include "errores.h"
 #include "comandos.h"
+#include <stdbool.h>
 
 
 int main(int argc, char **argv) {

@@ -4,6 +4,7 @@
 #include <math.h>
 #include "bison.tab.h"
 #include "pila.h"
+#include <stdbool.h>
 
 /* Colores */
 #define ROJO "\x1b[31m"
@@ -13,7 +14,7 @@
 #define RESET "\x1b[0m"
 
 // Tolerancia
-#define TOLERANCIA 1e-10
+#define TOLERANCIA 1e-6
 
 // Contenedor
 typedef struct {

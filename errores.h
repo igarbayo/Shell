@@ -1,6 +1,8 @@
 #ifndef P1_COMPGO_ERRORES_H
 #define P1_COMPGO_ERRORES_H
 
+#include <stdbool.h>
+
 // ERRORES LÉXICOS //////////////////////////////////////////
 
 /**

@@ -88,6 +88,13 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                     }
                 }
 
+"=="    return EQ;
+"!="    return NE;
+">="    return GE;
+"<="    return LE;
+">"     return GT;
+"<"     return LT;
+
 
 {ERROR_UNDER_DIGITOS}	{ lanzar_error("\"_\" debe separar dos dígitos"); }
 {ERROR_UNDER_VARIOS}	{ lanzar_error("no puede haber dos o más \"_\" seguidas"); }

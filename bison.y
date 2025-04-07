@@ -3,7 +3,7 @@
 #include "tabla_simbolos.h"
 #include "errores.h"
 #include <stdbool.h>
-# include "interprete.h"
+#include "interprete.h"
 
 // Variables globales
 contenedor c;
@@ -11,7 +11,12 @@ bool hacerEcho = true;
 bool script = false;
 bool error = false;
 double ANS = NAN;
+bool verdad = false;
 %}
+
+%code requires {
+    #include <stdbool.h>
+}
 
 %code provides {
     void yyerror(char* s);
@@ -29,15 +34,26 @@ double ANS = NAN;
 
 %token <numero> NUM
 %token <cadena> CONSTANTE VARIABLE FUNC0 FUNC1 FUNC2 COMANDO0 COMANDO1 ARCHIVO LIB RETURN DEF
+%token GT LT EQ NE LE GE
 
 %type <numero> expresion asignacion comando funcion
 %type <arr> lista_expresiones
 
-%left '-' '+'
-%left '*' '/'
-%left '%'
+// Comparaciones → Menor precedencia
+%left GT LT EQ NE LE GE
+
+// Suma y resta
+%left '+' '-'
+
+// Multiplicación, división y módulo
+%left '*' '/' '%'
+
+// Operador unario negativo (como en -x)
 %precedence NEG
+
+// Potencia → más fuerte que multiplicación
 %right '^'
+
 
 
 %%
@@ -53,12 +69,15 @@ entrada: %empty         {
 ;
 
 linea:   '\n'           { printf(CYAN">"RESET" "); }
-        | expresion '\n'              {
+        | expresion '\n'        {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
                                         }
-                                        printf(VERDE"  %lf"RESET"\n\n", $1);
+                                        if (!verdad) {
+                                            printf(VERDE"  %lf"RESET"\n\n", $1);
+                                        }
+                                        verdad = false;
                                         ANS = $1;
                                     }
                                     if (!script && consultar_profundidad() <= 1) {
@@ -66,7 +85,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                     }
                                     error = false;
                                 }
-        | expresion ';' '\n'          {
+        | expresion ';' '\n'    {
                                     if (!error) {
                                         if (isnan($1)) {
                                             lanzar_error("NAN_DETECTADO");
@@ -317,6 +336,59 @@ expresion:    NUM
                                                            $$ = NAN;
                                                        }
                                                    }
+        | expresion GT expresion     {
+                                        if ($1 == 0) {
+                                            $$ = TOLERANCIA > $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 > TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 > $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                     }
+        | expresion LT expresion     {
+                                        if ($1 == 0) {
+                                            $$ = TOLERANCIA < $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 < TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 < $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                     }
+        | expresion GE expresion      { if ($1 == 0) {
+                                            $$ = TOLERANCIA >= $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 >= TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 >= $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                      }
+        | expresion LE expresion
+                                      { if ($1 == 0) {
+                                            $$ = TOLERANCIA <= $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 <= TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 <= $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                      }
+        | expresion EQ expresion
+                                      { if ($1 == 0) {
+                                            $$ = TOLERANCIA == $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 == TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 == $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                      }
+        | expresion NE expresion
+                                      { if ($1 == 0) {
+                                            $$ = TOLERANCIA != $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else if ($3 == 0) {
+                                            $$ = $1 != TOLERANCIA; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        } else {
+                                            $$ = $1 != $3; printf(VERDE"  %s\n\n", $$ ? "true" : "false"RESET); verdad = true;
+                                        }
+                                      }
 ;
 
 
@@ -490,8 +562,8 @@ comando:
 ;
 
 funcion:
-        | LIB '/' VARIABLE '(' expresion ')'  {
-                                                /*
+        LIB '/' VARIABLE '(' expresion ')'  {
+
                                                 c = buscar_elemento($1);
 
                                                 char *libfunc = malloc(((strlen($1) + strlen($3) + 2) * sizeof(char)));
@@ -500,7 +572,7 @@ funcion:
                                                 strncpy(libfunc + strlen($1) + 1, $3, strlen($3));
                                                 libfunc[strlen($1) + strlen($3) + 1] = '\0';
 
-                                                cLexico c_func = buscarFuncion(c.valor.libhandle, $3, libfunc);
+                                              /* contenedor c_func = buscarFuncion(c.valor.libhandle, $3, libfunc);
                                                 if (c_func.lexema != NULL) {
                                                     $$ = (*(c_func.valor.funcptr))($5);
                                                 } else {
