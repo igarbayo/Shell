@@ -39,7 +39,8 @@ COMENTARIO_MULTI    \/\*(.|\n)*\*\/
 TABULADO        [ \t]
 SIMBOLO         [\+\-\*\/^=\(\)\{\},;\r\n]
 NUM             {ENTERO}|{DECIMAL}
-ARCHIVO         ({LETRA}|{DIGITO})+(\.({LETRA}|{DIGITO})+)+|(\/({LETRA}|{DIGITO})*)*\/({LETRA}|{DIGITO})+(\.({LETRA}|{DIGITO})+)+
+RUTA            (\.\/)?(\/?({IDENTIFICADOR})+)+
+ARCHIVO         {RUTA}(\.({LETRA}|{DIGITO})+)+|(\/({LETRA}|{DIGITO})*)*\/({LETRA}|{DIGITO})+(\.({LETRA}|{DIGITO})+)+
 
 /* Errores léxicos */
 ERROR_UNDER_DIGITOS		{DIGITO}+[_]([^0-9 ,])*|{DIGITO}+[_](\.[0-9]+)|{DIGITO}+\.[_][0-9]+|({DIGITOS}\.?{DIGITOS}?[_]{EXPONENTE}?)|\.({DIGITOS}+[_]{EXPONENTE}?)
@@ -74,7 +75,12 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                     if (c.lexema != NULL) {
                         return c.comp_lexico;
                     } else {
-                        return VARIABLE;
+                        int result = strcmp(yylval.cadena, "LIB");
+                        if (result == 0) {
+                            return LIB;
+                        } else {
+                            return VARIABLE;
+                        }
                     }
                 }
 
@@ -87,6 +93,8 @@ ERROR_UNDER_VARIOS		{DIGITO}+[_][_]+{DIGITO}*
                         return VARIABLE;
                     }
                 }
+
+\.          { return (int) *yytext; }
 
 "=="    return EQ;
 "!="    return NE;

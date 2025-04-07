@@ -3,6 +3,7 @@
 #include <string.h>
 #include "interprete.h"
 #include "bison.tab.h"
+#include <dlfcn.h>
 
 /*
  * Se utiliza un árbol binario equilibrado (AVL), que mejora la eficiencia en las búsquedas de elementos.
@@ -293,6 +294,9 @@ void destruir(avl *A) {
     if (*A != NULL) {
         destruir(&(*A)->izq);
         destruir(&(*A)->der);
+        if ((*A)->info.comp_lexico == LIB) {
+            dlclose((*A)->info.valor.libhandle);
+        }
         free((*A)->info.lexema);
         free(*A);
         *A = NULL;

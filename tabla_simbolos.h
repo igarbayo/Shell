@@ -24,7 +24,7 @@ void insertar_elemento(contenedor elemento);
  */
 tipoelem buscar_elemento(char* clave);
 
-tipoelem buscar_funcion_lib(void* lib, char* lexema, char* libfunc);
+tipoelem buscar_funcion_lib(void* handle, char* lexema, char* nombre_lib, int numargs);
 
 /**
  * Libera la memoria asociada a la TS

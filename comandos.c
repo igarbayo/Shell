@@ -12,6 +12,8 @@
 #include "interprete.h"
 #include <math.h>
 #include "pila.h"
+#include <dlfcn.h>
+
 
 bool variableEcho = true;
 
@@ -24,6 +26,38 @@ void _ayuda_general() {
     printf(AMARILLO"Para más información, consulte la documentación del proyecto.\n"RESET);
 }
 
+char* _extraer_nombre(char* ruta) {
+    // Buscar el último '/'
+    const char* ultimo_slash = strrchr(ruta, '/');
+    // Si no se encuentra '/', usamos la cadena completa
+    if (!ultimo_slash) {
+        ultimo_slash = ruta;
+    } else {
+        ultimo_slash++;  // Avanzar un carácter para después del '/'
+    }
+
+    // Buscar la extensión ".so" en la parte después del último '/'
+    const char* punto_so = strstr(ultimo_slash, ".so");
+    if (!punto_so) {
+        return NULL; // Si no se encuentra ".so", devolver NULL o algún valor adecuado.
+    }
+
+    // Calcular la longitud del nombre
+    size_t longitud = punto_so - ultimo_slash;
+
+    // Crear una nueva cadena con el nombre
+    char* nombre = malloc(longitud + 1);
+    if (nombre == NULL) {
+        perror("Error al asignar memoria");
+        return NULL;
+    }
+
+    // Copiar el nombre sin la extensión
+    strncpy(nombre, ultimo_slash, longitud);
+    nombre[longitud] = '\0';  // Asegurar que la cadena termine en '\0'
+
+    return nombre;
+}
 
 /// FUNCIONES PÚBLICAS
 
@@ -47,6 +81,7 @@ double load(char *archivo) {
 
 double quit() {
     printf(AMARILLO"Saliendo del intérprete..."RESET"\n\n");
+    imprimir_tabla();
     eliminar_tabla();
     //yylex()_destroy();
     exit(EXIT_SUCCESS);
@@ -154,6 +189,17 @@ double echo(char* lexema) {
 }
 
 double import(char* libreria) {
+    contenedor c = {0, NULL};
+    c.valor.libhandle = dlopen(libreria, RTLD_LAZY);
+    if (c.valor.libhandle == NULL) {
+        lanzar_error("Error al cargar la libreria");
+        lanzar_error(dlerror());
+    } else {
+        c.comp_lexico = LIB;
+        c.lexema = _extraer_nombre(libreria);
+        insertar_elemento(c);
+        printf(AMARILLO"Librería cargada correctamente"RESET"\n\n");
+    }
     return 0;
 }
 

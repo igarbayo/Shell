@@ -7,6 +7,7 @@
 #include "bison.tab.h"
 #include <math.h>
 #include <stdbool.h>
+#include <dlfcn.h>
 #include "comandos.h"
 
 
@@ -66,7 +67,7 @@ void _inorden(tabla_simbolos tabla) {
                 printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.funcptr);
                 break;
             case LIB:
-                printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
+                printf("<%d, \"%s\", %p>\n", e.comp_lexico, e.lexema, e.valor.libhandle);
                 break;
             default:
                 printf("<%d, \"%s\">\n", e.comp_lexico, e.lexema);
@@ -186,13 +187,46 @@ tipoelem buscar_elemento(char* clave) {
     return e;
 }
 
-tipoelem buscar_funcion_lib(void* lib, char* lexema, char* libfunc) {
-    tipoelem e;
+tipoelem buscar_funcion_lib(void* handle, char* lexema, char* lib, int numargs) {
+    tipoelem e = {0, NULL};
+    // Si está, se utiliza
+    buscar_nodo(tabla, lexema, &e);
+    // Si no está en la TS, se busca con dlsym
+    if (e.lexema == NULL) {
+        void (*funcion)(void);
+        *(void **) (&funcion) = dlsym(handle, lexema);
+        // Si la función se encuentra con dlsym, se copia al contenedor
+        if (funcion) {
+            switch (numargs) {
+                case 0:
+                    e.comp_lexico = FUNC0;
+                    break;
+                case 1:
+                    e.comp_lexico = FUNC1;
+                    break;
+                default:
+                    e.comp_lexico = FUNC2;
+                    break;
+            }
+            char *libfunc = malloc(((strlen(lib) + strlen(lexema) + 2) * sizeof(char)));
+            strncpy(libfunc, lib, strlen(lib));
+            strncpy(libfunc + strlen(lib), "/", 2);
+            strncpy(libfunc + strlen(lib) + 1, lexema, strlen(lexema));
+            libfunc[strlen(lib) + strlen(lexema) + 1] = '\0';
+            e.lexema = libfunc;
+            e.valor.funcptr = (double (*)()) funcion;
+            // Se añade a la TS
+            insertar(&tabla, e);
+            free(libfunc);
+        }
+    }
+    // Si la función no está ni en la TS ni en la librería, devuelve NULL
     return e;
 }
 
 void eliminar_tabla() {
     // Función del AVL
+
     destruir(&tabla);
 }
 

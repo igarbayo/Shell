@@ -4,6 +4,7 @@
 #include "errores.h"
 #include <stdbool.h>
 #include "interprete.h"
+#include <dlfcn.h>
 
 // Variables globales
 contenedor c;
@@ -72,7 +73,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | expresion '\n'        {
                                     if (!error) {
                                         if (isnan($1)) {
-                                            lanzar_error("NAN_DETECTADO");
+                                            lanzar_error("NAN detectado");
                                         }
                                         if (!verdad) {
                                             printf(VERDE"  %lf"RESET"\n\n", $1);
@@ -88,7 +89,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | expresion ';' '\n'    {
                                     if (!error) {
                                         if (isnan($1)) {
-                                            lanzar_error("NAN_DETECTADO");
+                                            lanzar_error("NAN detectado");
                                         }
                                     }
                                     if (!script && consultar_profundidad() <= 1) {
@@ -99,7 +100,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | asignacion '\n'     {
                             if (!error) {
                                 if (isnan($1)) {
-                                    lanzar_error("NAN_DETECTADO");
+                                    lanzar_error("NAN detectado");
                                 } else if (hacerEcho) {
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
                                 }
@@ -113,7 +114,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | asignacion ';' '\n'         {
                                     if (!error) {
                                         if (isnan($1)) {
-                                            lanzar_error("NAN_DETECTADO");
+                                            lanzar_error("NAN detectado");
                                         }
                                     }
                                     if (!script && consultar_profundidad() <= 1) {
@@ -123,7 +124,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                                 }
         | comando '\n'         {
                                 if (isnan($1) && !error) {
-                                    lanzar_error("NAN_DETECTADO");
+                                    lanzar_error("NAN detectado");
                                 }
                                 if (!script && consultar_profundidad() <= 1) {
                                     printf(CYAN">"RESET" ");
@@ -132,7 +133,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
                             }
         | comando ';' '\n'         {
                                     if (isnan($1) && !error) {
-                                        lanzar_error("NAN_DETECTADO");
+                                        lanzar_error("NAN detectado");
                                     }
                                     if (!script && consultar_profundidad() <= 1) {
                                         printf(CYAN">"RESET" ");
@@ -142,7 +143,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | funcion '\n'          {
                                 if (!error) {
                                     if (isnan($1)) {
-                                        lanzar_error("NAN_DETECTADO");
+                                        lanzar_error("NAN detectado");
                                     }
                                     printf(VERDE"  %lf"RESET"\n\n", $1);
                                     ANS = $1;
@@ -155,7 +156,7 @@ linea:   '\n'           { printf(CYAN">"RESET" "); }
         | funcion ';' '\n'       {
                                     if (!error) {
                                         if (isnan($1)) {
-                                            lanzar_error("NAN_DETECTADO");
+                                            lanzar_error("NAN detectado");
                                         }
                                     }
                                     if (!script && consultar_profundidad() <= 1) {
@@ -191,7 +192,8 @@ lista_expresiones:
     }
 ;
 
-expresion:    NUM
+expresion:
+        NUM
         | CONSTANTE         {
                             c = buscar_elemento($1);
                             $$ = c.valor.var;
@@ -205,7 +207,7 @@ expresion:    NUM
                                 if (result == 0) {
                                     $$ = ANS;
                                 } else {
-                                    lanzar_error("VARIABLE_NON_DEFINIDA");
+                                    lanzar_error("Variable no definida");
                                     error = true;
                                     $$ = NAN;
                                 }
@@ -298,7 +300,7 @@ expresion:    NUM
                         }
         | expresion '/' expresion   {
                             if (fabs($3) < TOLERANCIA) {
-                                lanzar_error("DIV_CERO");
+                                lanzar_error("División entre 0");
                                 error = true;
                                 $$ = NAN;
                             } else {
@@ -311,7 +313,7 @@ expresion:    NUM
                         }
         | expresion '%' expresion   {
                             if (fabs($3) < TOLERANCIA) {
-                                lanzar_error("MOD_CERO");
+                                lanzar_error("Módulo 0");
                                 error = true;
                                 $$ = NAN;
                             } else {
@@ -392,7 +394,8 @@ expresion:    NUM
 ;
 
 
-asignacion:   VARIABLE '=' expresion     {
+asignacion:
+        VARIABLE '=' expresion     {
                            if (!error) {
                                if ((c = buscar_elemento($1)).lexema != NULL) {
                                    asignar_valor($1, $3);
@@ -423,13 +426,13 @@ asignacion:   VARIABLE '=' expresion     {
                            free($1);
                         }
         | CONSTANTE '=' expresion {
-                            lanzar_error("CONSTANTE_NON_MODIFICABLE");
+                            lanzar_error("Las constantes no se pueden modificar");
                             error = true;
                             $$ = NAN;
                             free($1);
                         }
         | CONSTANTE '=' funcion {
-                            lanzar_error("CONSTANTE_NON_MODIFICABLE");
+                            lanzar_error("Las constantes no se pueden modificar");
                             error = true;
                             $$ = NAN;
                             free($1);
@@ -563,60 +566,58 @@ comando:
 
 funcion:
         LIB '/' VARIABLE '(' expresion ')'  {
-
+                                                // Pone c vacío
                                                 c = buscar_elemento($1);
-
-                                                char *libfunc = malloc(((strlen($1) + strlen($3) + 2) * sizeof(char)));
-                                                strncpy(libfunc, $1, strlen($1));
-                                                strncpy(libfunc + strlen($1), "/", 2);
-                                                strncpy(libfunc + strlen($1) + 1, $3, strlen($3));
-                                                libfunc[strlen($1) + strlen($3) + 1] = '\0';
-
-                                              /* contenedor c_func = buscarFuncion(c.valor.libhandle, $3, libfunc);
-                                                if (c_func.lexema != NULL) {
-                                                    $$ = (*(c_func.valor.funcptr))($5);
+                                                if (c.lexema == NULL || c.valor.libhandle == NULL) {
+                                                    lanzar_error("La librería no está importada");
                                                 } else {
-                                                    lanzar_error("FUNCION_NON_ATOPADA");
-                                                    error = true;
-                                                    $$ = NAN;
+                                                    contenedor c_func = buscar_funcion_lib(c.valor.libhandle, $3, $1, 1);
+                                                    if (c_func.lexema != NULL) {
+                                                        $$ = (*(c_func.valor.funcptr))($5);
+                                                    } else {
+                                                        lanzar_error("FUNCION_NON_ATOPADA");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                    }
                                                 }
-                                                free(libfunc);
                                                 free($1);
                                                 free($3);
-                                                */
-
                                             }
-        | LIB '/' VARIABLE '(' expresion ',' expresion ')'   {
-                                                /*
+        | LIB '/' VARIABLE '(' lista_expresiones')'   {
+                                                // Pone c vacío
                                                 c = buscar_elemento($1);
-
-                                                char *libfunc = malloc(((strlen($1) + strlen($3) + 2) * sizeof(char)));
-                                                strncpy(libfunc, $1, strlen($1));
-                                                strncpy(libfunc + strlen($1), "/", 2);
-                                                strncpy(libfunc + strlen($1) + 1, $3, strlen($3));
-                                                libfunc[strlen($1) + strlen($3) + 1] = '\0';
-
-                                                cLexico c_func = buscarFuncion(c.valor.libhandle, $3, libfunc);
-                                                if (c_func.lexema != NULL) {
-                                                    $$ = (*(c_func.valor.funcptr))($5, $7);
+                                                if (c.lexema == NULL || c.valor.libhandle == NULL) {
+                                                    lanzar_error("La librería no está importada");
                                                 } else {
-                                                    lanzar_error("FUNCION_NON_ATOPADA");
-                                                    error = true;
-                                                    $$ = NAN;
+                                                    contenedor c_func = buscar_funcion_lib(c.valor.libhandle, $3, $1, 2);
+                                                    if (c_func.lexema != NULL) {
+                                                        $$ = (*(c_func.valor.funcptr))($5);
+                                                    } else {
+                                                        lanzar_error("No se encuentra la función");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                    }
                                                 }
-                                                free(libfunc);
                                                 free($1);
                                                 free($3);
-                                                */
                                             }
         | LIB '/' VARIABLE '(' ')'               {
-                                                /*
-                                                lanzar_error("PARAMETROS_NON_INDICADOS");
-                                                error = true;
-                                                $$ = NAN;
+                                                // Pone c vacío
+                                                c = buscar_elemento($1);
+                                                if (c.lexema == NULL || c.valor.libhandle == NULL) {
+                                                    lanzar_error("La librería no está importada");
+                                                } else {
+                                                    contenedor c_func = buscar_funcion_lib(c.valor.libhandle, $3, $1, 0);
+                                                    if (c_func.lexema != NULL) {
+                                                        $$ = (*(c_func.valor.funcptr))();
+                                                    } else {
+                                                        lanzar_error("No se encuentra la función");
+                                                        error = true;
+                                                        $$ = NAN;
+                                                    }
+                                                }
                                                 free($1);
                                                 free($3);
-                                                */
                                             }
 ;
 
@@ -624,7 +625,8 @@ funcion:
 %%
 
 void yyerror(char* s) {
-    lanzar_error("ERROR SINTÁCTICO");
+    lanzar_error("Error sintáctico");
+    error=false;
 }
 
 void cambiar_echo(double valor) {

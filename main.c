@@ -10,10 +10,6 @@ int main(int argc, char **argv) {
 
     // 1. Inicialización de estructuras de datos
     crear_tabla();
-    //printf("Inicio del programa\n");
-    // Impresión de la tabla
-    imprimir_tabla();
-    //printf("\n");
 
     // 2. Etapa de compilación (análisis léxico)
     if (argc == 1) {
@@ -24,11 +20,7 @@ int main(int argc, char **argv) {
         lanzar_error("Número de parámetros");
     }
 
-
     // 3. Fase de finalización
-    //printf("Final del programa\n");
-    // Liberación de la memoria de la tabla
-    imprimir_tabla();
     quit();
 
     return 0;

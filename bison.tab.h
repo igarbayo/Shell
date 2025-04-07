@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 17 "bison.y"
+#line 18 "bison.y"
 
     #include <stdbool.h>
 
@@ -87,7 +87,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 27 "bison.y"
+#line 28 "bison.y"
 
     double numero;
     char *cadena;
@@ -108,7 +108,7 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 /* "%code provides" blocks.  */
-#line 21 "bison.y"
+#line 22 "bison.y"
 
     void yyerror(char* s);
     void cambiar_echo(double valor);

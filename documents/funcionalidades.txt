@@ -16,14 +16,15 @@ Implementadas:
         NOTA: los índices devueltos empiezan en 0
     15. las funciones se pueden usar como partes de expresiones
     16. clear de la pantalla (probar por terminal)
-    17. ans para último resultado (impreso)
+    17. ANS para último resultado (impreso)
     18. script con loads recursivos, con una pila
     19. sentencias de verdad (<, >, <=, >=, ==, !=), con tolerancia de 1.e-6 consultable como constante TOL.
+    20. import de libreria dinamica, para funciones sin argumentos, 1 argumento double, o 1 array que termina en NAN,
+        devolviendo un double.
 
 
 A implementar:
-    - import de libreria dinamica
-    - cambiar lanzar error para errores propios
+    - liberar toda la memoria usada
 
 No se va a hacer (demasiado trabajo):
     - definir funciones en el lenguaje
