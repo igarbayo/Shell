@@ -101,6 +101,7 @@ double help(char* lexema) {
         int r5 = strcmp(lexema, "clear");
         int r6 = strcmp(lexema, "clean");
         int r7 = strcmp(lexema, "echo");
+        int r8 = strcmp(lexema, "import");
 
         if (r1 == 0) {
             printf(AMARILLO"\n---------------------------------------------\n"RESET);
@@ -132,6 +133,10 @@ double help(char* lexema) {
             printf(AMARILLO"\t\ton: si una sentencia no acaba en ; se imprime su valor asociado.\n"RESET);
             printf(AMARILLO"\t\toff: nunca se imprime el valor asociado a una sentencia.\n"RESET);
             printf(AMARILLO"Con echo(on)/echo(off) activamos/desactivamos este comportamiento.\n"RESET);
+            printf(AMARILLO"---------------------------------------------\n\n"RESET);
+        } else if (r8 == 0) {
+            printf(AMARILLO"\n---------------------------------------------\n"RESET);
+            printf(AMARILLO"El comando import(RUTA) carga una librería dinámica en el intérprete.\n"RESET);
             printf(AMARILLO"---------------------------------------------\n\n"RESET);
         } else {
             printf(AMARILLO"\n---------------------------------------------\n"RESET);

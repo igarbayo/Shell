@@ -1,5 +1,31 @@
-a=sin(1);
-b=cos(1);
-load(hola2.txt);
-c=a*a+b*b;
-k=104050303;
+a=sin(1)
+b=cos(1)
+load(hola2.txt)
+c=a^2 + b*b
+k=104050303
+k> a+b
+k == 0
+k == b-a;
+
+valor = (4*4)-2*8
+valor == 0
+cos(PI)
+
+f = f+1
+clear(valor)
+
+echo(off)
+a=2
+
+sum(a,b,c)
+prod(d,e,f)
+
+ANS
+echo(on)
+ANS
+
+TOL
+
+import(./libnegador.so)
+libnegador/negar(E)
+libnegador/nada()

@@ -25,9 +25,10 @@ Implementadas:
 
 A implementar:
     - liberar toda la memoria usada
+    - makefile
 
 No se va a hacer (demasiado trabajo):
     - definir funciones en el lenguaje
     - history de comandos y desplazarse
-    - bucles
+    - bucles y condicionales
     - evitar > > en pila al imprimir loads
