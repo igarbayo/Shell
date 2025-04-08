@@ -25,7 +25,6 @@ Implementadas:
 
 A implementar:
     - liberar toda la memoria usada
-    - makefile
     - comentar
 
 No se va a hacer (demasiado trabajo):

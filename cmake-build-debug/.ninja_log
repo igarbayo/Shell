@@ -78,3 +78,13 @@
 1	29	1744065987336285513	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
 1	61	1744065987336285513	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
 61	84	1744065987396286287	P1_CompGo	47e8c1b1aa20de9d
+3	34	1744069391753520266	CMakeFiles/P1_CompGo.dir/errores.c.o	ce046d1df4496344
+1	39	1744069391751520230	CMakeFiles/P1_CompGo.dir/main.c.o	e3b6c4de9290fe55
+1	66	1744069391751520230	CMakeFiles/P1_CompGo.dir/avl.c.o	702848f1ba50f2df
+2	72	1744069391752520248	CMakeFiles/P1_CompGo.dir/tabla_simbolos.c.o	67ecfd71bb9237e0
+34	87	1744069391784520837	CMakeFiles/P1_CompGo.dir/interprete.c.o	efee73adb6e9c2f7
+3	97	1744069391753520266	CMakeFiles/P1_CompGo.dir/flex.yy.c.o	adad94e11110097f
+66	100	1744069391816521427	CMakeFiles/P1_CompGo.dir/pila.c.o	fd11fc13cc62bbb1
+3	111	1744069391753520266	CMakeFiles/P1_CompGo.dir/bison.tab.c.o	29bd5ca103bfa877
+40	114	1744069391790520948	CMakeFiles/P1_CompGo.dir/comandos.c.o	1fe591f56758ce5d
+114	138	1744069391864522311	P1_CompGo	47e8c1b1aa20de9d
